@@ -20,8 +20,8 @@ package hxcollision.shapes;
 		}
 		
 		public function new(radius:Float, position:Vector2D) {
-			_radius = radius;
 			super( position );
+			_radius = radius;			
 		}
 		
 		override public function draw( graphics:Graphics ) : Void {

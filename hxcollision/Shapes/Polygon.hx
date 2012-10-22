@@ -6,9 +6,11 @@ package hxcollision.shapes;
 	
 	class Polygon extends BaseShape {
 		
-		public function new(vertices:Array<Vector2D>, position:Vector2D) {
-			_vertices = vertices;
+		public function new( vertices:Array<Vector2D>, position:Vector2D ) {
+
 			super(position);
+			
+			_vertices = vertices;			
 		}
 		
 		override public function destroy() : Void {

@@ -173,7 +173,7 @@ package hxcollision.math ;
          * @param vector2 Another vector2D.
          * @return Float The dot product.
          */
-        public function dotProduct(vector2:Vector2D):Float {
+        public function dotProduct( vector2:Vector2D ):Float {
             return _x * vector2.x + _y * vector2.y;
         }
         

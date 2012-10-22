@@ -39,6 +39,7 @@
 		}
 		
 		private static function checkCircleVsPolygon(circle:Circle, polygon:Polygon):CollisionData {
+
 			var test1 : Float; //numbers for testing max/mins
 			var test2 : Float;
 			var test : Float;
@@ -47,9 +48,9 @@
 			var max1 : Float = 0;
 			var min2 : Float = 0;
 			var max2 : Float = 0;
-			var normalAxis:Vector2D;
+			var normalAxis:Vector2D = new Vector2D();
 			var offset : Float;
-			var vectorOffset:Vector2D;
+			var vectorOffset:Vector2D = new Vector2D();
 			var vectors:Array<Vector2D>;
 
 			var distance : Float;
