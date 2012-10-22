@@ -1,25 +1,30 @@
-package com.rocketmandevelopment.collisions.shapes {
-	import flash.display.Graphics;
-	import com.rocketmandevelopment.math.Vector2D;
+package hxcollision.shapes;
+
+	import nme.display.Graphics;
+	import hxcollision.math.Vector2D;
+	import hxcollision.shapes.BaseShape;
 	
-	public class Circle extends BaseShape {
-		private var _radius:Number;
+	class Circle extends BaseShape {
+
+		private var _radius:Float;
+
+		public var radius( get_radius, never ) : Float;
+		public var transformedRadius( get_transformedRadius, never ) : Float;
 		
-		public function get radius():Number {
+		private function get_radius():Float {
 			return _radius;
 		}
 		
-		public function get transformedRadius():Number {
+		private function get_transformedRadius():Float {
 			return _radius * scaleX;
 		}
 		
-		public function Circle(radius:Number, position:Vector2D) {
+		public function new(radius:Float, position:Vector2D) {
 			_radius = radius;
-			super(position);
+			super( position );
 		}
 		
-		override public function draw(graphics:Graphics):void {
+		override public function draw( graphics:Graphics ) : Void {
 			graphics.drawCircle(x, y, transformedRadius);
 		}
 	}
-}

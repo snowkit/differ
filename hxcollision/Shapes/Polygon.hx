@@ -1,44 +1,56 @@
-package com.rocketmandevelopment.collisions.shapes {
-	import flash.display.Graphics;
-	import com.rocketmandevelopment.math.Math2;
-	import com.rocketmandevelopment.math.Vector2D;
+package hxcollision.shapes;
 	
-	public class Polygon extends BaseShape {
+	import nme.display.Graphics;
+	import hxcollision.math.Vector2D;
+	import hxcollision.shapes.BaseShape;
+	
+	class Polygon extends BaseShape {
 		
-		public function Polygon(vertices:Array, position:Vector2D) {
+		public function new(vertices:Array<Vector2D>, position:Vector2D) {
 			_vertices = vertices;
 			super(position);
 		}
 		
-		override public function destroy():void {
-			for(var i:int = 0; i < _vertices.length; i++) {
+		override public function destroy() : Void {
+
+			var _count : Int = _vertices.length;
+			for(i in 0 ... _count) {
 				_vertices[i] = null;
 			}
+
 			_vertices = null;
 			super.destroy();
 		}
 		
-		override public function draw(graphics:Graphics):void {
-			var v:Array = transformedVertices.concat();
-			graphics.moveTo(v[0].x, v[0].y);
-			for(var i:int = 0; i < v.length; i++) {
+		override public function draw( graphics:Graphics ) : Void {
+			
+			var v : Array<Vector2D> = transformedVertices.copy();
+
+			graphics.moveTo( v[0].x, v[0].y );
+
+			var _count : Int = _vertices.length;
+			for(i in 0 ... _count) {
 				graphics.lineTo(v[i].x, v[i].y);
 			}
+
 			graphics.lineTo(v[0].x, v[0].y);
 		}
 		
-		public static function normalPolygon(sides:int, radius:Number=100, position:Vector2D=null):Polygon {
+		public static function normalPolygon(sides:Int, radius:Float=100, position:Vector2D=null):Polygon {
 			if(sides < 3) {
-				throw new Error('Polygon - Needs at least 3 sides');
+				throw 'Polygon - Needs at least 3 sides';
 			}
-			if(!position) {
+			
+			if(position == null) {
 				position = new Vector2D();
 			}
-			var rotation:Number = (Math.PI * 2) / sides;
-			var angle:Number;
+
+			var rotation:Float = (Math.PI * 2) / sides;
+			var angle:Float;
 			var vector:Vector2D;
-			var vertices:Array = [];
-			for(var i:int = 0; i < sides; i++) {
+			var vertices:Array<Vector2D> = new Array<Vector2D>();
+
+			for(i in 0 ... sides) {
 				angle = (i * rotation) + ((Math.PI - rotation) * 0.5);
 				vector = new Vector2D();
 				vector.x = Math.cos(angle) * radius;
@@ -48,14 +60,19 @@ package com.rocketmandevelopment.collisions.shapes {
 			return new Polygon(vertices, position);
 		}
 		
-		public static function rectangle(width:Number, height:Number, position:Vector2D):Polygon {
-			var vertices:Array = [];
-			vertices.push(new Vector2D(-width / 2, -height / 2), new Vector2D(width / 2, -height / 2), new Vector2D(width / 2, height / 2), new Vector2D(-width / 2, height / 2));
+		public static function rectangle(width:Float, height:Float, position:Vector2D):Polygon {
+			
+			var vertices:Array<Vector2D> = new Array<Vector2D>();
+
+			vertices.push( new Vector2D( -width / 2, -height / 2) 	);
+			vertices.push( new Vector2D(  width / 2, -height / 2) 	);
+			vertices.push( new Vector2D(  width / 2,  height / 2)  	);
+			vertices.push( new Vector2D( -width / 2,  height / 2) 	);
+
 			return new Polygon(vertices, position);
 		}
 		
-		public static function square(width:Number, position:Vector2D):Polygon {
+		public static function square(width:Float, position:Vector2D):Polygon {
 			return rectangle(width, width, position);
 		}
 	}
-}
