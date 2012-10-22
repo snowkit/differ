@@ -13,8 +13,8 @@
 
 ## Notes
 
-- [http://rocketmandevelopment.com/2010/05/19/separation-of-axis-theorem-for-collision-detection/](Original code posted on rocketmandevelopment blog)
-- [http://rocketmandevelopment.com/2010/11/22/using-sat/](Usage from the original author)
+- [Original code posted on rocketmandevelopment blog](http://rocketmandevelopment.com/2010/05/19/separation-of-axis-theorem-for-collision-detection/)
+- [Usage from the original author](http://rocketmandevelopment.com/2010/11/22/using-sat/)
 
 ## Getting Started
 
