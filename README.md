@@ -1,19 +1,19 @@
 
-* hxcollision : SAT for haxenme *
+*hxcollision : SAT for haxenme*
 
-** Facts **
+**Facts**
 
 - This is a port of Separating Axis Theorem, for collision detection between shapes.
 - Supports polygons and circles, currently.
 - A work in progress, see tests for an nme project testing the code.
 - Contributions welcome
 
-** Notes ** 
+**Notes** 
 
 - [http://rocketmandevelopment.com/2010/05/19/separation-of-axis-theorem-for-collision-detection/](Original code posted on rocketmandevelopment blog)
 - [http://rocketmandevelopment.com/2010/11/22/using-sat/](Usage from the original author)
 
-** Getting Started ** 
+**Getting Started** 
 
 For now, git clone the repo or use 
 
