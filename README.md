@@ -1,4 +1,3 @@
-
 #hxcollision : SAT for haxenme*
 
 ## Facts
@@ -15,6 +14,7 @@
 
 - [Original code posted on rocketmandevelopment blog](http://rocketmandevelopment.com/2010/05/19/separation-of-axis-theorem-for-collision-detection/)
 - [Usage from the original author](http://rocketmandevelopment.com/2010/11/22/using-sat/)
+- [More usage from the original author](http://rocketmandevelopment.com/2010/11/28/detecting-collisions-with-sat/)
 - [TODO : Add the raycast from author](http://rocketmandevelopment.com/2011/02/15/using-ray-casting-with-shapes/)
 
 
