@@ -4,7 +4,7 @@ package hxcollision.shapes {
 	import flash.geom.Matrix;
 	import com.rocketmandevelopment.math.Math2;
 	import com.rocketmandevelopment.math.Vector2D;
-	
+	 
 	public class BaseShape {
 		public var d:Number;
 		
