@@ -62,14 +62,25 @@ package hxcollision.shapes;
 			return new Polygon(vertices, position);
 		}
 		
-		public static function rectangle(width:Float, height:Float, position:Vector2D):Polygon {
+		public static function rectangle(width:Float, height:Float, position:Vector2D, centered:Bool = true):Polygon {
 			
 			var vertices:Array<Vector2D> = new Array<Vector2D>();
 
-			vertices.push( new Vector2D( -width / 2, -height / 2) 	);
-			vertices.push( new Vector2D(  width / 2, -height / 2) 	);
-			vertices.push( new Vector2D(  width / 2,  height / 2)  	);
-			vertices.push( new Vector2D( -width / 2,  height / 2) 	);
+			if(centered) {
+
+				vertices.push( new Vector2D( -width / 2, -height / 2) );
+				vertices.push( new Vector2D(  width / 2, -height / 2) );
+				vertices.push( new Vector2D(  width / 2,  height / 2) );
+				vertices.push( new Vector2D( -width / 2,  height / 2) );
+
+			} else {
+
+				vertices.push( new Vector2D( 0, 0 ) );
+				vertices.push( new Vector2D( width, 0 ) );
+				vertices.push( new Vector2D( width, height) );
+				vertices.push( new Vector2D( 0, height) );
+
+			}
 
 			return new Polygon(vertices, position);
 		}

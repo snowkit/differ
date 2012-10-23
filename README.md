@@ -30,3 +30,11 @@ If you have trouble getting it working, check that the .dev file inside :
 
 is pointing at the root git folder, not the child hxcollision path. It seems haxelib points it one too deep.
 
+#Recent changes
+
+**1.0.1**
+ - Added an option for Polygon.rectangle() to be non-centered
+ - More to come 
+ 
+**1.0.0** 
+ - Initial project pull and compile/port, functional

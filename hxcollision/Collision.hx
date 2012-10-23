@@ -45,9 +45,9 @@
 			var test : Float;
 			
 			var min1 : Float = 0; //same as above
-			var max1 : Float = 0;
+			var max1 : Float = 0x3FFFFFFF;
 			var min2 : Float = 0;
-			var max2 : Float = 0;
+			var max2 : Float = 0x3FFFFFFF;
 			var normalAxis:Vector2D = new Vector2D();
 			var offset : Float;
 			var vectorOffset:Vector2D = new Vector2D();
