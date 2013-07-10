@@ -3,7 +3,7 @@
 
 ##Test / demo
 
-- http://dev.underscorediscovery.com/hxcollision
+- http://underscorediscovery.com/sven/hxcollision
 
 ## Facts
 
