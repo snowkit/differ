@@ -30,11 +30,13 @@ or git clone the repo, from here.
 
 #Recent changes
 
-**1.0.2**
+**1.0.3**
  - Moved to latest haxelib revisions
  - Removed dependency on OpenFL, now completely standalone 
  - Added a custom ShapeDrawer class, for drawing the shapes in a non specific way. 
  - Fixed bug in circle vs polygon, when polygon was rotated.
+**1.0.2**
+ - uncommitted internal fixes
 
 **1.0.1**
  - Added an option for Polygon.rectangle() to be non-centered
