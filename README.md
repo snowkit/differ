@@ -1,4 +1,4 @@
-#hxcollision : SAT for OpenFL (in Haxe)
+#hxcollision : SAT collision for Haxe
 
 ##Test / demo
 
@@ -7,10 +7,11 @@
 ## Facts
 
 - This is a port of Separating Axis Theorem, for collision detection between shapes.
+- **not specific to OpenFL**
 - Supports polygons and circles, currently.
-- See tests/ for a OpenFL ready test project
-- Currently specific to OpenFL, (flash.geom.Matrix class) but this will be changing soon to be standalone.
-- COLLISION ONLY. No physics here. By design :)
+- Includes a drawing class for seeing shapes with OpenFL
+- See tests/ for a OpenFL ready test project.
+- **COLLISION ONLY.** No physics here. By design :)
 - Contributions welcome
 
 ## Notes
@@ -30,6 +31,7 @@ or git clone the repo, from here.
 #Recent changes
 
 **1.0.2**
+ - Removed dependency on OpenFL, now completely standalone 
  - Added a custom ShapeDrawer class, for drawing the shapes in a non specific way. 
  - Fixed bug in circle vs polygon, when polygon was rotated.
 
