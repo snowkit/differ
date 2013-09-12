@@ -2,7 +2,8 @@
 
 ##Test / demo
 
-- [Flash Demo](http://underscorediscovery.com/sven/hxcollision)
+- [1.0.3 Demo](http://underscorediscovery.com/sven/hxcollision)
+- [current(1.0.4) wip demo](http://underscorediscovery.com/sven/hxcollision/wip)
 
 ## Facts
 
@@ -27,7 +28,13 @@ or git clone the repo, from here.
 
 #Recent changes
 
-**1.0.3**
+**1.0.4 (master repo, wip) **
+ - Renamed `Polygon.normalPolygon` to `Polygon.create`
+ - Added `testShapeList` for testing one shape with many
+ - Added changes to the test to display the unitVector response (soon to be renamed also)
+ - Clean up and refactoring commenced
+
+**1.0.3 (Latest release, haxelib) **
  - Fixed bug in circle vs polygon, when polygon was rotated.
  - Added line raycast with collision shapes
  - Added a custom ShapeDrawer class, for drawing the shapes in a non specific way. 
