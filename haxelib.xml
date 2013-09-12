@@ -1,7 +1,0 @@
-<project name="hxcollision" url="http://github.com/FuzzYspo0N/hxcollision.git" license="MIT">
-    <user name="Sven Bergström"/>
-    <tag v="cpp"/>
-    <tag v="flash"/>
-    <description>Separating axis theorom based collisions for Polygons and Circles, Ported from rocketmandevelopment.com</description>
-    <version name="1.0.0">Initial project</version>
-</project>
