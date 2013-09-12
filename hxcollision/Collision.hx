@@ -13,10 +13,22 @@
         public function new() {
             throw "Collision is a static class. No instances can be created.";
         }
-        
-        public static function fake():Void {
+            
+            //will never return null, always length 0 array
+        public static function testShapeList( shape1:BaseShape, shapes:Array<BaseShape> ) : Array<CollisionData> {
+            
+            var results : Array<CollisionData> = [];
 
-        }
+            for(other_shape in shapes) {
+                var result = testShapes(shape1, other_shape);
+                if(result != null) {
+                    results.push(result);
+                } //result != null
+            } //for all shapes passed in
+
+            return results;
+
+        } //testShapeList
 
         public static function testShapes( shape1:BaseShape, shape2:BaseShape ): CollisionData {
 
@@ -106,8 +118,7 @@
 
         static function swap(a:Float,b:Float) : Vector2D {
             var t:Float = a;
-            a = b;
-            b = t;
+            a = b; b = t;
             return new Vector2D(a,b); 
         } //swap
 
@@ -229,7 +240,7 @@
             
             // find offset
             vectorOffset = new Vector2D(-circle.x,-circle.y);
-            vectors = polygon.transformedVertices.copy(); //we don't want the transformed ones here, we transform the points later
+            vectors = polygon.transformedVertices.copy(); 
             
             //adds some padding to make it more accurate
             if(vectors.length == 2) {
@@ -388,6 +399,7 @@
             
             // loop to begin projection
             for(i in 0 ... vectors1.length) {
+
                 // get the normal axis, and begin projection
                 axis = findNormalAxis(vectors1, i);
                 
