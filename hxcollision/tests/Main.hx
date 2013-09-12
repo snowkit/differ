@@ -25,7 +25,9 @@ class Main extends Sprite {
     var collide_color : Int = 0xCC1111;
     var collide_color2 : Int = 0x2233CC;
     var collide_color3 : Int = 0x11CC88;
-    var normal_color : Int = 0x999999;    
+    var collide_color4 : Int = 0xCC00CC;
+    var normal_color : Int = 0x999999;
+
     var mouse_pos : Point;
     var mouse_is_box : Bool = false;
 
@@ -36,8 +38,15 @@ class Main extends Sprite {
     var circle_mouse : Circle;
     var box_mouse : Polygon;
 
+        //a raycast line
+    var line_start : Vector2D;
+    var line_end : Vector2D;
+    var line_y : Float = 0;
+    var line_dir : Int = 1;
+
         //A collision data object for the mouse circle
     var mouse_collide : CollisionData;
+    var line_collide = false;
 
     public function new() {
 
@@ -69,6 +78,10 @@ class Main extends Sprite {
         box_static.x = 150;
         box_static.y = 300;
 
+            //our little line for the raycast tests
+        line_start = new Vector2D(0,0);
+        line_end = new Vector2D(500,0);
+
             //Listen for the changes in mouse movement
         stage.addEventListener (nme.events.MouseEvent.MOUSE_MOVE, mousemove);
         stage.addEventListener (nme.events.MouseEvent.CLICK, mousedown);
@@ -97,7 +110,25 @@ class Main extends Sprite {
 
     }
 
+    var end_dt : Float = 0;
+    var dt : Float = 0;
+
     public function update( e:Event ) {
+
+        dt = haxe.Timer.stamp() - end_dt;
+        end_dt = haxe.Timer.stamp();
+
+            //move the line downward
+        line_y += 50 * line_dir * dt;
+
+        if(line_dir == 1 && line_y >= 500) {    
+            line_dir = -1;
+        } else if(line_dir == -1 && line_y <= 0) {
+            line_dir = 1;
+        }
+
+        line_start.y = line_y;
+        line_end.y = line_y;
 
         //draw things
         var mouse_color : Int = normal_color;
@@ -165,6 +196,18 @@ class Main extends Sprite {
             } else {
                 drawer.drawPolygon( box_mouse );
             }
+
+            //test the line raycasting
+
+        visualise.graphics.lineStyle( 2, normal_color );
+
+            line_collide = Collision.rayCollision(line_start, line_end, [box_static, box_mouse, circle_static, circle_mouse]);
+            if(line_collide) {
+                visualise.graphics.lineStyle( 2, collide_color4 );
+            } 
+
+            drawer.drawLine(line_start, line_end);
+
     }
 
 
