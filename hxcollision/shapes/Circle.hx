@@ -1,6 +1,5 @@
 package hxcollision.shapes;
 
-	import nme.display.Graphics;
 	import hxcollision.math.Vector2D;
 	import hxcollision.shapes.BaseShape;
 	
@@ -23,8 +22,5 @@ package hxcollision.shapes;
 			super( position );
 			_radius = radius;			
 		}
-		
-		override public function draw( graphics:Graphics ) : Void {
-			graphics.drawCircle(x, y, transformedRadius);
-		}
+
 	}

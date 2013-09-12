@@ -1,4 +1,5 @@
 
+import nme.display.Graphics;
 import nme.display.Sprite;
 import nme.events.Event;
 import nme.geom.Point;
@@ -10,28 +11,33 @@ import hxcollision.shapes.Circle;
 import hxcollision.shapes.Polygon;
 import hxcollision.CollisionData;
 import hxcollision.Collision;
+import hxcollision.OpenFLDrawer;
+
+
+
+
 
 class Main extends Sprite {
 
-
         //For viewing the collision states
-    private var visualise : Sprite;
-    private var collide_color : Int = 0xCC1111;
-    private var collide_color2 : Int = 0x2233CC;
-    private var collide_color3 : Int = 0x11CC88;
-    private var normal_color : Int = 0x999999;    
-    private var mouse_pos : Point;
-    private var mouse_is_box : Bool = false;
+    var drawer : OpenFLDrawer;
+    var visualise : Sprite;
+    var collide_color : Int = 0xCC1111;
+    var collide_color2 : Int = 0x2233CC;
+    var collide_color3 : Int = 0x11CC88;
+    var normal_color : Int = 0x999999;    
+    var mouse_pos : Point;
+    var mouse_is_box : Bool = false;
 
         //A few static shapes to test against
-    private var circle_static : Circle;
-    private var box_static : Polygon;
+    var circle_static : Circle;
+    var box_static : Polygon;
         //A circle that follows the mouse
-    private var circle_mouse : Circle;
-    private var box_mouse : Polygon;
+    var circle_mouse : Circle;
+    var box_mouse : Polygon;
 
         //A collision data object for the mouse circle
-    private var mouse_collide : CollisionData;
+    var mouse_collide : CollisionData;
 
     public function new() {
 
@@ -43,7 +49,10 @@ class Main extends Sprite {
     public function construct(e: Event) {        
 
             //Our debug view
+        drawer = new OpenFLDrawer();
         visualise = new Sprite();
+        drawer.graphics = visualise.graphics;
+
         addChild( visualise );
 
             //Init
@@ -52,11 +61,13 @@ class Main extends Sprite {
             //Create a bit of a space to play in 
         circle_static = new Circle( 50, new Vector2D(300,200) );
         circle_mouse = new Circle( 30, new Vector2D(250,250) );
-        box_static = Polygon.rectangle(60,150, new Vector2D(120,300) );
+        box_static = Polygon.rectangle(50,150, new Vector2D(0,0) );
         box_mouse = Polygon.normalPolygon(6, 50, new Vector2D(250,100) );
 
             //Variety
-        box_static.rotation = 12;
+        box_static.rotation = 45;
+        box_static.x = 150;
+        box_static.y = 300;
 
             //Listen for the changes in mouse movement
         stage.addEventListener (nme.events.MouseEvent.MOUSE_MOVE, mousemove);
@@ -64,6 +75,7 @@ class Main extends Sprite {
 
             //Finally, hook up the event for updating.
         addEventListener( Event.ENTER_FRAME, update );
+
     }
 
     public function mousedown( e : nme.events.MouseEvent ) {
@@ -136,21 +148,22 @@ class Main extends Sprite {
 
         visualise.graphics.lineStyle( 2, normal_color );
 
-            circle_static.draw( visualise.graphics );
-            box_static.draw( visualise.graphics );
-            box_mouse.draw( visualise.graphics );
+            drawer.drawCircle( circle_static );
+            drawer.drawPolygon( box_static );
+            drawer.drawPolygon( box_mouse );
 
             if(!mouse_is_box) {
-                box_mouse.draw( visualise.graphics );
+                drawer.drawPolygon( box_mouse );
             } else {
-                circle_mouse.draw( visualise.graphics );
+                drawer.drawCircle( circle_mouse );
             }
 
         visualise.graphics.lineStyle( 2, mouse_color );
+
             if(!mouse_is_box) {
-                circle_mouse.draw( visualise.graphics );
+                drawer.drawCircle( circle_mouse );
             } else {
-                box_mouse.draw( visualise.graphics );
+                drawer.drawPolygon( box_mouse );
             }
     }
 

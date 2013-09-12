@@ -6,6 +6,7 @@
 	import hxcollision.math.Vector2D;
 
 	import hxcollision.CollisionData;
+	import hxcollision.ShapeDrawer;
 	
 	class Collision {
 		
@@ -53,13 +54,13 @@
 			var vectorOffset:Vector2D = new Vector2D();
 			var vectors:Array<Vector2D>;
 
-			var distance : Float;
+			var distance : Float = 0xFFFFFFFF;
 			var testDistance : Float = 0x3FFFFFFF;
 			var closestVector:Vector2D = new Vector2D(); //the vector to use to find the normal
 			
 			// find offset
-			vectorOffset = new Vector2D(polygon.x - circle.x, polygon.y - circle.y);
-			vectors = polygon.vertices.copy(); //we don't want the transformed ones here, we transform the points later
+			vectorOffset = new Vector2D(-circle.x,-circle.y);
+			vectors = polygon.transformedVertices.copy(); //we don't want the transformed ones here, we transform the points later
 			
 			//adds some padding to make it more accurate
 			if(vectors.length == 2) {
@@ -70,11 +71,16 @@
 			
 			// find the closest vertex to use to find normal
 			for(i in 0 ... vectors.length) {
-				distance = (circle.x - (polygon.x + vectors[i].x)) * (circle.x - (polygon.x + vectors[i].x)) + (circle.y - (polygon.y + vectors[i].y)) * (circle.y - (polygon.y + vectors[i].y));
+
+				// trace(i + ' @ ' + vectors[i]);
+
+				distance =  (circle.x - (vectors[i].x)) * (circle.x - (vectors[i].x)) + 
+							(circle.y - (vectors[i].y)) * (circle.y - (vectors[i].y));
+
 				if(distance < testDistance) { //closest has the lowest distance
 					testDistance = distance;
-					closestVector.x = polygon.x + vectors[i].x;
-					closestVector.y = polygon.y + vectors[i].y;
+					closestVector.x = vectors[i].x;
+					closestVector.y = vectors[i].y;
 				}
 				
 			}
