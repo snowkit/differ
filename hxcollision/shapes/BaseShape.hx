@@ -1,8 +1,6 @@
 package hxcollision.shapes;
-
-    //todo, replace with local class	
-import flash.geom.Matrix;
-
+    
+import hxcollision.math.Matrix;
 import hxcollision.math.Vector2D;
 
 class BaseShape {
@@ -22,7 +20,7 @@ class BaseShape {
 //Constructor
 
     public function new( _pos : Vector2D ) {
-        
+
         _position = _pos;
         _rotation = 0;
 

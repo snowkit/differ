@@ -1,8 +1,6 @@
-package hxcollision.math ;
+package hxcollision.math;
 
-    import nme.display.Graphics;
-    import nme.geom.Matrix;
-    import nme.geom.Point;
+    import hxcollision.math.Matrix;
     
     /**
      * 2D vector class
@@ -325,20 +323,6 @@ package hxcollision.math ;
             return "Vector2D x:" + _x + ", y:" + _y;
         }
         
-        
-        /**
-         * Draw vector, good to see where its pointing.
-         * @param graphicsForDrawing The graphics to draw the vector.
-         * @param drawingColor The color to draw the vector in.
-         */
-        public function drawVector(graphicsForDrawing:Graphics, drawingColor:Int = 0x00FF00, start:Vector2D=null):Void {
-            graphicsForDrawing.lineStyle(0, drawingColor);
-            if(start != null) graphicsForDrawing.moveTo(start.x,start.y);
-            else if(start == null) graphicsForDrawing.moveTo(0,0);
-            if(start != null){
-                graphicsForDrawing.lineTo(_x+start.x, _y+start.y);
-            }
-            else graphicsForDrawing.lineTo(_x, _y);
-        }
+
         
     }

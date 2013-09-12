@@ -18,6 +18,12 @@ class ShapeDrawer {
 
     } //drawPolygon
 
+    public function drawVector( v:Vector2D, start:Vector2D ) {
+        
+        drawLine( start, v );
+
+    } //drawVector
+
     private function drawVertList( _verts : Array<Vector2D> ) {
 
         var _count : Int = _verts.length;
