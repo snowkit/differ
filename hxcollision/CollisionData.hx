@@ -7,7 +7,7 @@
 
 			// the overlap
 		public var overlap : Float = 0; 
-			// a vector that when subtracted to shape A will separate it from shape B
+			// a vector that when subtracted to shape 1 will separate it from shape 2
 		public var separation : Vector2D;
 		
 			// the first shape
@@ -15,7 +15,7 @@
 			// the second shape
 		public var shape2 : BaseShape;
 
-			// unit vector in the direction that you need to move
+			// unit vector on the axis of the collision (the normal of the face that was collided with)
 		public var unitVector : Vector2D; 
 		
 			//Constructor

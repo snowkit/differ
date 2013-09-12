@@ -25,7 +25,7 @@ package hxcollision.shapes;
 		
 
 		
-		public static function normalPolygon(sides:Int, radius:Float=100, position:Vector2D=null):Polygon {
+		public static function create(sides:Int, radius:Float=100, position:Vector2D=null):Polygon {
 			if(sides < 3) {
 				throw 'Polygon - Needs at least 3 sides';
 			}

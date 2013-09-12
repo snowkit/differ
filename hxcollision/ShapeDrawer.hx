@@ -6,9 +6,13 @@ import hxcollision.shapes.Polygon;
 
 class ShapeDrawer {
 
-    public function new() {
-    
-    }
+    public function new() {}
+
+        //To implement your own shape drawing class, you only need to override this function and implement it
+        //the rest is handled internally, or you can override specifics if you want.
+    public function drawLine( p0:Vector2D, p1:Vector2D ) {
+        
+    } //drawLine
 
     public function drawPolygon( poly:Polygon ) {
 
@@ -42,7 +46,7 @@ class ShapeDrawer {
     } //drawVertList
 
     public function drawCircle( circle:Circle ) {
-        //from :
+            //from :
         //http://slabode.exofire.net/circle_draw.shtml
 
         var _smooth : Float = 10;
@@ -81,9 +85,6 @@ class ShapeDrawer {
         drawVertList( _verts );
 
     } //drawCircle
-    
-    public function drawLine( p0:Vector2D, p1:Vector2D ) {
-        //implement yourself, by overriding this function
-    }
+
 
 } //ShapeDrawer
