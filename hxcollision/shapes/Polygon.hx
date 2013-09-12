@@ -1,6 +1,5 @@
 package hxcollision.shapes;
 	
-	import nme.display.Graphics;
 	import hxcollision.math.Vector2D;
 	import hxcollision.shapes.BaseShape;
 	
@@ -24,19 +23,7 @@ package hxcollision.shapes;
 			super.destroy();
 		}
 		
-		override public function draw( graphics:Graphics ) : Void {
-			
-			var v : Array<Vector2D> = transformedVertices.copy();
 
-			graphics.moveTo( v[0].x, v[0].y );
-
-			var _count : Int = _vertices.length;
-			for(i in 0 ... _count) {
-				graphics.lineTo(v[i].x, v[i].y);
-			}
-
-			graphics.lineTo(v[0].x, v[0].y);
-		}
 		
 		public static function normalPolygon(sides:Int, radius:Float=100, position:Vector2D=null):Polygon {
 			if(sides < 3) {

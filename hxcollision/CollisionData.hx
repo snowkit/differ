@@ -1,6 +1,5 @@
 ﻿package hxcollision;
 
-	import nme.geom.Point;
 	import hxcollision.shapes.BaseShape;
 	import hxcollision.math.Vector2D;
 	
