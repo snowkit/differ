@@ -99,11 +99,11 @@ class BaseShape {
     }
 
     private function set_rotation( v : Float ) : Float {
+        _transformMatrix.rotate( (v - _rotation) * Math.PI / 180 );
         _rotation = v;
-        _transformMatrix.rotate( v * Math.PI / 180 );
         _transformed = false;
-        return _rotation;
-    } 
+       return _rotation;
+    }
 
 //.scaleX 
 
