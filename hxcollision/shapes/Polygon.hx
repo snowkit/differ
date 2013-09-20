@@ -9,6 +9,8 @@ package hxcollision.shapes;
 
 			super(position);
 			
+			name = vertices.length + 'polygon';
+
 			_vertices = vertices;			
 		}
 		
@@ -29,7 +31,7 @@ package hxcollision.shapes;
 			if(sides < 3) {
 				throw 'Polygon - Needs at least 3 sides';
 			}
-			
+
 			if(position == null) {
 				position = new Vector2D();
 			}

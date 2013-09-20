@@ -21,6 +21,7 @@ package hxcollision.shapes;
 		public function new(radius:Float, position:Vector2D) {
 			super( position );
 			_radius = radius;			
+			name = 'circle ' + _radius;
 		}
 
 	}
