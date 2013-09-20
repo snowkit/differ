@@ -17,6 +17,9 @@ class BaseShape {
     private var _transformedVertices : Array<Vector2D>;
     private var _vertices : Array<Vector2D>;
 
+    public var name : String = 'shape';
+    public var data : Dynamic;
+
 //Constructor
 
     public function new( _pos : Vector2D ) {

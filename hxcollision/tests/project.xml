@@ -24,7 +24,7 @@
 
   <assets path="Assets" rename="assets" include="*" exclude="nme.svg" />  
 
-  <haxelib name="nme" />
+  <haxelib name="openfl" />
   <haxelib name="hxcollision" />  
 
   <ndll name="std" />
