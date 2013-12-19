@@ -75,12 +75,12 @@ class Main extends Sprite {
         mouse_pos = new Point();
 
             //Create the collider shapes
-        circle_static = new Circle( 50, new Vector2D(300,200) );        
-        box_static = Polygon.rectangle(50,150, new Vector2D(0,0) );
-        oct_static = Polygon.create(8,60, new Vector2D(70,70) );
+        circle_static = new Circle( 300, 200, 50 );        
+        box_static = Polygon.rectangle( 0, 0, 50, 150 );
+        oct_static = Polygon.create( 70,70, 8,60 );
             //and the noes that will follow the mouse
-        circle_mouse = new Circle( 30, new Vector2D(250,250) );
-        hexagon_mouse = Polygon.create(6, 50, new Vector2D(260,100) );
+        circle_mouse = new Circle( 250, 250, 30 );
+        hexagon_mouse = Polygon.create( 260,100, 6, 50 );
 
             //remember the order of operations is important
         box_static.rotation = 45;

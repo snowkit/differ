@@ -22,9 +22,9 @@ class BaseShape {
 
 //Constructor
 
-    public function new( _pos : Vector2D ) {
+    public function new( _x:Float, _y:Float ) {
 
-        _position = _pos;
+        _position = new Vector2D(_x,_y);
         _rotation = 0;
 
         _scaleX = 1;
