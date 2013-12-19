@@ -4,8 +4,8 @@
 	"license": "MIT",
 	"tags": ["hxcollision", "collision", "SAT", "collide", "Separating axis theorom"],
 	"description": "Separating Axis Theorom based collisions for Polygons and Circles. Not specific to any library, but includes tests and drawing classes for OpenFL. Initially Ported from rocketmandevelopment as3 classes.",
-	"version": "1.0.3",
-	"releasenote": "- Fixed bug in circle vs polygon, when polygon was rotated. - Added line raycast with collision shapes - Added a custom ShapeDrawer class, for drawing the shapes in a non specific way.  - Moved to latest haxelib revisions - Removed dependency on OpenFL, now completely standalone ",
+	"version": "1.0.4",
+	"releasenote": " - Renamed `Polygon.normalPolygon` to `Polygon.create` - Added `testShapeList` for testing one shape with many - Added changes to the test to display the unitVector response (soon to be renamed also) - Migrating to more integration friendly api, and more logical order of arguments for shapes.  - Making rotation on the base shapes absolute (submitted by @grapefrukt).  - Adding name and data flag to BaseShape",
 	"contributors": [ "underscorediscovery" ],
 	"dependencies": {}
 }
