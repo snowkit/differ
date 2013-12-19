@@ -5,9 +5,9 @@ package hxcollision.shapes;
 	
 	class Polygon extends BaseShape {
 		
-		public function new( vertices:Array<Vector2D>, position:Vector2D ) {
+		public function new( x:Float, y:Float, vertices:Array<Vector2D> ) {
 
-			super(position);
+			super( x,y );
 			
 			name = vertices.length + 'polygon';
 
@@ -27,13 +27,9 @@ package hxcollision.shapes;
 		
 
 		
-		public static function create(sides:Int, radius:Float=100, position:Vector2D=null):Polygon {
+		public static function create( x:Float, y:Float, sides:Int, radius:Float=100):Polygon {
 			if(sides < 3) {
 				throw 'Polygon - Needs at least 3 sides';
-			}
-
-			if(position == null) {
-				position = new Vector2D();
 			}
 
 			var rotation:Float = (Math.PI * 2) / sides;
@@ -48,10 +44,10 @@ package hxcollision.shapes;
 				vector.y = Math.sin(angle) * radius;
 				vertices.push(vector);
 			}
-			return new Polygon(vertices, position);
+			return new Polygon(x,y,vertices);
 		}
 		
-		public static function rectangle(width:Float, height:Float, position:Vector2D, centered:Bool = true):Polygon {
+		public static function rectangle(x:Float, y:Float, width:Float, height:Float, centered:Bool = true):Polygon {
 			
 			var vertices:Array<Vector2D> = new Array<Vector2D>();
 
@@ -71,10 +67,10 @@ package hxcollision.shapes;
 
 			}
 
-			return new Polygon(vertices, position);
+			return new Polygon(x,y,vertices);
 		}
 		
-		public static function square(width:Float, position:Vector2D):Polygon {
-			return rectangle(width, width, position);
+		public static function square(x:Float, y:Float, width:Float, centered:Bool = true):Polygon {
+			return rectangle(x, y, width, width, centered);
 		}
 	}

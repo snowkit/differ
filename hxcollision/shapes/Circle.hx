@@ -18,9 +18,9 @@ package hxcollision.shapes;
 			return _radius * scaleX;
 		}
 		
-		public function new(radius:Float, position:Vector2D) {
-			super( position );
-			_radius = radius;			
+		public function new(x:Float, y:Float, radius:Float) {
+			super( x, y );
+			_radius = radius;
 			name = 'circle ' + _radius;
 		}
 
