@@ -31,7 +31,7 @@ or git clone the repo, from here.
 
 #Recent changes
 
-**1.0.4 (Latest release, haxelib) **
+**1.0.4 (Latest release, haxelib)**
  - Renamed `Polygon.normalPolygon` to `Polygon.create`
  - Added `testShapeList` for testing one shape with many
  - Added changes to the test to display the unitVector response (soon to be renamed also)
