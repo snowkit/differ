@@ -1,6 +1,6 @@
 ﻿package hxcollision;
 
-	import hxcollision.shapes.BaseShape;
+	import hxcollision.shapes.Shape;
 	import hxcollision.math.Vector2D;
 	
 	class CollisionData {
@@ -11,9 +11,9 @@
 		public var separation : Vector2D;
 		
 			// the first shape
-		public var shape1 : BaseShape;
+		public var shape1 : Shape;
 			// the second shape
-		public var shape2 : BaseShape;
+		public var shape2 : Shape;
 
 			// unit vector on the axis of the collision (the normal of the face that was collided with)
 		public var unitVector : Vector2D; 

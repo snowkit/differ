@@ -3,7 +3,7 @@ package hxcollision.shapes;
 import hxcollision.math.Matrix;
 import hxcollision.math.Vector2D;
 
-class BaseShape {
+class Shape {
     
     private var _position : Vector2D;
     private var _rotation : Float = 0;
