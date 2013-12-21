@@ -1,6 +1,6 @@
 ﻿package hxcollision;
 
-    import hxcollision.shapes.BaseShape;
+    import hxcollision.shapes.Shape;
     import hxcollision.shapes.Circle;
     import hxcollision.shapes.Polygon;
     import hxcollision.math.Vector2D;
@@ -15,7 +15,7 @@
         }
             
             //will never return null, always length 0 array
-        public static function testShapeList( shape1:BaseShape, shapes:Array<BaseShape> ) : Array<CollisionData> {
+        public static function testShapeList( shape1:Shape, shapes:Array<Shape> ) : Array<CollisionData> {
             
             var results : Array<CollisionData> = [];
 
@@ -30,7 +30,7 @@
 
         } //testShapeList
 
-        public static function testShapes( shape1:BaseShape, shape2:BaseShape ): CollisionData {
+        public static function testShapes( shape1:Shape, shape2:Shape ): CollisionData {
 
             if( Std.is(shape1, Circle) && Std.is(shape2, Circle) ) {
                 return checkCircles(cast(shape1,Circle), cast(shape2,Circle));
@@ -52,7 +52,7 @@
             return null;
         }
 
-        public static function rayCollision( lineStart:Vector2D, lineEnd:Vector2D, shapes:Array<BaseShape> ) : Bool {
+        public static function rayCollision( lineStart:Vector2D, lineEnd:Vector2D, shapes:Array<Shape> ) : Bool {
                 
                 //check against each shape
             for(_shape in shapes) {

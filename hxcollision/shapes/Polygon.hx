@@ -1,9 +1,9 @@
 package hxcollision.shapes;
 	
 	import hxcollision.math.Vector2D;
-	import hxcollision.shapes.BaseShape;
+	import hxcollision.shapes.Shape;
 	
-	class Polygon extends BaseShape {
+	class Polygon extends Shape {
 		
 		public function new( x:Float, y:Float, vertices:Array<Vector2D> ) {
 

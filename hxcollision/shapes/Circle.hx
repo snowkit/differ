@@ -1,9 +1,9 @@
 package hxcollision.shapes;
 
 	import hxcollision.math.Vector2D;
-	import hxcollision.shapes.BaseShape;
+	import hxcollision.shapes.Shape;
 	
-	class Circle extends BaseShape {
+	class Circle extends Shape {
 
 		private var _radius:Float;
 
