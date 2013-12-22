@@ -33,7 +33,7 @@ or git clone the repo, from here.
 
 **1.0.5 (Latest repo)**
  - Renamed `BaseShape` to `Shape`, continued refactoring
- - 
+
 **1.0.4 (Latest release, haxelib)**
  - Renamed `Polygon.normalPolygon` to `Polygon.create`
  - Added `testShapeList` for testing one shape with many
