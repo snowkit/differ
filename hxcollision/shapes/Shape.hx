@@ -17,12 +17,16 @@ class Shape {
     private var _transformedVertices : Array<Vector2D>;
     private var _vertices : Array<Vector2D>;
 
+    public var active : Bool = true;
     public var name : String = 'shape';
     public var data : Dynamic;
+    public var tags : Map<String,String>;
 
 //Constructor
 
     public function new( _x:Float, _y:Float ) {
+
+        tags = new Map();
 
         _position = new Vector2D(_x,_y);
         _rotation = 0;
