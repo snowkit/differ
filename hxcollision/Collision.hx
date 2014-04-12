@@ -233,6 +233,8 @@
             var offset : Float;
             var vectorOffset:Vector2D = new Vector2D();
             var vectors:Array<Vector2D>;
+            var shortestDistance : Float = 0x3FFFFFFF;
+            var collisionData:CollisionData = new CollisionData();
 
             var distance : Float = 0xFFFFFFFF;
             var testDistance : Float = 0x3FFFFFFF;
@@ -338,17 +340,21 @@
                     return null;
                     
                 }
+
+                var distance : Float = -(max2 - min1);
+                if(Math.abs(distance) < shortestDistance) {
+                    collisionData.unitVector = normalAxis;
+                    collisionData.overlap = distance;
+                    shortestDistance = Math.abs(distance);
+                }
                 
             }
             
             //if you made it here, there is a collision!!!!!
-            
-            var collisionData:CollisionData = new CollisionData();
-            collisionData.overlap = -(max2 - min1);
-            collisionData.unitVector = normalAxis;
+            collisionData.unitVector.reverse();
             collisionData.shape1 = polygon;
             collisionData.shape2 = circle;
-            collisionData.separation = new Vector2D(normalAxis.x * (max2 - min1) * -1, normalAxis.y * (max2 - min1) * -1); //return the separation distance
+            collisionData.separation = new Vector2D(collisionData.unitVector.x * collisionData.overlap  , collisionData.unitVector.y * collisionData.overlap ); //return the separation distance
             return collisionData;
         }
         
@@ -359,10 +365,11 @@
             if(distanceSquared < totalRadius * totalRadius) { //if your distance is less than the totalRadius square(because distance is squared)
                 var difference : Float = totalRadius - Math.sqrt(distanceSquared); //find the difference. Square roots are needed here.
                 var collisionData:CollisionData = new CollisionData(); //new CollisionData class to hold all the data for this collision
-                collisionData.separation = new Vector2D((circle2.x - circle1.x) * difference, (circle2.y - circle1.y) * difference); //find the movement needed to separate the circles
                 collisionData.shape1 = circle1;
+                collisionData.shape2 = circle2;
                 collisionData.unitVector = new Vector2D(circle2.x - circle1.x, circle2.y - circle1.y);
                 collisionData.unitVector.normalize();
+                collisionData.separation = new Vector2D(-collisionData.unitVector.x * difference, -collisionData.unitVector.y * difference ); //find the movement needed to separate the circles
                 collisionData.overlap = collisionData.separation.length;
                 return collisionData;
             }
@@ -446,6 +453,7 @@
             }
             
             //if you're here, there is a collision
+            collisionData.unitVector.reverse();
             collisionData.shape1 = polygon1;
             collisionData.shape2 = polygon2;
             collisionData.separation = new Vector2D(collisionData.unitVector.x * collisionData.overlap, collisionData.unitVector.y * collisionData.overlap); //return the separation, apply it to a polygon to separate the two shapes.

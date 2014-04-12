@@ -16,11 +16,28 @@
 		public var shape2 : Shape;
 
 			// unit vector on the axis of the collision (the normal of the face that was collided with)
-		public var unitVector : Vector2D; 
-		
+		public var unitVector : Vector2D;
+
 			//Constructor
 		public function new() {
 			separation = new Vector2D(); 
 			unitVector = new Vector2D();
+		}
+
+			//Get the unit vector of the specified shape
+		public function getUnitVectorOf(shape : Shape)
+		{
+			if(shape == shape1)
+				return unitVector;
+			else
+				return new Vector2D(-unitVector.x, -unitVector.y);
+		}
+			//Get the seperation vector of the specified shape
+		public function getSeparationOf(shape : Shape)
+		{
+			if(shape == shape1)
+				return separation;
+			else
+				return new Vector2D(-separation.x, -separation.y);
 		}
 	}

@@ -26,6 +26,7 @@ class Main extends Sprite {
     var collide_color3 : Int = 0x11CC88;
     var collide_color4 : Int = 0xCC55AA;
     var collide_color5 : Int = 0x5500CC;
+    var separation_color : Int = 0xF2903A;
 
         //the mouse position
     var mouse_pos : Point;
@@ -143,11 +144,41 @@ class Main extends Sprite {
 
     } //update_line
 
-    public function draw_collision_response( pos:Vector2D, collision_response:CollisionData ) {
+    public function draw_collision_response( collision_response:CollisionData ) {
+
+        var shape1_origin : Vector2D;
+        var shape1_unit_vector : Vector2D;
+        var shape1_target : Vector2D;
+        var shape1_separation : Vector2D;
+
+        var shape2_origin : Vector2D;
+        var shape2_unit_vector : Vector2D;
+        var shape2_target : Vector2D;
+        var shape2_separation : Vector2D;
+
+            //draw the unit vector pointing to the colliding shape
         visualise.graphics.lineStyle( 1, collide_color3 );
-            
-            drawer.drawLine( new Vector2D(pos.x, pos.y), new Vector2D( pos.x+(collision_response.unitVector.x*20), pos.y+(collision_response.unitVector.y*20) ) );
-    }
+            shape1_origin = collision_response.shape1.position;
+            shape1_unit_vector = collision_response.getUnitVectorOf(collision_response.shape1);
+            shape1_target = new Vector2D( shape1_origin.x+(shape1_unit_vector.x*20), shape1_origin.y+(shape1_unit_vector.y*20) );
+            drawer.drawVector( shape1_origin, shape1_target );
+
+            shape2_origin = collision_response.shape2.position;
+            shape2_unit_vector = collision_response.getUnitVectorOf(collision_response.shape2);
+            shape2_target = new Vector2D( shape2_origin.x+(shape2_unit_vector.x*20), shape2_origin.y+(shape2_unit_vector.y*20) );
+            drawer.drawVector( shape2_origin, shape2_target );
+
+            //draw the separation vector pointing to the opposite direction of the colliding shape
+        visualise.graphics.lineStyle( 1, separation_color );
+            shape1_separation = collision_response.getSeparationOf(collision_response.shape1);
+            shape1_target = new Vector2D( shape1_origin.x+(shape1_separation.x), shape1_origin.y+(shape1_separation.y) );
+            drawer.drawVector( shape1_origin, shape1_target );
+
+            shape2_separation = collision_response.getSeparationOf(collision_response.shape2);
+            shape2_target = new Vector2D( shape2_origin.x+(shape2_separation.x), shape2_origin.y+(shape2_separation.y) );
+            drawer.drawVector( shape2_origin, shape2_target );
+
+    } //draw_collision_response
 
     var end_dt : Float = 0;
     var dt : Float = 0;
@@ -172,7 +203,7 @@ class Main extends Sprite {
 
             if(mouse_collide != null) {
                 mouse_color = collide_color1;
-                draw_collision_response(new Vector2D(circle_static.x, circle_static.y), mouse_collide);
+                draw_collision_response(mouse_collide);
             }
 
         } else { //mouse_is_hexagon
@@ -181,7 +212,7 @@ class Main extends Sprite {
 
             if(mouse_collide != null) {
                 mouse_color = collide_color1;
-                draw_collision_response(new Vector2D(circle_static.x, circle_static.y), mouse_collide);
+                draw_collision_response(mouse_collide);
             }
 
         } //!mouse_is_hexagon else
@@ -194,7 +225,7 @@ class Main extends Sprite {
 
             if(mouse_collide != null) {
                 mouse_color = collide_color5;
-                draw_collision_response(new Vector2D(oct_static.x, oct_static.y), mouse_collide);
+                draw_collision_response(mouse_collide);
             }
 
         } else { //mouse_is_hexagon
@@ -203,7 +234,7 @@ class Main extends Sprite {
 
             if(mouse_collide != null) {
                 mouse_color = collide_color5;
-                draw_collision_response(new Vector2D(oct_static.x, oct_static.y), mouse_collide);
+                draw_collision_response(mouse_collide);
             }
 
         } //!mouse_is_hexagon else
@@ -215,7 +246,7 @@ class Main extends Sprite {
 
             if(mouse_collide != null) {
                 mouse_color = collide_color2;
-                draw_collision_response(new Vector2D(box_static.x, box_static.y), mouse_collide);
+                draw_collision_response(mouse_collide);
             }
 
         } else { //mouse_is_hexagon
@@ -224,7 +255,7 @@ class Main extends Sprite {
 
             if(mouse_collide != null) {
                 mouse_color = collide_color2;
-                draw_collision_response(new Vector2D(box_static.x, box_static.y), mouse_collide);
+                draw_collision_response(mouse_collide);
             }
             
         } //!mouse_is_hexagon else
@@ -235,11 +266,7 @@ class Main extends Sprite {
 
         if(mouse_collide != null) {
             mouse_color = collide_color3;
-            if(mouse_is_hexagon) {
-                draw_collision_response(new Vector2D(circle_mouse.x, circle_mouse.y), mouse_collide);
-            } else {
-                draw_collision_response(new Vector2D(hexagon_mouse.x, hexagon_mouse.y), mouse_collide);
-            }
+            draw_collision_response(mouse_collide);
         }
 
 //Test the line and all the shapes
