@@ -21,11 +21,7 @@ class Main extends Sprite {
 
         //for viewing when collisions happen, we change colors
     var normal_color : Int = 0x999999;
-    var collide_color1 : Int = 0xCC1111;
-    var collide_color2 : Int = 0x2233CC;
-    var collide_color3 : Int = 0x11CC88;
-    var collide_color4 : Int = 0xCC55AA;
-    var collide_color5 : Int = 0x5500CC;
+    var collide_color : Int = 0x11CC88;
     var separation_color : Int = 0xF2903A;
 
         //the mouse position
@@ -42,6 +38,8 @@ class Main extends Sprite {
     var circle_mouse : Circle;
         //A polygon that can follow the mouse
     var hexagon_mouse : Polygon;
+        //Default mouse shape
+    var shape_mouse : Shape;
 
         //A line to raycase across the screen
     var line_start : Vector2D;
@@ -82,6 +80,7 @@ class Main extends Sprite {
             //and the noes that will follow the mouse
         circle_mouse = new Circle( 250, 250, 30 );
         hexagon_mouse = Polygon.create( 260,100, 6, 50 );
+        shape_mouse = circle_mouse;
 
             //remember the order of operations is important
         box_static.rotation = 45;
@@ -103,7 +102,12 @@ class Main extends Sprite {
     } //construct
 
     public function mousedown( e : flash.events.MouseEvent ) {
+
+        (mouse_is_hexagon) ?
+            shape_mouse = circle_mouse:
+            shape_mouse = hexagon_mouse;
         mouse_is_hexagon = !mouse_is_hexagon;
+
     } //mousedown
 
     public function mousemove( e : flash.events.MouseEvent ) {
@@ -111,17 +115,8 @@ class Main extends Sprite {
         mouse_pos.x = e.stageX;
         mouse_pos.y = e.stageY;
 
-        if(!mouse_is_hexagon) {
-
-            circle_mouse.x = mouse_pos.x;
-            circle_mouse.y = mouse_pos.y;
-
-        } else {
-
-            hexagon_mouse.x = mouse_pos.x;
-            hexagon_mouse.y = mouse_pos.y;
-
-        }
+        shape_mouse.x = mouse_pos.x;
+        shape_mouse.y = mouse_pos.y;
 
     } //mousemove
 
@@ -157,7 +152,7 @@ class Main extends Sprite {
         var shape2_separation : Vector2D;
 
             //draw the unit vector pointing to the colliding shape
-        visualise.graphics.lineStyle( 1, collide_color3 );
+        visualise.graphics.lineStyle( 1, collide_color );
             shape1_origin = collision_response.shape1.position;
             shape1_unit_vector = collision_response.unitVector;
             shape1_target = new Vector2D( shape1_origin.x+(shape1_unit_vector.x*20), shape1_origin.y+(shape1_unit_vector.y*20) );
@@ -192,92 +187,64 @@ class Main extends Sprite {
 
             //draw things
         var mouse_color : Int = normal_color;
+        var circle_color : Int = normal_color;
+        var circle2_color : Int = normal_color;
+        var box_color : Int = normal_color;
+        var hexa_color : Int = normal_color;
+        var oct_color : Int = normal_color;
+
             //start clean each update
         visualise.graphics.clear();
 
 //Test the static circle
 
-        if(!mouse_is_hexagon) {
-            
-            mouse_collide = Collision.testShapes( circle_static, circle_mouse );
+        mouse_collide = Collision.testShapes( shape_mouse, circle_static );
 
-            if(mouse_collide != null) {
-                mouse_color = collide_color1;
-                draw_collision_response(mouse_collide);
-            }
+        if(mouse_collide != null) {
+            mouse_color = collide_color;
+            circle_color = collide_color;
+            draw_collision_response(mouse_collide);
+        }
 
-        } else { //mouse_is_hexagon
+//Test the static octagon
 
-            mouse_collide = Collision.testShapes( circle_static, hexagon_mouse );
+        mouse_collide = Collision.testShapes( shape_mouse, oct_static );
 
-            if(mouse_collide != null) {
-                mouse_color = collide_color1;
-                draw_collision_response(mouse_collide);
-            }
-
-        } //!mouse_is_hexagon else
-
-//Test the static octagon, but do it inversely (mouse->static) so we can test the resultant collision data
-
-        if(!mouse_is_hexagon) {
-            
-            mouse_collide = Collision.testShapes( oct_static, circle_mouse );
-
-            if(mouse_collide != null) {
-                mouse_color = collide_color5;
-                draw_collision_response(mouse_collide);
-            }
-
-        } else { //mouse_is_hexagon
-
-            mouse_collide = Collision.testShapes( oct_static, hexagon_mouse );
-
-            if(mouse_collide != null) {
-                mouse_color = collide_color5;
-                draw_collision_response(mouse_collide);
-            }
-
-        } //!mouse_is_hexagon else
+        if(mouse_collide != null) {
+            mouse_color = collide_color;
+            oct_color = collide_color;
+            draw_collision_response(mouse_collide);
+        }
 
 //Test the static box
 
-        if(!mouse_is_hexagon) {
-            
-            mouse_collide = Collision.testShapes( box_static, circle_mouse );
+        mouse_collide = Collision.testShapes( shape_mouse, box_static );
 
-            if(mouse_collide != null) {
-                mouse_color = collide_color2;
-                draw_collision_response(mouse_collide);
-            }
+        if(mouse_collide != null) {
+            mouse_color = collide_color;
+            box_color = collide_color;
+            draw_collision_response(mouse_collide);
+        }
 
-        } else { //mouse_is_hexagon
-
-            mouse_collide = Collision.testShapes( box_static, hexagon_mouse );
-
-            if(mouse_collide != null) {
-                mouse_color = collide_color2;
-                draw_collision_response(mouse_collide);
-            }
-            
-        } //!mouse_is_hexagon else
-            
 //Test mouse box and circle
 
         if(mouse_is_hexagon) {
 
-            mouse_collide = Collision.testShapes( circle_mouse, hexagon_mouse );
+            mouse_collide = Collision.testShapes( shape_mouse, circle_mouse );
 
             if(mouse_collide != null) {
-                mouse_color = collide_color3;
+                mouse_color = collide_color;
+                circle2_color = collide_color;
                 draw_collision_response(mouse_collide);
             }
 
         } else { //mouse_is_hexagon
 
-            mouse_collide = Collision.testShapes( hexagon_mouse, circle_mouse );
+            mouse_collide = Collision.testShapes( shape_mouse, hexagon_mouse );
 
             if(mouse_collide != null) {
-                mouse_color = collide_color3;
+                mouse_color = collide_color;
+                hexa_color = collide_color;
                 draw_collision_response(mouse_collide);
             }
         } //!mouse_is_hexagon else
@@ -288,31 +255,29 @@ class Main extends Sprite {
 
 //Now draw them
 
-        visualise.graphics.lineStyle( 2, normal_color );
-
+        visualise.graphics.lineStyle( 2, circle_color );
             drawer.drawCircle( circle_static );
+        visualise.graphics.lineStyle( 2, circle2_color );
+            drawer.drawCircle( circle_mouse );
+        visualise.graphics.lineStyle( 2, box_color );
             drawer.drawPolygon( box_static );
+        visualise.graphics.lineStyle( 2, hexa_color );
             drawer.drawPolygon( hexagon_mouse );
+        visualise.graphics.lineStyle( 2, oct_color );
             drawer.drawPolygon( oct_static );
 
-            if(!mouse_is_hexagon) {
-                drawer.drawPolygon( hexagon_mouse );
-            } else {
-                drawer.drawCircle( circle_mouse );
-            }
-
-        visualise.graphics.lineStyle( 2, mouse_color );
-
-            if(!mouse_is_hexagon) {
-                drawer.drawCircle( circle_mouse );
-            } else {
-                drawer.drawPolygon( hexagon_mouse );
-            }
+        if(mouse_is_hexagon) {
+            visualise.graphics.lineStyle( 2, mouse_color );
+            drawer.drawPolygon( hexagon_mouse );
+        } else {
+            visualise.graphics.lineStyle( 2, mouse_color );
+            drawer.drawCircle( circle_mouse );
+        }
 
         visualise.graphics.lineStyle( 2, normal_color );
 
             if(line_collide) {
-                visualise.graphics.lineStyle( 2, collide_color4 );
+                visualise.graphics.lineStyle( 2, collide_color );
             } 
 
             drawer.drawLine(line_start, line_end);

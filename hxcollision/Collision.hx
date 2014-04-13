@@ -363,10 +363,12 @@
             }
             
             //if you made it here, there is a collision!!!!!
-            collisionData.shape1 = if(flip) circle else polygon;
+
             collisionData.shape2 = if(flip) polygon else circle;
+            collisionData.shape1 = if(flip) circle else polygon;
             collisionData.separation = new Vector2D(-collisionData.unitVector.x * collisionData.overlap,
                                                     -collisionData.unitVector.y * collisionData.overlap); //return the separation distance
+            if(flip) collisionData.unitVector.reverse();
             return collisionData;
         }
         
@@ -473,6 +475,7 @@
             collisionData.shape2 = if(flip) polygon1 else polygon2;
             collisionData.separation = new Vector2D(-collisionData.unitVector.x * collisionData.overlap,
                                                     -collisionData.unitVector.y * collisionData.overlap); //return the separation, apply it to a polygon to separate the two shapes.
+            if(flip) collisionData.unitVector.reverse();
             return collisionData;
         }
         
