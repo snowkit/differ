@@ -18,10 +18,11 @@ class OpenFLDrawer extends ShapeDrawer {
         //To implement your own shape drawing class, you only need to override this drawLine function and implement it
         //the rest is handled internally, or you can override specifics if you want (like drawCircle is custom here, by choice. Not required!)
 
-    public override function drawLine( p0:Vector2D, p1:Vector2D ) {
+    public override function drawLine( p0:Vector2D, p1:Vector2D, ?startPoint:Bool = true ) {
         
         if(graphics != null) {
-            graphics.moveTo( p0.x, p0.y );
+            if(startPoint)
+                graphics.moveTo( p0.x, p0.y );
             graphics.lineTo( p1.x, p1.y);
         } //graphics != null
 
@@ -35,10 +36,11 @@ class OpenFLDrawer extends ShapeDrawer {
 
     } //drawCircle
 
-    public override function drawVector( p0:Vector2D, p1:Vector2D ) {
+    public override function drawVector( p0:Vector2D, p1:Vector2D, ?startPoint:Bool = true ) {
         
         if(graphics != null) {
-            graphics.moveTo( p0.x, p0.y );
+            if(startPoint)
+                graphics.moveTo( p0.x, p0.y );
             graphics.lineTo( p1.x, p1.y);
             graphics.drawCircle( p1.x, p1.y, 2);
         } //graphics != null

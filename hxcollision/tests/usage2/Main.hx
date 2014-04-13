@@ -69,6 +69,16 @@ class Main extends Sprite {
 
         player_vel = new Vector2D(0,0);
 
+            //caption
+        var inputFormat = new flash.text.TextFormat();
+        inputFormat.font = "Helvetica, sans-serif";
+        inputFormat.color = 0xd04648;
+        var textField = new flash.text.TextField();
+        textField.defaultTextFormat = inputFormat;
+        textField.text = "[ENTER] TO SWITCH PLAYER SHAPE\n[SPACE] TO RESET PLAYER POSITION\n[ARROWS] TO MOVE THE PLAYER";
+        textField.width = stage.stageWidth;
+        stage.addChild(textField);
+
             //Listen for the changes in mouse movement
         stage.addEventListener( flash.events.KeyboardEvent.KEY_DOWN, keydown );
         stage.addEventListener( flash.events.KeyboardEvent.KEY_UP, keyup );
@@ -163,23 +173,23 @@ class Main extends Sprite {
 
 //Draw everything
 
-        visualise.graphics.lineStyle( 2, 0xCC0000 );
-
+        visualise.graphics.beginFill(0x6daa2c);
             drawer.drawCircle( circle_static );
             drawer.drawPolygon( box_static );
             drawer.drawPolygon( hexagon_static );
             drawer.drawPolygon( oct_static );
+        visualise.graphics.endFill();
 
-        visualise.graphics.lineStyle( 2, 0x0077AA );
 
+            //draw where the player is right now
+
+        visualise.graphics.beginFill(0xd27d2c);
             if( Std.is(player_collider, Circle) )
                 drawer.drawCircle( cast (player_collider, Circle) );
             else
                 drawer.drawPolygon( cast(player_collider, Polygon) );
+        visualise.graphics.endFill();
 
-            //draw where the player is right now
-        // visualise.graphics.lineStyle( 1, 0xAA7700 );
-        // visualise.graphics.drawCircle(player_collider.x, player_collider.y, 14);
 //Apply drag
         
         player_vel.x *= 0.75;
