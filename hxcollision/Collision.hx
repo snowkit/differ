@@ -51,12 +51,12 @@
                     return result2;
             }
 
-            if(Std.is(shape1,Polygon)) {
-                return checkPolygonVsCircle(cast(shape1,Polygon), cast(shape2,Circle));
+            if(Std.is(shape1,Circle)) {
+                return checkCircleVsPolygon(cast(shape1,Circle), cast(shape2,Polygon), true);
             }
 
-            if(Std.is(shape1,Circle)) {
-                return checkCircleVsPolygon(cast(shape1,Circle), cast(shape2,Polygon));
+            if(Std.is(shape1,Polygon)) {
+                return checkCircleVsPolygon(cast(shape2,Circle), cast(shape1,Polygon), false);
             }
 
             return null;
@@ -230,22 +230,7 @@
 
         } //point in poly     
 
-        private static function checkCircleVsPolygon(circle:Circle, polygon:Polygon):CollisionData {
-
-            var collisionData = checkPolygonVsCircle(polygon, circle);
-
-            if(collisionData != null)
-            {
-                collisionData.separation.reverse();
-                collisionData.unitVector.reverse();
-                collisionData.shape1 = circle;
-                collisionData.shape2 = polygon;
-            }
-
-            return collisionData;
-        }
-
-        private static function checkPolygonVsCircle(polygon:Polygon, circle:Circle):CollisionData {
+        private static function checkCircleVsPolygon(circle:Circle, polygon:Polygon, flip:Bool):CollisionData {
 
             var test1 : Float; //numbers for testing max/mins
             var test2 : Float;
@@ -368,6 +353,7 @@
                 }
                 
                 var distance : Float = -(max2 - min1);
+                if(flip) distance *= -1;
                 if(Math.abs(distance) < shortestDistance) {
                     collisionData.unitVector = normalAxis;
                     collisionData.overlap = distance;
@@ -377,9 +363,8 @@
             }
             
             //if you made it here, there is a collision!!!!!
-            
-            collisionData.shape1 = polygon;
-            collisionData.shape2 = circle;
+            collisionData.shape1 = if(flip) circle else polygon;
+            collisionData.shape2 = if(flip) polygon else circle;
             collisionData.separation = new Vector2D(-collisionData.unitVector.x * collisionData.overlap,
                                                     -collisionData.unitVector.y * collisionData.overlap); //return the separation distance
             return collisionData;
