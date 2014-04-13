@@ -35,4 +35,15 @@ class OpenFLDrawer extends ShapeDrawer {
 
     } //drawCircle
 
+    public override function drawVector( p0:Vector2D, p1:Vector2D ) {
+        
+        if(graphics != null) {
+            graphics.moveTo( p0.x, p0.y );
+            graphics.lineTo( p1.x, p1.y);
+            graphics.drawCircle( p1.x, p1.y, 2);
+        } //graphics != null
+
+    } //drawVector
+
+
 } //OpenFLDrawer
