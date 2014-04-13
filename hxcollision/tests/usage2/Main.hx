@@ -154,8 +154,8 @@ class Main extends Sprite {
         var results = Collision.testShapeList(player_collider, static_list);
             //handle any potential collisions by separating the items
         for(_result in results) {
-            next_pos_x -= _result.separation.x;
-            next_pos_y -= _result.separation.y;
+            next_pos_x += _result.separation.x;
+            next_pos_y += _result.separation.y;
         }
 
 //Finally, Update the collider position

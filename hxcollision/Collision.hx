@@ -368,8 +368,8 @@
             
             collisionData.shape1 = polygon;
             collisionData.shape2 = circle;
-            collisionData.separation = new Vector2D(collisionData.unitVector.x * collisionData.overlap,
-                                                    collisionData.unitVector.y * collisionData.overlap); //return the separation distance
+            collisionData.separation = new Vector2D(-collisionData.unitVector.x * collisionData.overlap,
+                                                    -collisionData.unitVector.y * collisionData.overlap); //return the separation distance
             return collisionData;
         }
         
@@ -384,7 +384,8 @@
                 collisionData.shape2 = circle2;
                 collisionData.unitVector = new Vector2D(circle1.x - circle2.x, circle1.y - circle2.y);
                 collisionData.unitVector.normalize();
-                collisionData.separation = new Vector2D(collisionData.unitVector.x * difference, collisionData.unitVector.y * difference); //find the movement needed to separate the circles
+                collisionData.separation = new Vector2D(collisionData.unitVector.x * difference,
+                                                        collisionData.unitVector.y * difference); //find the movement needed to separate the circles
                 collisionData.overlap = collisionData.separation.length;
                 return collisionData;
             }
@@ -470,7 +471,8 @@
             //if you're here, there is a collision
             collisionData.shape1 = polygon1;
             collisionData.shape2 = polygon2;
-            collisionData.separation = new Vector2D(collisionData.unitVector.x * collisionData.overlap, collisionData.unitVector.y * collisionData.overlap); //return the separation, apply it to a polygon to separate the two shapes.
+            collisionData.separation = new Vector2D(-collisionData.unitVector.x * collisionData.overlap,
+                                                    -collisionData.unitVector.y * collisionData.overlap); //return the separation, apply it to a polygon to separate the two shapes.
             return collisionData;
         }
         
