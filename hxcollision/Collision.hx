@@ -233,6 +233,8 @@
             var offset : Float;
             var vectorOffset:Vector2D = new Vector2D();
             var vectors:Array<Vector2D>;
+            var shortestDistance : Float = 0x3FFFFFFF;
+            var collisionData:CollisionData = new CollisionData();
 
             var distance : Float = 0xFFFFFFFF;
             var testDistance : Float = 0x3FFFFFFF;
@@ -339,16 +341,21 @@
                     
                 }
                 
+                var distance : Float = -(max2 - min1);
+                if(Math.abs(distance) < shortestDistance) {
+                    collisionData.unitVector = normalAxis;
+                    collisionData.overlap = distance;
+                    shortestDistance = Math.abs(distance);
+                }
+
             }
             
             //if you made it here, there is a collision!!!!!
             
-            var collisionData:CollisionData = new CollisionData();
-            collisionData.overlap = -(max2 - min1);
-            collisionData.unitVector = normalAxis;
             collisionData.shape1 = polygon;
             collisionData.shape2 = circle;
-            collisionData.separation = new Vector2D(normalAxis.x * (max2 - min1) * -1, normalAxis.y * (max2 - min1) * -1); //return the separation distance
+            collisionData.separation = new Vector2D(collisionData.unitVector.x * collisionData.overlap,
+                                                    collisionData.unitVector.y * collisionData.overlap); //return the separation distance
             return collisionData;
         }
         
