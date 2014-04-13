@@ -12,7 +12,7 @@
   <window 
         width="500" 
         height="500"  
-        background="#343434" 
+        background="#140c1c"
         fps="60" 
         orientation="landscape" 
         resizable="false" 

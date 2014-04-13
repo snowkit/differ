@@ -20,9 +20,9 @@ class Main extends Sprite {
     var visualise : Sprite;
 
         //for viewing when collisions happen, we change colors
-    var normal_color : Int = 0x999999;
-    var collide_color : Int = 0x11CC88;
-    var separation_color : Int = 0xF2903A;
+    var normal_color : Int = 0x757161;
+    var collide_color : Int = 0x6dc2ca;
+    var separation_color : Int = 0xd27d2c;
 
         //the mouse position
     var mouse_pos : Point;
@@ -95,11 +95,13 @@ class Main extends Sprite {
             //caption
         var inputFormat = new flash.text.TextFormat();
         inputFormat.font = "Helvetica, sans-serif";
-        inputFormat.color = separation_color;
+        inputFormat.color = 0xd04648;
         var textField = new flash.text.TextField();
         textField.defaultTextFormat = inputFormat;
-        textField.text = " CLICK TO SWITCH MOUSE SHAPE";
+        textField.autoSize = flash.text.TextFieldAutoSize.LEFT;
+        textField.mouseEnabled = false;
         textField.width = stage.stageWidth;
+        textField.text = " CLICK TO SWITCH MOUSE SHAPE";
         stage.addChild(textField);
 
             //Listen for the changes in mouse movement

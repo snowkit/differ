@@ -75,8 +75,12 @@ class Main extends Sprite {
         inputFormat.color = 0xd04648;
         var textField = new flash.text.TextField();
         textField.defaultTextFormat = inputFormat;
-        textField.text = "[ENTER] TO SWITCH PLAYER SHAPE\n[SPACE] TO RESET PLAYER POSITION\n[ARROWS] TO MOVE THE PLAYER";
+        textField.autoSize = flash.text.TextFieldAutoSize.LEFT;
+        textField.mouseEnabled = false;
         textField.width = stage.stageWidth;
+        textField.text = "[ENTER] TO SWITCH PLAYER SHAPE\n" +
+                         "[SPACE] TO RESET PLAYER POSITION\n" +
+                         "[ARROWS] TO MOVE THE PLAYER";
         stage.addChild(textField);
 
             //Listen for the changes in mouse movement
