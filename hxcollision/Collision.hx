@@ -359,10 +359,10 @@
             if(distanceSquared < totalRadius * totalRadius) { //if your distance is less than the totalRadius square(because distance is squared)
                 var difference : Float = totalRadius - Math.sqrt(distanceSquared); //find the difference. Square roots are needed here.
                 var collisionData:CollisionData = new CollisionData(); //new CollisionData class to hold all the data for this collision
-                collisionData.separation = new Vector2D((circle2.x - circle1.x) * difference, (circle2.y - circle1.y) * difference); //find the movement needed to separate the circles
                 collisionData.shape1 = circle1;
                 collisionData.unitVector = new Vector2D(circle2.x - circle1.x, circle2.y - circle1.y);
                 collisionData.unitVector.normalize();
+                collisionData.separation = new Vector2D(-collisionData.unitVector.x * difference, -collisionData.unitVector.y * difference); //find the movement needed to separate the circles
                 collisionData.overlap = collisionData.separation.length;
                 return collisionData;
             }
