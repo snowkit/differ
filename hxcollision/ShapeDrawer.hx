@@ -3,6 +3,7 @@ package hxcollision;
 import hxcollision.math.Vector2D;
 import hxcollision.shapes.Circle;
 import hxcollision.shapes.Polygon;
+import hxcollision.shapes.Shape;
 
 class ShapeDrawer {
 
@@ -13,6 +14,20 @@ class ShapeDrawer {
     public function drawLine( p0:Vector2D, p1:Vector2D, ?startPoint:Bool = true ) {
         
     } //drawLine
+
+    public function drawShape( shape:Shape ) {
+
+        if(Std.is(shape, Polygon)) {
+            drawPolygon(cast(shape, Polygon));
+            return;
+        }
+
+        if(Std.is(shape, Circle)) {
+            drawCircle(cast(shape, Circle));
+            return;
+        }
+
+    }
 
     public function drawPolygon( poly:Polygon ) {
 
