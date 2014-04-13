@@ -44,8 +44,8 @@
                 return checkPolygonVsCircle(cast(shape1,Polygon), cast(shape2,Circle));
             }
 
-            if(Std.is(shape2,Polygon)) {
-                return checkPolygonVsCircle(cast(shape2,Polygon), cast(shape1,Circle));
+            if(Std.is(shape1,Circle)) {
+                return checkCircleVsPolygon(cast(shape1,Circle), cast(shape2,Polygon));
             }
 
             return null;
@@ -217,6 +217,21 @@
             return oddNodes; //return oddNodes
 
         } //point in poly     
+
+        private static function checkCircleVsPolygon(circle:Circle, polygon:Polygon):CollisionData {
+
+            var collisionData = checkPolygonVsCircle(polygon, circle);
+
+            if(collisionData != null)
+            {
+                collisionData.separation.reverse();
+                collisionData.unitVector.reverse();
+                collisionData.shape1 = circle;
+                collisionData.shape2 = polygon;
+            }
+
+            return collisionData;
+        }
 
         private static function checkPolygonVsCircle(polygon:Polygon, circle:Circle):CollisionData {
 
