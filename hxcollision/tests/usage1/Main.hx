@@ -76,7 +76,7 @@ class Main extends Sprite {
             //Create the collider shapes
         circle_static = new Circle( 300, 200, 50 );        
         box_static = Polygon.rectangle( 0, 0, 50, 150 );
-        oct_static = Polygon.create( 70,70, 8,60 );
+        oct_static = Polygon.create( 70,90, 8,60 );
             //and the noes that will follow the mouse
         circle_mouse = new Circle( 250, 250, 30 );
         hexagon_mouse = Polygon.create( 260,100, 6, 50 );
@@ -91,6 +91,16 @@ class Main extends Sprite {
             //starting at the top of the screen
         line_start = new Vector2D(0,0);
         line_end = new Vector2D(500,0);
+
+            //caption
+        var inputFormat = new flash.text.TextFormat();
+        inputFormat.font = "Helvetica, sans-serif";
+        inputFormat.color = separation_color;
+        var textField = new flash.text.TextField();
+        textField.defaultTextFormat = inputFormat;
+        textField.text = " CLICK TO SWITCH MOUSE SHAPE";
+        textField.width = stage.stageWidth;
+        stage.addChild(textField);
 
             //Listen for the changes in mouse movement
         stage.addEventListener( flash.events.MouseEvent.MOUSE_MOVE, mousemove );
@@ -107,6 +117,10 @@ class Main extends Sprite {
             shape_mouse = circle_mouse:
             shape_mouse = hexagon_mouse;
         mouse_is_hexagon = !mouse_is_hexagon;
+
+            //Triggers mousemove in order to move the shape
+            //before actually moving the mouse
+        mousemove(e);
 
     } //mousedown
 
