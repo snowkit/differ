@@ -28,7 +28,7 @@ class Main extends Sprite {
     var static_list : Array<Shape>;
 
         //"player" collider
-    var player_collider : Polygon;
+    var player_collider : Shape;
     var player_vel : Vector2D;
     var move_speed : Float = 2;
 
@@ -86,13 +86,23 @@ class Main extends Sprite {
 
     public function keydown( e : flash.events.KeyboardEvent ) {
         switch(e.keyCode) {
-            case 32: 
+            case 32: //reset player position when pressing [SPACE]
                 player_collider.x = 250;
                 player_collider.y = 250;
             case 37: left = true;
             case 38: up = true;
             case 39: right = true;
             case 40: down = true;
+            case 13: //switch player shape when pressing [ENTER]
+                if( Std.is(player_collider, Polygon ) )
+                    player_collider = new Circle( player_collider.x,
+                                                  player_collider.y,
+                                                  15 );
+                else
+                    player_collider = Polygon.create( player_collider.x,
+                                                      player_collider.y,
+                                                      15 );
+                
         }
     } //keydown
 
@@ -151,22 +161,24 @@ class Main extends Sprite {
 
 //Finally, Update the collider position
         
-        player_collider.x = next_pos_x;        
-        player_collider.y = next_pos_y; 
+        player_collider.x = next_pos_x;
+        player_collider.y = next_pos_y;
 
 //Draw everything
 
         visualise.graphics.lineStyle( 2, 0xCC0000 );
 
-            drawer.drawCircle( circle_static );            
+            drawer.drawCircle( circle_static );
             drawer.drawPolygon( box_static );
             drawer.drawPolygon( hexagon_static );
             drawer.drawPolygon( oct_static );
 
         visualise.graphics.lineStyle( 2, 0x0077AA );
 
-            // drawer.drawCircle( player_collider );
-            drawer.drawPolygon( player_collider );
+            if( Std.is(player_collider, Circle) )
+                drawer.drawCircle( cast (player_collider, Circle) );
+            else
+                drawer.drawPolygon( cast(player_collider, Polygon) );
 
             //draw where the player is right now
         // visualise.graphics.lineStyle( 1, 0xAA7700 );
