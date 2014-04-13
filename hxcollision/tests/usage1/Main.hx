@@ -190,7 +190,7 @@ class Main extends Sprite {
 
         if(!mouse_is_hexagon) {
             
-            mouse_collide = Collision.testShapes( circle_mouse, oct_static );
+            mouse_collide = Collision.testShapes( oct_static, circle_mouse );
 
             if(mouse_collide != null) {
                 mouse_color = collide_color5;
@@ -199,7 +199,7 @@ class Main extends Sprite {
 
         } else { //mouse_is_hexagon
 
-            mouse_collide = Collision.testShapes( hexagon_mouse, oct_static );
+            mouse_collide = Collision.testShapes( oct_static, hexagon_mouse );
 
             if(mouse_collide != null) {
                 mouse_color = collide_color5;
@@ -209,6 +209,7 @@ class Main extends Sprite {
         } //!mouse_is_hexagon else
 
 //Test the static box
+
         if(!mouse_is_hexagon) {
             
             mouse_collide = Collision.testShapes( box_static, circle_mouse );
@@ -231,16 +232,24 @@ class Main extends Sprite {
             
 //Test mouse box and circle
 
-        mouse_collide = Collision.testShapes( circle_mouse, hexagon_mouse );
+        if(mouse_is_hexagon) {
 
-        if(mouse_collide != null) {
-            mouse_color = collide_color3;
-            if(mouse_is_hexagon) {
+            mouse_collide = Collision.testShapes( circle_mouse, hexagon_mouse );
+
+            if(mouse_collide != null) {
+                mouse_color = collide_color3;
                 draw_collision_response(new Vector2D(circle_mouse.x, circle_mouse.y), mouse_collide);
-            } else {
+            }
+
+        } else { //mouse_is_hexagon
+
+            mouse_collide = Collision.testShapes( hexagon_mouse, circle_mouse );
+
+            if(mouse_collide != null) {
+                mouse_color = collide_color3;
                 draw_collision_response(new Vector2D(hexagon_mouse.x, hexagon_mouse.y), mouse_collide);
             }
-        }
+        } //!mouse_is_hexagon else
 
 //Test the line and all the shapes
 

@@ -381,9 +381,9 @@
                 var difference : Float = totalRadius - Math.sqrt(distanceSquared); //find the difference. Square roots are needed here.
                 var collisionData:CollisionData = new CollisionData(); //new CollisionData class to hold all the data for this collision
                 collisionData.shape1 = circle1;
-                collisionData.unitVector = new Vector2D(circle2.x - circle1.x, circle2.y - circle1.y);
+                collisionData.unitVector = new Vector2D(circle1.x - circle2.x, circle1.y - circle2.y);
                 collisionData.unitVector.normalize();
-                collisionData.separation = new Vector2D(-collisionData.unitVector.x * difference, -collisionData.unitVector.y * difference); //find the movement needed to separate the circles
+                collisionData.separation = new Vector2D(collisionData.unitVector.x * difference, collisionData.unitVector.y * difference); //find the movement needed to separate the circles
                 collisionData.overlap = collisionData.separation.length;
                 return collisionData;
             }
