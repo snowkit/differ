@@ -32,12 +32,23 @@
 
         public static function testShapes( shape1:Shape, shape2:Shape ): CollisionData {
 
+            var result1:CollisionData;
+            var result2:CollisionData;
+
             if( Std.is(shape1, Circle) && Std.is(shape2, Circle) ) {
                 return checkCircles(cast(shape1,Circle), cast(shape2,Circle));
             }
 
             if( Std.is(shape1,Polygon) && Std.is(shape2,Polygon) ) {
-                return checkPolygons(cast(shape1,Polygon), cast(shape2,Polygon));
+                result1 = checkPolygons(cast(shape1,Polygon), cast(shape2,Polygon), false);
+                if(result1 == null) return null; //early exit if there's no collision
+                result2 = checkPolygons(cast(shape2,Polygon), cast(shape1,Polygon), true);
+                if(result2 == null) return null; //early exit if there's no collision
+
+                    //take the closest overlap
+                (Math.abs(result1.overlap) < Math.abs(result2.overlap)) ?
+                    return result1:
+                    return result2;
             }
 
             if(Std.is(shape1,Polygon)) {
@@ -188,6 +199,7 @@
             return points;
 
         } //bresenhamLine
+
 
         public static function pointInPoly(point:Vector2D, poly:Polygon):Bool {
 
@@ -392,7 +404,7 @@
             return null; //no collision, return null
         }
         
-        private static function checkPolygons(polygon1:Polygon, polygon2:Polygon):CollisionData {
+        private static function checkPolygons(polygon1:Polygon, polygon2:Polygon, flip:Bool):CollisionData {
             var test1 : Float; // numbers to use to test for overlap
             var test2 : Float;
             var testNum : Float; // number to test if its the new max/min
@@ -460,7 +472,9 @@
                 if(test1 > 0 || test2 > 0) { //if they are greater than 0, there is a gap
                     return null; //just quit
                 }
+
                 var distance : Float = -(max2 - min1);
+                if(flip) distance *= -1;
                 if(Math.abs(distance) < shortestDistance) {
                     collisionData.unitVector = axis;
                     collisionData.overlap = distance;
@@ -469,8 +483,9 @@
             }
             
             //if you're here, there is a collision
-            collisionData.shape1 = polygon1;
-            collisionData.shape2 = polygon2;
+
+            collisionData.shape1 = if(flip) polygon2 else polygon1;
+            collisionData.shape2 = if(flip) polygon1 else polygon2;
             collisionData.separation = new Vector2D(-collisionData.unitVector.x * collisionData.overlap,
                                                     -collisionData.unitVector.y * collisionData.overlap); //return the separation, apply it to a polygon to separate the two shapes.
             return collisionData;

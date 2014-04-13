@@ -18,6 +18,8 @@ class Main extends Sprite {
         //For viewing the collision states
     var drawer : OpenFLDrawer;
     var visualise : Sprite;
+    var collide_color : Int = 0x11CC88;
+    var separation_color : Int = 0xF2903A;
 
         //A few static shapes to test against
     var box_static : Polygon;
@@ -49,7 +51,6 @@ class Main extends Sprite {
             //add to the stage so we can see it
         addChild( visualise );
 
-
             //Create the collider shapes
         box_static = Polygon.rectangle( 0, 0, 50, 150 );
         oct_static = Polygon.create( 120,120, 8,60 );
@@ -59,8 +60,7 @@ class Main extends Sprite {
         static_list = [box_static, oct_static, circle_static, hexagon_static];
 
             //player
-        // player_collider = new Circle( 250, 250, 15 );
-        player_collider = Polygon.create( 250, 250, 12, 15 );
+        player_collider = new Circle( 250, 250, 15 );
 
             //remember the order of operations is important
         box_static.rotation = 45;
@@ -101,7 +101,7 @@ class Main extends Sprite {
                 else
                     player_collider = Polygon.create( player_collider.x,
                                                       player_collider.y,
-                                                      15 );
+                                                      7, 15 );
                 
         }
     } //keydown
@@ -115,7 +115,6 @@ class Main extends Sprite {
         }
     } //keyup
 
-
     var end_dt : Float = 0;
     var dt : Float = 0;
 
@@ -124,12 +123,11 @@ class Main extends Sprite {
         dt = haxe.Timer.stamp() - end_dt;
         end_dt = haxe.Timer.stamp();
 
-
             //start clean each update
         visualise.graphics.clear();
 
 //Update player velocity and input
-    
+
         if(left)    { player_vel.x = -move_speed; }
         if(right)   { player_vel.x = move_speed; }
         if(up)      { player_vel.y = -move_speed; }
@@ -186,7 +184,6 @@ class Main extends Sprite {
         
         player_vel.x *= 0.75;
         player_vel.y *= 0.75;
-
 
         if(Math.abs(player_vel.x) < 0.1) { player_vel.x = 0; }
         if(Math.abs(player_vel.y) < 0.1) { player_vel.y = 0; }
