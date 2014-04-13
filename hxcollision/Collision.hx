@@ -37,18 +37,17 @@
             }
 
             if( Std.is(shape1,Polygon) && Std.is(shape2,Polygon) ) {
-                if(checkPolygons(cast(shape2,Polygon), cast(shape1,Polygon)) != null) {
-                    return checkPolygons(cast(shape1,Polygon), cast(shape2,Polygon));
-                }
+                return checkPolygons(cast(shape1,Polygon), cast(shape2,Polygon));
             }
 
-            if(Std.is(shape1,Circle)) {
-                return checkCircleVsPolygon(cast(shape1,Circle), cast(shape2,Polygon));
+            if(Std.is(shape1,Polygon)) {
+                return checkPolygonVsCircle(cast(shape1,Polygon), cast(shape2,Circle));
             }
 
-            if(Std.is(shape2,Circle)) {
-                return checkCircleVsPolygon(cast(shape2,Circle), cast(shape1,Polygon));
+            if(Std.is(shape2,Polygon)) {
+                return checkPolygonVsCircle(cast(shape2,Polygon), cast(shape1,Circle));
             }
+
             return null;
         }
 
@@ -219,7 +218,7 @@
 
         } //point in poly     
 
-        private static function checkCircleVsPolygon(circle:Circle, polygon:Polygon):CollisionData {
+        private static function checkPolygonVsCircle(polygon:Polygon, circle:Circle):CollisionData {
 
             var test1 : Float; //numbers for testing max/mins
             var test2 : Float;
