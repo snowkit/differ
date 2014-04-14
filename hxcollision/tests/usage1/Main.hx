@@ -298,7 +298,8 @@ class Main extends Sprite {
 
 //Test the line and all the shapes
 
-        line_collide = Collision.rayCollision( line_start, line_end, [ box_static, hexagon_mouse, circle_static, circle_mouse, oct_static ]);
+        line_collide = Collision.rayCollision( line_start, line_end, [ box_static, hexagon_mouse, circle_static, circle_mouse,
+                                                                       oct_static, triangle_static, custom_static ]);
 
 //Now draw them
 
