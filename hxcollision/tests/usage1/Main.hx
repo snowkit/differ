@@ -33,6 +33,8 @@ class Main extends Sprite {
     var circle_static : Circle;
     var box_static : Polygon;
     var oct_static : Polygon;
+    var triangle_static : Polygon;
+    var custom_static : Polygon;
 
         //A circle that can follow the mouse
     var circle_mouse : Circle;
@@ -77,6 +79,13 @@ class Main extends Sprite {
         circle_static = new Circle( 300, 200, 50 );        
         box_static = Polygon.rectangle( 0, 0, 50, 150 );
         oct_static = Polygon.create( 70,90, 8,60 );
+        triangle_static = Polygon.triangle( 400,300, 60 );
+        custom_static = new Polygon(325, 400, [new Vector2D(-100, 0),
+                                               new Vector2D(-75, -50),
+                                               new Vector2D(75, -50),
+                                               new Vector2D(100, 0),
+                                               new Vector2D(75, 50),
+                                               new Vector2D(-75, 50)]);
             //and the noes that will follow the mouse
         circle_mouse = new Circle( 250, 250, 30 );
         hexagon_mouse = Polygon.create( 260,100, 6, 50 );
@@ -206,8 +215,10 @@ class Main extends Sprite {
         var circle_color : Int = normal_color;
         var circle2_color : Int = normal_color;
         var box_color : Int = normal_color;
+        var triangle_color : Int = normal_color;
         var hexa_color : Int = normal_color;
         var oct_color : Int = normal_color;
+        var custom_color : Int = normal_color;
 
             //start clean each update
         visualise.graphics.clear();
@@ -239,6 +250,26 @@ class Main extends Sprite {
         if(mouse_collide != null) {
             mouse_color = collide_color;
             box_color = collide_color;
+            draw_collision_response(mouse_collide);
+        }
+
+//Test the static triangle
+
+        mouse_collide = Collision.testShapes( shape_mouse, triangle_static );
+
+        if(mouse_collide != null) {
+            mouse_color = collide_color;
+            triangle_color = collide_color;
+            draw_collision_response(mouse_collide);
+        }
+
+//Test the static custom polygon
+
+        mouse_collide = Collision.testShapes( shape_mouse, custom_static );
+
+        if(mouse_collide != null) {
+            mouse_color = collide_color;
+            custom_color = collide_color;
             draw_collision_response(mouse_collide);
         }
 
@@ -277,10 +308,14 @@ class Main extends Sprite {
             drawer.drawCircle( circle_mouse );
         visualise.graphics.lineStyle( 2, box_color );
             drawer.drawPolygon( box_static );
+        visualise.graphics.lineStyle( 2, triangle_color );
+            drawer.drawPolygon( triangle_static );
         visualise.graphics.lineStyle( 2, hexa_color );
             drawer.drawPolygon( hexagon_mouse );
         visualise.graphics.lineStyle( 2, oct_color );
             drawer.drawPolygon( oct_static );
+        visualise.graphics.lineStyle( 2, custom_color );
+            drawer.drawPolygon( custom_static );
 
         if(mouse_is_hexagon) {
             visualise.graphics.lineStyle( 2, mouse_color );

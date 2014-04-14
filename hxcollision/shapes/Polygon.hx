@@ -25,8 +25,6 @@ package hxcollision.shapes;
 			super.destroy();
 		}
 		
-
-		
 		public static function create( x:Float, y:Float, sides:Int, radius:Float=100):Polygon {
 			if(sides < 3) {
 				throw 'Polygon - Needs at least 3 sides';
@@ -72,5 +70,9 @@ package hxcollision.shapes;
 		
 		public static function square(x:Float, y:Float, width:Float, centered:Bool = true):Polygon {
 			return rectangle(x, y, width, width, centered);
+		}
+
+		public static function triangle(x:Float, y:Float, radius:Float):Polygon {
+			return create(x, y, 3, radius);
 		}
 	}

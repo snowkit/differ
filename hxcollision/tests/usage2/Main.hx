@@ -26,6 +26,7 @@ class Main extends Sprite {
     var oct_static : Polygon;
     var circle_static : Circle;
     var hexagon_static : Polygon;
+    var triangle_static : Polygon;
 
     var static_list : Array<Shape>;
 
@@ -54,10 +55,11 @@ class Main extends Sprite {
             //Create the collider shapes
         box_static = Polygon.rectangle( 0, 0, 50, 150 );
         oct_static = Polygon.create( 120,120, 8,60 );
-        circle_static = new Circle( 350, 280, 50 );        
+        circle_static = new Circle( 375, 280, 50 );        
         hexagon_static = Polygon.create( 290,100, 6, 50 );
+        triangle_static = Polygon.triangle( 300,400, 60 );
 
-        static_list = [box_static, oct_static, circle_static, hexagon_static];
+        static_list = [box_static, oct_static, circle_static, hexagon_static, triangle_static];
 
             //player
         player_collider = new Circle( 250, 250, 15 );
@@ -182,6 +184,7 @@ class Main extends Sprite {
             drawer.drawPolygon( box_static );
             drawer.drawPolygon( hexagon_static );
             drawer.drawPolygon( oct_static );
+            drawer.drawPolygon( triangle_static );
         visualise.graphics.endFill();
 
 
