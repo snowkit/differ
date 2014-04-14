@@ -20,9 +20,7 @@ class ShapeDrawer {
         if(Std.is(shape, Polygon)) {
             drawPolygon(cast(shape, Polygon));
             return;
-        }
-
-        if(Std.is(shape, Circle)) {
+        } else { //circle
             drawCircle(cast(shape, Circle));
             return;
         }
