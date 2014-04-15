@@ -246,6 +246,7 @@
             var vectors:Array<Vector2D>;
             var shortestDistance : Float = 0x3FFFFFFF;
             var collisionData:CollisionData = new CollisionData();
+            var distMin : Float;
 
             var distance : Float = 0xFFFFFFFF;
             var testDistance : Float = 0x3FFFFFFF;
@@ -253,7 +254,7 @@
             
             // find offset
             vectorOffset = new Vector2D(-circle.x,-circle.y);
-            vectors = polygon.transformedVertices.copy(); 
+            vectors = polygon.transformedVertices.copy();
             
             //adds some padding to make it more accurate
             if(vectors.length == 2) {
@@ -312,7 +313,16 @@
             if(test1 > 0 || test2 > 0) { //if either test is greater than 0, there is a gap, we can give up now.
                 return null;
             }
-            
+
+            // circle distance check
+            distMin = -(max2 - min1);
+            if(flip) distMin *= -1;
+            if(Math.abs(distMin) < shortestDistance) {
+                collisionData.unitVector = normalAxis;
+                collisionData.overlap = distMin;
+                shortestDistance = Math.abs(distMin);
+            }
+
             // find the normal axis for each point and project
             for(i in 0 ... vectors.length) {
                 normalAxis = findNormalAxis(vectors, i);
@@ -352,12 +362,12 @@
                     
                 }
                 
-                var distance : Float = -(max2 - min1);
-                if(flip) distance *= -1;
-                if(Math.abs(distance) < shortestDistance) {
+                distMin = -(max2 - min1);
+                if(flip) distMin *= -1;
+                if(Math.abs(distMin) < shortestDistance) {
                     collisionData.unitVector = normalAxis;
-                    collisionData.overlap = distance;
-                    shortestDistance = Math.abs(distance);
+                    collisionData.overlap = distMin;
+                    shortestDistance = Math.abs(distMin);
                 }
 
             }
@@ -460,12 +470,12 @@
                     return null; //just quit
                 }
 
-                var distance : Float = -(max2 - min1);
-                if(flip) distance *= -1;
-                if(Math.abs(distance) < shortestDistance) {
+                var distMin : Float = -(max2 - min1);
+                if(flip) distMin *= -1;
+                if(Math.abs(distMin) < shortestDistance) {
                     collisionData.unitVector = axis;
-                    collisionData.overlap = distance;
-                    shortestDistance = Math.abs(distance);
+                    collisionData.overlap = distMin;
+                    shortestDistance = Math.abs(distMin);
                 }
             }
             
