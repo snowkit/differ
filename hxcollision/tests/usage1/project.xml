@@ -22,16 +22,11 @@
 
   <classpath name="Source" />
 
-  <assets path="Assets" rename="assets" include="*" exclude="nme.svg" />  
+  <assets path="Assets" rename="assets" include="*" exclude="openfl.svg" />  
 
   <haxelib name="openfl" />
   <haxelib name="hxcollision" />  
 
-  <ndll name="std" />
-  <ndll name="regexp" />
-  <ndll name="zlib" />
-  <ndll name="nme" haxelib="nme" />
-
-  <icon name="Assets/nme.svg" />
+  <icon name="Assets/openfl.svg" />
 
 </project>
