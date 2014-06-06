@@ -2,7 +2,9 @@
 
 ##Demo
 
-- [current demo](http://underscorediscovery.com/sven/hxcollision/wip)
+- [usage demo 1](http://underscorediscovery.com/sven/hxcollision/usage1)
+- [usage demo 2](http://underscorediscovery.com/sven/hxcollision/usage2)
+- [usage demo 3](http://underscorediscovery.com/sven/hxcollision/usage3)
 
 ## Facts
 
@@ -27,7 +29,18 @@
 
 `haxelib install hxcollision`
 
+or 
+
+`haxelib git hxcollision https://github.com/underscorediscovery/hxcollision.git`
+
 or git clone the repo, from here.
+
+## Building the usage examples
+
+To build the usage examples in the `test/` folder :
+
+- install http://openfl.org
+- `lime test flash` (or any openfl target)
 
 #Recent changes
 
