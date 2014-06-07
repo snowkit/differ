@@ -2,7 +2,7 @@
 	"name": "hxcollision",
 	"url": "https://github.com/underscorediscovery/hxcollision",
 	"license": "MIT",
-	"tags": ["hxcollision", "collision", "SAT", "collide", "Separating axis theorom"],
+	"tags": ["hxcollision", "collision", "SAT", "collide", "separating", "axis", "theorom"],
 	"description": "Separating Axis Theorom based collisions for Polygons and Circles. Not specific to any library, but includes tests and drawing classes for OpenFL. Initially Ported from rocketmandevelopment as3 classes.",
 	"version": "1.1.0",
 	"releasenote": " - Added documentation and clean up of code   \n- Renamed `Vector2D` to `Vector` and cleaned up code to ONLY what is needed. This class is meant to be as small and easy to integrate as possible.   \n - Refactored for easier maintaining in embedded libraries    \n - Renamed `BaseShape` to `Shape`, continued refactoring   \n- Renamed `Collision.testShapes` to `Collision.test`   \n- Renamed `Collision.testShapeList` to `Collision.testShapes`   \n- Renamed `Collision.rayCollision` to `Collision.ray`   \n- Fixed various bugs in collisions   \n- Fixed `separation`/`unitVector` behaviour (signs bugs)   \n- Fixed bug with `Polygon`/`Polygon` collisions not returning best vectors    \n- Fixed bug where you couldn't `beginFill` using `OpenFLDrawer`   \n- Fixed `collisionData` in `CheckCircles`, shape2 wasn't assigned.   \n- `separation`/`unitVector` is now bound to shape1   \n- Added 2 samples (usage2 & usage3)   \n- Added `drawVector` in `OpenFLDrawer` showing vector direction   \n- Added `drawShape` in `ShapeDrawer`, will cast proper types and call appropriate drawing functions.",
