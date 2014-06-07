@@ -20,9 +20,9 @@ class Main extends Sprite {
     var visualise : Sprite;
 
         //for viewing when collisions happen, we change colors
-    var normal_color : Int = 0x757161;
-    var collide_color : Int = 0x6dc2ca;
-    var separation_color : Int = 0xd27d2c;
+    var normal_color : Int = 0x72846c;
+    var collide_color : Int = 0x62ea93;
+    var separation_color : Int = 0xff4b03;
 
         //the mouse position
     var mouse_pos : Point;
@@ -103,15 +103,15 @@ class Main extends Sprite {
 
             //caption
         var inputFormat = new flash.text.TextFormat();
-        inputFormat.font = "Helvetica, sans-serif";
-        inputFormat.color = 0xd04648;
+            inputFormat.font = "Helvetica, sans-serif";
+            inputFormat.color = separation_color;
         var textField = new flash.text.TextField();
-        textField.defaultTextFormat = inputFormat;
-        textField.autoSize = flash.text.TextFieldAutoSize.LEFT;
-        textField.mouseEnabled = false;
-        textField.width = stage.stageWidth;
-        textField.text = " CLICK TO SWITCH MOUSE SHAPE";
-        stage.addChild(textField);
+            textField.defaultTextFormat = inputFormat;
+            textField.autoSize = flash.text.TextFieldAutoSize.LEFT;
+            textField.mouseEnabled = false;
+            textField.width = stage.stageWidth;
+            textField.text = " CLICK TO SWITCH MOUSE SHAPE";
+            stage.addChild(textField);
 
             //Listen for the changes in mouse movement
         stage.addEventListener( flash.events.MouseEvent.MOUSE_MOVE, mousemove );
@@ -147,20 +147,11 @@ class Main extends Sprite {
 
     public function update_line() {
 
-            //move the line up or down based on direction
-        line_y += 50 * line_dir * dt;
+        line_start.x = circle_mouse.x;
+        line_start.y = circle_mouse.y;
 
-            //going down and hit the bottom?
-        if(line_dir == 1 && line_y >= 500) {    
-            line_dir = -1;
-        } else  //going up and hit the top?
-        if(line_dir == -1 && line_y <= 0) {
-            line_dir = 1;
-        }
-
-
-        line_start.y = line_y;
-        line_end.y = line_y;
+        line_end.x = hexagon_mouse.x;
+        line_end.y = hexagon_mouse.y;
 
     } //update_line
 
@@ -298,8 +289,8 @@ class Main extends Sprite {
 
 //Test the line and all the shapes
 
-        line_collide = Collision.ray( line_start, line_end, [ box_static, hexagon_mouse, circle_static, circle_mouse,
-                                                                       oct_static, triangle_static, custom_static ]);
+        line_collide = Collision.ray( line_start, line_end, 
+                [ box_static, circle_static, oct_static, triangle_static, custom_static ]);
 
 //Now draw them
 

@@ -18,8 +18,11 @@ class Main extends Sprite {
         //For viewing the collision states
     var drawer : OpenFLDrawer;
     var visualise : Sprite;
-    var collide_color : Int = 0x11CC88;
-    var separation_color : Int = 0xF2903A;
+
+    var collide_color : Int = 0x62ea93;
+    var separation_color : Int = 0xff4b03;
+    var normal_color : Int = 0x72846c;
+    var player_color : Int = 0x72846c;
 
         //A few static shapes to test against
     var box_static : Polygon;
@@ -73,16 +76,17 @@ class Main extends Sprite {
 
             //caption
         var inputFormat = new flash.text.TextFormat();
-        inputFormat.font = "Helvetica, sans-serif";
-        inputFormat.color = 0xd04648;
+            inputFormat.font = "Helvetica, sans-serif";
+            inputFormat.color = separation_color;
         var textField = new flash.text.TextField();
-        textField.defaultTextFormat = inputFormat;
-        textField.autoSize = flash.text.TextFieldAutoSize.LEFT;
-        textField.mouseEnabled = false;
-        textField.width = stage.stageWidth;
-        textField.text = "[ENTER] TO SWITCH PLAYER SHAPE\n" +
-                         "[SPACE] TO RESET PLAYER POSITION\n" +
-                         "[ARROWS] TO MOVE THE PLAYER";
+            textField.defaultTextFormat = inputFormat;
+            textField.autoSize = flash.text.TextFieldAutoSize.LEFT;
+            textField.mouseEnabled = false;
+            textField.width = stage.stageWidth;
+            textField.text = "[ENTER] TO SWITCH PLAYER SHAPE\n" +
+                             "[SPACE] TO RESET PLAYER POSITION\n" +
+                             "[ARROWS] TO MOVE THE PLAYER";
+
         stage.addChild(textField);
 
             //Listen for the changes in mouse movement
@@ -164,10 +168,14 @@ class Main extends Sprite {
         next_pos_x += player_vel.x;
         next_pos_y += player_vel.y;
 
+            //start at normal color
+        player_color = separation_color;
+
             //now check for collisions against the static items
         var results = Collision.testShapes(player_collider, static_list);
             //handle any potential collisions by separating the items
         for(_result in results) {
+            player_color = collide_color;
             next_pos_x += _result.separation.x;
             next_pos_y += _result.separation.y;
         }
@@ -179,18 +187,20 @@ class Main extends Sprite {
 
 //Draw everything
 
-        visualise.graphics.beginFill(0x6daa2c);
+        visualise.graphics.lineStyle( 1, normal_color );
+
             drawer.drawCircle( circle_static );
             drawer.drawPolygon( box_static );
             drawer.drawPolygon( hexagon_static );
             drawer.drawPolygon( oct_static );
             drawer.drawPolygon( triangle_static );
-        visualise.graphics.endFill();
+
+        visualise.graphics.lineStyle();
 
 
             //draw where the player is right now
 
-        visualise.graphics.beginFill(0xd27d2c);
+        visualise.graphics.beginFill(player_color);
             if( Std.is(player_collider, Circle) )
                 drawer.drawCircle( cast (player_collider, Circle) );
             else

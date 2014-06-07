@@ -61,14 +61,14 @@ class Main extends Sprite {
 
             //caption
         var inputFormat = new flash.text.TextFormat();
-        inputFormat.font = "Helvetica, sans-serif";
-        inputFormat.color = 0xd04648;
+            inputFormat.font = "Helvetica, sans-serif";
+            inputFormat.color = 0xff4b03;
         caption = new flash.text.TextField();
-        caption.defaultTextFormat = inputFormat;
-        caption.autoSize = flash.text.TextFieldAutoSize.LEFT;
-        caption.mouseEnabled = false;
-        caption.width = stage.stageWidth;
-        caption.text = "COLLISION RESOLUTION STRESS TEST";
+            caption.defaultTextFormat = inputFormat;
+            caption.autoSize = flash.text.TextFieldAutoSize.LEFT;
+            caption.mouseEnabled = false;
+            caption.width = stage.stageWidth;
+            caption.text = "COLLISION RESOLUTION STRESS TEST";
         stage.addChild( caption );
 
             //And finally, listen for updates.
@@ -163,7 +163,7 @@ class Main extends Sprite {
         visualise.graphics.clear();
 
             //shapes theming
-        visualise.graphics.lineStyle( 2, 0x757161 );
+        visualise.graphics.lineStyle( 2, 0x72846c );
 
             //draw all the shapes
         for(shape in allshapes_list) {
