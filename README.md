@@ -84,7 +84,7 @@ To build the usage examples in the `test/` folder :
 
 #Recent changes
 
-**1.1 (Latest repo) **
+**1.1 (Latest repo)**
  - Added documentation and clean up of code
  - Renamed `BaseShape` to `Shape`, continued refactoring
  - Renamed `Collision.testShapes` to `Collision.test`
