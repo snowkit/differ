@@ -1,6 +1,5 @@
 package hxcollision.shapes;
 
-import hxcollision.math.Vector2D;
 import hxcollision.shapes.Shape;
 
 /** A circle collision shape */

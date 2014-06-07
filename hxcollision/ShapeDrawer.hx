@@ -1,9 +1,10 @@
 package hxcollision;
 
-import hxcollision.math.Vector2D;
 import hxcollision.shapes.Circle;
 import hxcollision.shapes.Polygon;
 import hxcollision.shapes.Shape;
+
+import hxcollision.math.Vector;
 
 /** To implement your own debug drawing class, you only need to override drawLine function and implement it
     the rest is handled internally. You can override specifics if you want, but it's not required */
@@ -17,7 +18,7 @@ class ShapeDrawer {
     } //new
         
         /** Draw a line between p0 and p1. Implement this function at minimum in custom drawing handlers */
-    public function drawLine( p0:Vector2D, p1:Vector2D, ?startPoint:Bool = true ) {
+    public function drawLine( p0:Vector, p1:Vector, ?startPoint:Bool = true ) {
         
     } //drawLine
 
@@ -37,14 +38,14 @@ class ShapeDrawer {
         /** Draw a `Polygon` */
     public function drawPolygon( poly:Polygon ) {
 
-        var v : Array<Vector2D> = poly.transformedVertices.copy();
+        var v : Array<Vector> = poly.transformedVertices.copy();
         
         drawVertList( v );
 
     } //drawPolygon
-        
-        /** Draw a `Vector2D` (with magnitude) */
-    public function drawVector( v:Vector2D, start:Vector2D, ?startPoint:Bool = true ) {
+
+        /** Draw a `Vector` (with magnitude) */
+    public function drawVector( v:Vector, start:Vector, ?startPoint:Bool = true ) {
         
         drawLine( start, v );
 
@@ -67,14 +68,14 @@ class ShapeDrawer {
         var x : Float = circle.transformedRadius; 
         var y : Float = 0; 
         
-        var _verts : Array<Vector2D> = [];
+        var _verts : Array<Vector> = [];
 
         for( i in 0 ... _steps ) {
 
             var __x = x + circle.x;
             var __y = y + circle.y;
 
-            _verts.push( new Vector2D(__x,__y));
+            _verts.push( new Vector(__x,__y));
             
                 var tx = -y; 
                 var ty = x; 
@@ -97,7 +98,7 @@ class ShapeDrawer {
 
 
         /** Draw a list of points as lines */
-    function drawVertList( _verts : Array<Vector2D> ) {
+    function drawVertList( _verts : Array<Vector> ) {
 
         var _count : Int = _verts.length;
         if(_count < 3) {

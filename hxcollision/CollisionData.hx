@@ -1,26 +1,26 @@
-﻿package hxcollision;
+package hxcollision;
 
 import hxcollision.shapes.Shape;
-import hxcollision.math.Vector2D;
+import hxcollision.math.Vector;
 
 class CollisionData {
 
         /** the overlap amount */
     public var overlap : Float = 0; 
         /** a vector that when subtracted to shape 1 will separate it from shape 2 */
-    public var separation : Vector2D;
+    public var separation : Vector;
     
         /** the first shape */
     public var shape1 : Shape;
         /** the second shape */
     public var shape2 : Shape;
         /** unit vector on the axis of the collision (the normal of the face that was collided with) */
-    public var unitVector : Vector2D; 
+    public var unitVector : Vector; 
     
     @:noCompletion public function new() {
 
-        separation = new Vector2D(); 
-        unitVector = new Vector2D();
+        separation = new Vector(); 
+        unitVector = new Vector();
         
     } //new
 

@@ -1,13 +1,13 @@
 package hxcollision.shapes;
 
-import hxcollision.math.Vector2D;
+import hxcollision.math.Vector;
 import hxcollision.shapes.Shape;
 
 /** A polygon collision shape */
 class Polygon extends Shape {
     
         /** Create a new polygon with a given set of vertices at position x,y. */
-    public function new( x:Float, y:Float, vertices:Array<Vector2D> ) {
+    public function new( x:Float, y:Float, vertices:Array<Vector> ) {
 
         super( x,y );
         
@@ -40,12 +40,12 @@ class Polygon extends Shape {
 
         var rotation:Float = (Math.PI * 2) / sides;
         var angle:Float;
-        var vector:Vector2D;
-        var vertices:Array<Vector2D> = new Array<Vector2D>();
+        var vector:Vector;
+        var vertices:Array<Vector> = new Array<Vector>();
 
         for(i in 0 ... sides) {
             angle = (i * rotation) + ((Math.PI - rotation) * 0.5);
-            vector = new Vector2D();
+            vector = new Vector();
             vector.x = Math.cos(angle) * radius;
             vector.y = Math.sin(angle) * radius;
             vertices.push(vector);
@@ -59,21 +59,21 @@ class Polygon extends Shape {
             Centered by default. Returns a ready made `Polygon` collision `Shape` */    
     public static function rectangle(x:Float, y:Float, width:Float, height:Float, centered:Bool = true):Polygon {
         
-        var vertices:Array<Vector2D> = new Array<Vector2D>();
+        var vertices:Array<Vector> = new Array<Vector>();
 
         if(centered) {
 
-            vertices.push( new Vector2D( -width / 2, -height / 2) );
-            vertices.push( new Vector2D(  width / 2, -height / 2) );
-            vertices.push( new Vector2D(  width / 2,  height / 2) );
-            vertices.push( new Vector2D( -width / 2,  height / 2) );
+            vertices.push( new Vector( -width / 2, -height / 2) );
+            vertices.push( new Vector(  width / 2, -height / 2) );
+            vertices.push( new Vector(  width / 2,  height / 2) );
+            vertices.push( new Vector( -width / 2,  height / 2) );
 
         } else {
 
-            vertices.push( new Vector2D( 0, 0 ) );
-            vertices.push( new Vector2D( width, 0 ) );
-            vertices.push( new Vector2D( width, height) );
-            vertices.push( new Vector2D( 0, height) );
+            vertices.push( new Vector( 0, 0 ) );
+            vertices.push( new Vector( width, 0 ) );
+            vertices.push( new Vector( width, height) );
+            vertices.push( new Vector( 0, height) );
 
         }
 

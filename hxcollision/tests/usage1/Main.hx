@@ -5,7 +5,7 @@ import flash.events.Event;
 import flash.geom.Point;
 import flash.Lib;
 
-import hxcollision.math.Vector2D;
+import hxcollision.math.Vector;
 import hxcollision.shapes.Shape;
 import hxcollision.shapes.Circle;
 import hxcollision.shapes.Polygon;
@@ -44,8 +44,8 @@ class Main extends Sprite {
     var shape_mouse : Shape;
 
         //A line to raycase across the screen
-    var line_start : Vector2D;
-    var line_end : Vector2D;
+    var line_start : Vector;
+    var line_end : Vector;
         //For movint the line, the current y position and movement direction
     var line_y : Float = 0;
     var line_dir : Int = 1;
@@ -80,12 +80,12 @@ class Main extends Sprite {
         box_static = Polygon.rectangle( 0, 0, 50, 150 );
         oct_static = Polygon.create( 70,90, 8,60 );
         triangle_static = Polygon.triangle( 400,300, 60 );
-        custom_static = new Polygon(325, 400, [new Vector2D(-100, 0),
-                                               new Vector2D(-75, -50),
-                                               new Vector2D(75, -50),
-                                               new Vector2D(100, 0),
-                                               new Vector2D(75, 50),
-                                               new Vector2D(-75, 50)]);
+        custom_static = new Polygon(325, 400, [new Vector(-100, 0),
+                                               new Vector(-75, -50),
+                                               new Vector(75, -50),
+                                               new Vector(100, 0),
+                                               new Vector(75, 50),
+                                               new Vector(-75, 50)]);
             //and the noes that will follow the mouse
         circle_mouse = new Circle( 250, 250, 30 );
         hexagon_mouse = Polygon.create( 260,100, 6, 50 );
@@ -98,8 +98,8 @@ class Main extends Sprite {
 
             //the horizontal line for the raycast tests, 
             //starting at the top of the screen
-        line_start = new Vector2D(0,0);
-        line_end = new Vector2D(500,0);
+        line_start = new Vector(0,0);
+        line_end = new Vector(500,0);
 
             //caption
         var inputFormat = new flash.text.TextFormat();
@@ -166,36 +166,36 @@ class Main extends Sprite {
 
     public function draw_collision_response( collision_response:CollisionData ) {
 
-        var shape1_origin : Vector2D;
-        var shape1_unit_vector : Vector2D;
-        var shape1_target : Vector2D;
-        var shape1_separation : Vector2D;
+        var shape1_origin : Vector;
+        var shape1_unit_vector : Vector;
+        var shape1_target : Vector;
+        var shape1_separation : Vector;
 
-        var shape2_origin : Vector2D;
-        var shape2_unit_vector : Vector2D;
-        var shape2_target : Vector2D;
-        var shape2_separation : Vector2D;
+        var shape2_origin : Vector;
+        var shape2_unit_vector : Vector;
+        var shape2_target : Vector;
+        var shape2_separation : Vector;
 
             //draw the unit vector pointing to the colliding shape
         visualise.graphics.lineStyle( 1, collide_color );
             shape1_origin = collision_response.shape1.position;
             shape1_unit_vector = collision_response.unitVector;
-            shape1_target = new Vector2D( shape1_origin.x+(shape1_unit_vector.x*20), shape1_origin.y+(shape1_unit_vector.y*20) );
+            shape1_target = new Vector( shape1_origin.x+(shape1_unit_vector.x*20), shape1_origin.y+(shape1_unit_vector.y*20) );
             drawer.drawVector( shape1_origin, shape1_target );
 
             shape2_origin = collision_response.shape2.position;
-            shape2_unit_vector = shape1_unit_vector.reverse();
-            shape2_target = new Vector2D( shape2_origin.x+(shape2_unit_vector.x*20), shape2_origin.y+(shape2_unit_vector.y*20) );
+            shape2_unit_vector = shape1_unit_vector.invert();
+            shape2_target = new Vector( shape2_origin.x+(shape2_unit_vector.x*20), shape2_origin.y+(shape2_unit_vector.y*20) );
             drawer.drawVector( shape2_origin, shape2_target );
 
             //draw the separation vector pointing to the opposite direction of the colliding shape
         visualise.graphics.lineStyle( 1, separation_color );
             shape1_separation = collision_response.separation;
-            shape1_target = new Vector2D( shape1_origin.x+(shape1_separation.x), shape1_origin.y+(shape1_separation.y) );
+            shape1_target = new Vector( shape1_origin.x+(shape1_separation.x), shape1_origin.y+(shape1_separation.y) );
             drawer.drawVector( shape1_origin, shape1_target );
 
-            shape2_separation = shape1_separation.reverse();
-            shape2_target = new Vector2D( shape2_origin.x+(shape2_separation.x), shape2_origin.y+(shape2_separation.y) );
+            shape2_separation = shape1_separation.invert();
+            shape2_target = new Vector( shape2_origin.x+(shape2_separation.x), shape2_origin.y+(shape2_separation.y) );
             drawer.drawVector( shape2_origin, shape2_target );
 
     } //draw_collision_response

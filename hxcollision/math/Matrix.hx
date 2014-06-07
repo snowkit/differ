@@ -11,6 +11,8 @@ class Matrix #if cpp implements cpp.rtti.FieldNumericIntegerLookup #end {
     public var d:Float;
     public var tx:Float;
     public var ty:Float;
+
+    var _last_rotation : Float = 0;
     
     public function new(a:Float = 1, b:Float = 0, c:Float = 0, d:Float = 1, tx:Float = 0, ty:Float = 0) {
         
@@ -29,6 +31,27 @@ class Matrix #if cpp implements cpp.rtti.FieldNumericIntegerLookup #end {
         ty += y;
         
     } //translate
+
+    public function compose( _position:Vector, _rotation:Float, _scale:Vector ) {
+
+        var _diff = _rotation - _last_rotation;
+
+        scale(_scale.x, _scale.y);
+        rotate( _diff );
+        makeTranslation(_position.x, _position.y);
+
+        _last_rotation = _rotation;
+
+    } //compose
+
+    public function makeTranslation( _x:Float, _y:Float ) : Matrix {
+        
+        tx = _x;
+        ty = _y;
+
+        return this;
+
+    } //makeTranslation
 
     public function rotate (angle:Float):Void {
         

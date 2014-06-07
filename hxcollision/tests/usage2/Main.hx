@@ -5,7 +5,7 @@ import flash.events.Event;
 import flash.geom.Point;
 import flash.Lib;
 
-import hxcollision.math.Vector2D;
+import hxcollision.math.Vector;
 import hxcollision.shapes.Shape;
 import hxcollision.shapes.Circle;
 import hxcollision.shapes.Polygon;
@@ -32,7 +32,7 @@ class Main extends Sprite {
 
         //"player" collider
     var player_collider : Shape;
-    var player_vel : Vector2D;
+    var player_vel : Vector;
     var move_speed : Float = 2;
 
     public function new() {
@@ -69,7 +69,7 @@ class Main extends Sprite {
         box_static.x = 150;
         box_static.y = 300;
 
-        player_vel = new Vector2D(0,0);
+        player_vel = new Vector(0,0);
 
             //caption
         var inputFormat = new flash.text.TextFormat();

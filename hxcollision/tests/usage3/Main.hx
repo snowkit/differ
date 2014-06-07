@@ -5,7 +5,7 @@ import flash.events.Event;
 import flash.geom.Point;
 import flash.Lib;
 
-import hxcollision.math.Vector2D;
+import hxcollision.math.Vector;
 import hxcollision.shapes.Shape;
 import hxcollision.shapes.Circle;
 import hxcollision.shapes.Polygon;

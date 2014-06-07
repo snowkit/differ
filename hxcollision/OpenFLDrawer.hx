@@ -4,7 +4,7 @@ import flash.display.Graphics;
 
 import hxcollision.shapes.Circle;
 import hxcollision.shapes.Polygon;
-import hxcollision.math.Vector2D;
+import hxcollision.math.Vector;
 
 
 class OpenFLDrawer extends ShapeDrawer {
@@ -20,7 +20,7 @@ class OpenFLDrawer extends ShapeDrawer {
     } //new
 
         /** Implementation required by `ShapeDrawer` */
-    public override function drawLine( p0:Vector2D, p1:Vector2D, ?startPoint:Bool = true ) {
+    public override function drawLine( p0:Vector, p1:Vector, ?startPoint:Bool = true ) {
         
         if(graphics != null) {
             if(startPoint)
@@ -39,7 +39,7 @@ class OpenFLDrawer extends ShapeDrawer {
 
     } //drawCircle
 
-    public override function drawVector( p0:Vector2D, p1:Vector2D, ?startPoint:Bool = true ) {
+    public override function drawVector( p0:Vector, p1:Vector, ?startPoint:Bool = true ) {
         
         if(graphics != null) {
             if(startPoint)

@@ -1,7 +1,8 @@
 package hxcollision.shapes;
+
     
 import hxcollision.math.Matrix;
-import hxcollision.math.Vector2D;
+import hxcollision.math.Vector;
 
 /** A base collision class shape */
 class Shape {
@@ -16,7 +17,7 @@ class Shape {
         /** A list of tags to use for marking shapes with data for later use, by key/value */
     public var tags : Map<String, String>;
         /** The position of this shape */
-    public var position ( get, set ) : Vector2D;
+    public var position ( get, set ) : Vector;
         /** The x position of this shape */
     public var x ( get, set ) : Float;
         /** The y position of this shape */
@@ -28,13 +29,15 @@ class Shape {
         /** The scale in the y direction of this shape */
     public var scaleY ( get, set ) : Float;
         /** The transformed (rotated/scale) vertices cache */
-    public var transformedVertices ( get, never ) : Array<Vector2D>;
+    public var transformedVertices ( get, never ) : Array<Vector>;
         /** The vertices of this shape */
-    public var vertices ( get, never ) : Array<Vector2D>;
+    public var vertices ( get, never ) : Array<Vector>;
 
 
-    var _position : Vector2D;
+    var _position : Vector;
     var _rotation : Float = 0;
+    var _rotation_radians : Float = 0;
+    var _scale : Vector;
 
     var _scaleX : Float = 1;
     var _scaleY : Float = 1;
@@ -42,8 +45,8 @@ class Shape {
     var _transformed : Bool = false;
     var _transformMatrix : Matrix;
 
-    var _transformedVertices : Array<Vector2D>;
-    var _vertices : Array<Vector2D>;
+    var _transformedVertices : Array<Vector>;
+    var _vertices : Array<Vector>;
 
 
 //Public API
@@ -54,18 +57,18 @@ class Shape {
 
         tags = new Map();
 
-        _position = new Vector2D(_x,_y);
+        _position = new Vector(_x,_y);
+        _scale = new Vector(1,1);
         _rotation = 0;
 
         _scaleX = 1;
         _scaleY = 1;
 
         _transformMatrix = new Matrix();
-        _transformMatrix.tx = _position.x;
-        _transformMatrix.ty = _position.y;
+        _transformMatrix.makeTranslation( _position.x, _position.y );
 
-        _transformedVertices = new Array<Vector2D>();
-        _vertices = new Array<Vector2D>();
+        _transformedVertices = new Array<Vector>();
+        _vertices = new Array<Vector>();
 
     } //new
 
@@ -73,20 +76,33 @@ class Shape {
     public function destroy():Void {
     
         _position = null;
-    
+        _scale = null;
+        _transformMatrix = null;
+        _transformedVertices = null;
+        _vertices = null;
+
     } //destroy
+    
+//Getters/Setters
+
+    function refresh_transform() {
+
+        _transformMatrix.rotate( _rotation_radians );
+
+        _transformMatrix.compose( _position, _rotation, _scale );
+        _transformed = false;
+
+    }
 
 //.position
 
-    function get_position() : Vector2D {
+    function get_position() : Vector {
         return _position;
     }
 
-    function set_position( v : Vector2D ) : Vector2D {
-        _transformMatrix.tx = v.x;
-        _transformMatrix.ty = v.y;
+    function set_position( v : Vector ) : Vector {
         _position = v;
-        _transformed = false;
+        refresh_transform();
         return _position;
     }
 
@@ -98,8 +114,7 @@ class Shape {
     
     function set_x(x : Float) : Float {
         _position.x = x;
-        _transformMatrix.tx = x;
-        _transformed = false;
+        refresh_transform();
         return _position.x;
     }
     
@@ -111,8 +126,7 @@ class Shape {
     
     function set_y(y : Float) : Float {
         _position.y = y;
-        _transformMatrix.ty = y;
-        _transformed = false;
+        refresh_transform();
         return _position.y;
     }    
 
@@ -123,11 +137,14 @@ class Shape {
     }
 
     function set_rotation( v : Float ) : Float {
-        _transformMatrix.rotate( (v - _rotation) * Math.PI / 180 );
-        _rotation = v;
-        _transformed = false;
-       return _rotation;
-    }
+        
+        _rotation_radians = v * (Math.PI / 180);
+
+        refresh_transform();
+
+        return _rotation = v;
+    
+    } //set_rotation
 
 //.scaleX 
 
@@ -137,8 +154,8 @@ class Shape {
     
     function set_scaleX( scale : Float ) : Float {
         _scaleX = scale;
-        _transformMatrix.scale( _scaleX, _scaleY );
-        _transformed = false;
+        _scale.x = _scaleX;
+        refresh_transform();
         return _scaleX;
     }
 
@@ -150,23 +167,23 @@ class Shape {
     
     function set_scaleY(scale:Float) : Float {
         _scaleY = scale;
-        _transformMatrix.scale( _scaleX, _scaleY );
-        _transformed = false;
+        _scale.y = _scaleY;
+        refresh_transform();
         return _scaleY;
     }    
 
 //.transformedVertices
 
-    function get_transformedVertices() : Array<Vector2D> {
+    function get_transformedVertices() : Array<Vector> {
 
         if(!_transformed) {
-            _transformedVertices = new Array<Vector2D>();
+            _transformedVertices = new Array<Vector>();
             _transformed = true;
 
             var _count : Int = _vertices.length;
 
             for(i in 0..._count) {
-                _transformedVertices.push( _vertices[i].transform( _transformMatrix ) );
+                _transformedVertices.push( _vertices[i].clone().transform( _transformMatrix ) );
             }
         }
 
@@ -175,9 +192,8 @@ class Shape {
 
 //.vertices 
 
-    function get_vertices() : Array<Vector2D> {
+    function get_vertices() : Array<Vector> {
         return _vertices;
     }
 
-    
 }
