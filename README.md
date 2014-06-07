@@ -16,9 +16,9 @@ https://underscorediscovery.github.io/hxcollision/
 
 ##Demos
 
-- [usage demo 1](http://underscorediscovery.com/sven/hxcollision/usage1)
-- [usage demo 2](http://underscorediscovery.com/sven/hxcollision/usage2)
-- [usage demo 3](http://underscorediscovery.com/sven/hxcollision/usage3)
+- [demo 1](http://underscorediscovery.com/sven/hxcollision/usage1)
+- [demo 2](http://underscorediscovery.com/sven/hxcollision/usage2)
+- [demo 3](http://underscorediscovery.com/sven/hxcollision/usage3)
 
 ---
 
