@@ -6,18 +6,20 @@ import hxcollision.shapes.Circle;
 import hxcollision.shapes.Polygon;
 import hxcollision.math.Vector2D;
 
+
 class OpenFLDrawer extends ShapeDrawer {
-        
+
+
+        /** Access to the graphics object for manually manipulating it post construction */
     public var graphics : Graphics;
 
+        /** Create a new drawing helper, which will draw into the provided `Graphics` object */
     public function new( _graphics : Graphics ) {
         super();
         graphics = _graphics;
     } //new
 
-        //To implement your own shape drawing class, you only need to override this drawLine function and implement it
-        //the rest is handled internally, or you can override specifics if you want (like drawCircle is custom here, by choice. Not required!)
-
+        /** Implementation required by `ShapeDrawer` */
     public override function drawLine( p0:Vector2D, p1:Vector2D, ?startPoint:Bool = true ) {
         
         if(graphics != null) {
@@ -28,6 +30,7 @@ class OpenFLDrawer extends ShapeDrawer {
 
     } //drawLine
 
+        /** Implemented by choice, not required */
     public override function drawCircle( circle:Circle ) { 
 
         if(graphics != null) {

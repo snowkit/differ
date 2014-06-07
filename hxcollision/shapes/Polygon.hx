@@ -1,78 +1,97 @@
 package hxcollision.shapes;
-	
-	import hxcollision.math.Vector2D;
-	import hxcollision.shapes.Shape;
-	
-	class Polygon extends Shape {
-		
-		public function new( x:Float, y:Float, vertices:Array<Vector2D> ) {
 
-			super( x,y );
-			
-			name = vertices.length + 'polygon';
+import hxcollision.math.Vector2D;
+import hxcollision.shapes.Shape;
 
-			_vertices = vertices;			
-		}
-		
-		override public function destroy() : Void {
+/** A polygon collision shape */
+class Polygon extends Shape {
+    
+        /** Create a new polygon with a given set of vertices at position x,y. */
+    public function new( x:Float, y:Float, vertices:Array<Vector2D> ) {
 
-			var _count : Int = _vertices.length;
-			for(i in 0 ... _count) {
-				_vertices[i] = null;
-			}
+        super( x,y );
+        
+        name = vertices.length + 'polygon';
 
-			_vertices = null;
-			super.destroy();
-		}
-		
-		public static function create( x:Float, y:Float, sides:Int, radius:Float=100):Polygon {
-			if(sides < 3) {
-				throw 'Polygon - Needs at least 3 sides';
-			}
+        _vertices = vertices;           
+    
+    } //new
+        
+        /** Destroy this polygon and clean up. */
+    override public function destroy() : Void {
 
-			var rotation:Float = (Math.PI * 2) / sides;
-			var angle:Float;
-			var vector:Vector2D;
-			var vertices:Array<Vector2D> = new Array<Vector2D>();
+        var _count : Int = _vertices.length;
+        for(i in 0 ... _count) {
+            _vertices[i] = null;
+        }
 
-			for(i in 0 ... sides) {
-				angle = (i * rotation) + ((Math.PI - rotation) * 0.5);
-				vector = new Vector2D();
-				vector.x = Math.cos(angle) * radius;
-				vector.y = Math.sin(angle) * radius;
-				vertices.push(vector);
-			}
-			return new Polygon(x,y,vertices);
-		}
-		
-		public static function rectangle(x:Float, y:Float, width:Float, height:Float, centered:Bool = true):Polygon {
-			
-			var vertices:Array<Vector2D> = new Array<Vector2D>();
+        _vertices = null;
+        super.destroy();
 
-			if(centered) {
+    } //destroy
 
-				vertices.push( new Vector2D( -width / 2, -height / 2) );
-				vertices.push( new Vector2D(  width / 2, -height / 2) );
-				vertices.push( new Vector2D(  width / 2,  height / 2) );
-				vertices.push( new Vector2D( -width / 2,  height / 2) );
+        /** Helper to create an Ngon at x,y with given number of sides, and radius.
+            A default radius of 100 if unspecified. Returns a ready made `Polygon` collision `Shape` */    
+    public static function create( x:Float, y:Float, sides:Int, radius:Float=100):Polygon {
 
-			} else {
+        if(sides < 3) {
+            throw 'Polygon - Needs at least 3 sides';
+        }
 
-				vertices.push( new Vector2D( 0, 0 ) );
-				vertices.push( new Vector2D( width, 0 ) );
-				vertices.push( new Vector2D( width, height) );
-				vertices.push( new Vector2D( 0, height) );
+        var rotation:Float = (Math.PI * 2) / sides;
+        var angle:Float;
+        var vector:Vector2D;
+        var vertices:Array<Vector2D> = new Array<Vector2D>();
 
-			}
+        for(i in 0 ... sides) {
+            angle = (i * rotation) + ((Math.PI - rotation) * 0.5);
+            vector = new Vector2D();
+            vector.x = Math.cos(angle) * radius;
+            vector.y = Math.sin(angle) * radius;
+            vertices.push(vector);
+        }
+        
+        return new Polygon(x,y,vertices);
 
-			return new Polygon(x,y,vertices);
-		}
-		
-		public static function square(x:Float, y:Float, width:Float, centered:Bool = true):Polygon {
-			return rectangle(x, y, width, width, centered);
-		}
+    } //create
 
-		public static function triangle(x:Float, y:Float, radius:Float):Polygon {
-			return create(x, y, 3, radius);
-		}
-	}
+        /** Helper generate a rectangle at x,y with a given width/height and centered state.
+            Centered by default. Returns a ready made `Polygon` collision `Shape` */    
+    public static function rectangle(x:Float, y:Float, width:Float, height:Float, centered:Bool = true):Polygon {
+        
+        var vertices:Array<Vector2D> = new Array<Vector2D>();
+
+        if(centered) {
+
+            vertices.push( new Vector2D( -width / 2, -height / 2) );
+            vertices.push( new Vector2D(  width / 2, -height / 2) );
+            vertices.push( new Vector2D(  width / 2,  height / 2) );
+            vertices.push( new Vector2D( -width / 2,  height / 2) );
+
+        } else {
+
+            vertices.push( new Vector2D( 0, 0 ) );
+            vertices.push( new Vector2D( width, 0 ) );
+            vertices.push( new Vector2D( width, height) );
+            vertices.push( new Vector2D( 0, height) );
+
+        }
+
+        return new Polygon(x,y,vertices);
+    
+    } //rectangle
+    
+        /** Helper generate a square at x,y with a given width/height with given centered state.
+            Centered by default. Returns a ready made `Polygon` collision `Shape` */
+    public static function square(x:Float, y:Float, width:Float, centered:Bool = true):Polygon {
+        return rectangle(x, y, width, width, centered);
+    } //square
+
+        /** Helper generate a triangle at x,y with a given radius. 
+            Returns a ready made `Polygon` collision `Shape` */
+    public static function triangle(x:Float, y:Float, radius:Float):Polygon {
+        return create(x, y, 3, radius);
+    } //triangle
+
+} //Polygon
+

@@ -127,7 +127,7 @@ class Main extends Sprite {
             shape.y += speeds[i];
 
                 //collision against other moving shapes
-            results = Collision.testShapeList( shape, dynamic_list );
+            results = Collision.testShapes( shape, dynamic_list );
 
             for(result in results)
             {
@@ -143,7 +143,7 @@ class Main extends Sprite {
             }
 
                 //collision against static shapes
-            results = Collision.testShapeList( shape, static_list );
+            results = Collision.testShapes( shape, static_list );
 
             for(result in results) {
                     //applies correction

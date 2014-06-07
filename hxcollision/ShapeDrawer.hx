@@ -5,16 +5,23 @@ import hxcollision.shapes.Circle;
 import hxcollision.shapes.Polygon;
 import hxcollision.shapes.Shape;
 
+/** To implement your own debug drawing class, you only need to override drawLine function and implement it
+    the rest is handled internally. You can override specifics if you want, but it's not required */
 class ShapeDrawer {
 
-    public function new() {}
+//Public API
 
-        //To implement your own shape drawing class, you only need to override this function and implement it
-        //the rest is handled internally, or you can override specifics if you want.
+        /** empty constructor */
+    public function new() {
+
+    } //new
+        
+        /** Draw a line between p0 and p1. Implement this function at minimum in custom drawing handlers */
     public function drawLine( p0:Vector2D, p1:Vector2D, ?startPoint:Bool = true ) {
         
     } //drawLine
 
+        /** Draw a `Shape`, it will determine the type and draw it for you. */
     public function drawShape( shape:Shape ) {
 
         if(Std.is(shape, Polygon)) {
@@ -25,8 +32,9 @@ class ShapeDrawer {
             return;
         }
 
-    }
+    } //drawShape
 
+        /** Draw a `Polygon` */
     public function drawPolygon( poly:Polygon ) {
 
         var v : Array<Vector2D> = poly.transformedVertices.copy();
@@ -34,32 +42,15 @@ class ShapeDrawer {
         drawVertList( v );
 
     } //drawPolygon
-
+        
+        /** Draw a `Vector2D` (with magnitude) */
     public function drawVector( v:Vector2D, start:Vector2D, ?startPoint:Bool = true ) {
         
         drawLine( start, v );
 
     } //drawVector
 
-    private function drawVertList( _verts : Array<Vector2D> ) {
-
-        var _count : Int = _verts.length;
-        if(_count < 3) {
-            throw "cannot draw polygon with < 3 verts as this is a line or a point.";
-        }
-
-            //start the polygon by drawing this start point
-        drawLine( _verts[0], _verts[1], true );
-
-            //draw the rest of the points
-        for(i in 1 ... _count-1) {
-            drawLine( _verts[i], _verts[i+1], false );
-        }
-            //join last point to first point
-        drawLine( _verts[_count], _verts[0], false );
-
-    } //drawVertList
-
+        /** Draw a circle `Shape` */
     public function drawCircle( circle:Circle ) {
             //from :
         //http://slabode.exofire.net/circle_draw.shtml
@@ -100,6 +91,30 @@ class ShapeDrawer {
         drawVertList( _verts );
 
     } //drawCircle
+
+
+//Internal API
+
+
+        /** Draw a list of points as lines */
+    function drawVertList( _verts : Array<Vector2D> ) {
+
+        var _count : Int = _verts.length;
+        if(_count < 3) {
+            throw "cannot draw polygon with < 3 verts as this is a line or a point.";
+        }
+
+            //start the polygon by drawing this start point
+        drawLine( _verts[0], _verts[1], true );
+
+            //draw the rest of the points
+        for(i in 1 ... _count-1) {
+            drawLine( _verts[i], _verts[i+1], false );
+        }
+            //join last point to first point
+        drawLine( _verts[_count], _verts[0], false );
+
+    } //drawVertList
 
 
 } //ShapeDrawer

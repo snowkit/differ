@@ -225,7 +225,7 @@ class Main extends Sprite {
 
 //Test the static circle
 
-        mouse_collide = Collision.testShapes( shape_mouse, circle_static );
+        mouse_collide = Collision.test( shape_mouse, circle_static );
 
         if(mouse_collide != null) {
             mouse_color = collide_color;
@@ -235,7 +235,7 @@ class Main extends Sprite {
 
 //Test the static octagon
 
-        mouse_collide = Collision.testShapes( shape_mouse, oct_static );
+        mouse_collide = Collision.test( shape_mouse, oct_static );
 
         if(mouse_collide != null) {
             mouse_color = collide_color;
@@ -245,7 +245,7 @@ class Main extends Sprite {
 
 //Test the static box
 
-        mouse_collide = Collision.testShapes( shape_mouse, box_static );
+        mouse_collide = Collision.test( shape_mouse, box_static );
 
         if(mouse_collide != null) {
             mouse_color = collide_color;
@@ -255,7 +255,7 @@ class Main extends Sprite {
 
 //Test the static triangle
 
-        mouse_collide = Collision.testShapes( shape_mouse, triangle_static );
+        mouse_collide = Collision.test( shape_mouse, triangle_static );
 
         if(mouse_collide != null) {
             mouse_color = collide_color;
@@ -265,7 +265,7 @@ class Main extends Sprite {
 
 //Test the static custom polygon
 
-        mouse_collide = Collision.testShapes( shape_mouse, custom_static );
+        mouse_collide = Collision.test( shape_mouse, custom_static );
 
         if(mouse_collide != null) {
             mouse_color = collide_color;
@@ -277,7 +277,7 @@ class Main extends Sprite {
 
         if(mouse_is_hexagon) {
 
-            mouse_collide = Collision.testShapes( shape_mouse, circle_mouse );
+            mouse_collide = Collision.test( shape_mouse, circle_mouse );
 
             if(mouse_collide != null) {
                 mouse_color = collide_color;
@@ -287,7 +287,7 @@ class Main extends Sprite {
 
         } else { //mouse_is_hexagon
 
-            mouse_collide = Collision.testShapes( shape_mouse, hexagon_mouse );
+            mouse_collide = Collision.test( shape_mouse, hexagon_mouse );
 
             if(mouse_collide != null) {
                 mouse_color = collide_color;
@@ -298,7 +298,7 @@ class Main extends Sprite {
 
 //Test the line and all the shapes
 
-        line_collide = Collision.rayCollision( line_start, line_end, [ box_static, hexagon_mouse, circle_static, circle_mouse,
+        line_collide = Collision.ray( line_start, line_end, [ box_static, hexagon_mouse, circle_static, circle_mouse,
                                                                        oct_static, triangle_static, custom_static ]);
 
 //Now draw them

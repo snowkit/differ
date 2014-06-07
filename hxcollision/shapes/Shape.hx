@@ -3,27 +3,53 @@ package hxcollision.shapes;
 import hxcollision.math.Matrix;
 import hxcollision.math.Vector2D;
 
+/** A base collision class shape */
 class Shape {
-    
-    private var _position : Vector2D;
-    private var _rotation : Float = 0;
 
-    private var _scaleX : Float = 1;
-    private var _scaleY : Float = 1;
 
-    private var _transformed : Bool = false;
-    private var _transformMatrix : Matrix;
-
-    private var _transformedVertices : Array<Vector2D>;
-    private var _vertices : Array<Vector2D>;
-
+        /** The state of this shape, if inactive can be ignored in results */
     public var active : Bool = true;
+        /** The name of this shape, to help in debugging */
     public var name : String = 'shape';
+        /** A generic data object where you can store anything you want, for later use */
     public var data : Dynamic;
-    public var tags : Map<String,String>;
+        /** A list of tags to use for marking shapes with data for later use, by key/value */
+    public var tags : Map<String, String>;
+        /** The position of this shape */
+    public var position ( get, set ) : Vector2D;
+        /** The x position of this shape */
+    public var x ( get, set ) : Float;
+        /** The y position of this shape */
+    public var y ( get, set ) : Float;
+        /** The rotation of this shape, in degrees */
+    public var rotation ( get, set ) : Float;
+        /** The scale in the x direction of this shape */
+    public var scaleX ( get, set ) : Float;
+        /** The scale in the y direction of this shape */
+    public var scaleY ( get, set ) : Float;
+        /** The transformed (rotated/scale) vertices cache */
+    public var transformedVertices ( get, never ) : Array<Vector2D>;
+        /** The vertices of this shape */
+    public var vertices ( get, never ) : Array<Vector2D>;
 
-//Constructor
 
+    var _position : Vector2D;
+    var _rotation : Float = 0;
+
+    var _scaleX : Float = 1;
+    var _scaleY : Float = 1;
+
+    var _transformed : Bool = false;
+    var _transformMatrix : Matrix;
+
+    var _transformedVertices : Array<Vector2D>;
+    var _vertices : Array<Vector2D>;
+
+
+//Public API
+
+
+        /** Create a new shape at give position x,y */
     public function new( _x:Float, _y:Float ) {
 
         tags = new Map();
@@ -40,29 +66,23 @@ class Shape {
 
         _transformedVertices = new Array<Vector2D>();
         _vertices = new Array<Vector2D>();
-    }
 
-//Getters/Setters
+    } //new
+
+        /** clean up and destroy this shape */
+    public function destroy():Void {
     
-    public var position( get_position, set_position ) : Vector2D;
-    public var x( get_x, set_x ) : Float;
-    public var y( get_y, set_y ) : Float;
-
-    public var rotation( get_rotation, set_rotation ) : Float;
-
-    public var scaleX( get_scaleX, set_scaleX ) : Float;
-    public var scaleY( get_scaleY, set_scaleY ) : Float;
-
-    public var transformedVertices( get_transformedVertices, never ) : Array<Vector2D>;
-    public var vertices( get_vertices, never ) : Array<Vector2D>;
+        _position = null;
+    
+    } //destroy
 
 //.position
 
-    private function get_position() : Vector2D {
+    function get_position() : Vector2D {
         return _position;
     }
 
-    private function set_position( v : Vector2D ) : Vector2D {
+    function set_position( v : Vector2D ) : Vector2D {
         _transformMatrix.tx = v.x;
         _transformMatrix.ty = v.y;
         _position = v;
@@ -72,11 +92,11 @@ class Shape {
 
 //.x 
 
-    private function get_x() : Float {
+    function get_x() : Float {
         return _position.x;
     }
     
-    private function set_x(x : Float) : Float {
+    function set_x(x : Float) : Float {
         _position.x = x;
         _transformMatrix.tx = x;
         _transformed = false;
@@ -85,11 +105,11 @@ class Shape {
     
 //.y
 
-    private function get_y() : Float {
+    function get_y() : Float {
         return _position.y;
     }
     
-    private function set_y(y : Float) : Float {
+    function set_y(y : Float) : Float {
         _position.y = y;
         _transformMatrix.ty = y;
         _transformed = false;
@@ -98,11 +118,11 @@ class Shape {
 
 //.rotation 
 
-    private function get_rotation() : Float {
+    function get_rotation() : Float {
         return _rotation;
     }
 
-    private function set_rotation( v : Float ) : Float {
+    function set_rotation( v : Float ) : Float {
         _transformMatrix.rotate( (v - _rotation) * Math.PI / 180 );
         _rotation = v;
         _transformed = false;
@@ -111,11 +131,11 @@ class Shape {
 
 //.scaleX 
 
-    private function get_scaleX():Float {
+    function get_scaleX():Float {
         return _scaleX;
     }
     
-    private function set_scaleX( scale : Float ) : Float {
+    function set_scaleX( scale : Float ) : Float {
         _scaleX = scale;
         _transformMatrix.scale( _scaleX, _scaleY );
         _transformed = false;
@@ -124,11 +144,11 @@ class Shape {
 
 //.scaleY
 
-    private function get_scaleY():Float {
+    function get_scaleY():Float {
         return _scaleY;
     }
     
-    private function set_scaleY(scale:Float) : Float {
+    function set_scaleY(scale:Float) : Float {
         _scaleY = scale;
         _transformMatrix.scale( _scaleX, _scaleY );
         _transformed = false;
@@ -137,7 +157,7 @@ class Shape {
 
 //.transformedVertices
 
-    private function get_transformedVertices() : Array<Vector2D> {
+    function get_transformedVertices() : Array<Vector2D> {
 
         if(!_transformed) {
             _transformedVertices = new Array<Vector2D>();
@@ -155,14 +175,9 @@ class Shape {
 
 //.vertices 
 
-    private function get_vertices() : Array<Vector2D> {
+    function get_vertices() : Array<Vector2D> {
         return _vertices;
     }
 
-//Public Methods 
-
-    public function destroy():Void {
-        _position = null;
-    }
-	
+    
 }

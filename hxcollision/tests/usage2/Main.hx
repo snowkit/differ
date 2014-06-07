@@ -165,7 +165,7 @@ class Main extends Sprite {
         next_pos_y += player_vel.y;
 
             //now check for collisions against the static items
-        var results = Collision.testShapeList(player_collider, static_list);
+        var results = Collision.testShapes(player_collider, static_list);
             //handle any potential collisions by separating the items
         for(_result in results) {
             next_pos_x += _result.separation.x;
