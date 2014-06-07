@@ -54,7 +54,7 @@ A [Separating Axis Theorom](http://en.wikipedia.org/wiki/Hyperplane_separation_t
 
 ##Documentation
 
-###[View API](api/index.html)   
+###[View API](https://underscorediscovery.github.io/hxcollision/)   
 
 ---
 
