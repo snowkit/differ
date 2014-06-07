@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+    
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <link rel="shortcut icon" href="./images/favicon.png" />
+
+        <link rel="stylesheet" type="text/css" href="./css/style.css" media="all">
+        <link rel="stylesheet" type="text/css" href="./css/code.css" media="all">
+        <link rel="stylesheet" type="text/css" href="./css/font.css" media="all">
+        
+        <link rel="stylesheet" type="text/css" href="./css/tooltipster.css" media="all">
+        <link rel="stylesheet" type="text/css" href="./css/tooltipster-shadow.css" media="all">
+        
+        <script src="./js/jquery-2.0.3.min.js"> </script>
+        <script src="./js/jquery.tooltipster.min.js"> </script>
+
+        <script>
+
+            $(document).ready(function() {
+
+                $('.section').css('display','none');
+                $('.readmore').click(function(e){
+                    var _child = $(this).parent().find('.section').first();
+                    var _opp = 'block';
+                    if( _child.css('display') == 'block' ) {
+                        _opp = 'none';
+                    } else {
+                    }
+                    _child.css('display', _opp);
+                });
+
+                $('div.sample').on('click', function(e){
+                        //get the data tag
+                    var content = $(this).attr('data-content');
+                        //remove clicking handler
+                    $(this).off('click');
+                        //replace the content!
+                    $(this).html('<iframe src="'+content+'" sandbox="allow-same-origin allow-scripts" style="overflow:hidden; scrollbar:none; border: 0; width:645px; height:450px;"></iframe> ')
+                });
+
+                $('.tooltip').tooltipster({
+                    theme:'tooltipster-shadow'
+                });
+
+            }); //document.ready
+
+        </script>
+    </head>
+
+    <body>
+        <div class="content">
+            <p><a href="./index.html"><img src=".&#x2F;images/logo.png" alt="Logo"></a></p>
+<hr>
+<h2 id="about">About</h2>
+<p>A <a href="http://en.wikipedia.org/wiki/Hyperplane_separation_theorem">Separating Axis Theorom</a> collision library for <a href="http://haxe.org">haxe</a></p>
+<p><a href="http://haxe.org"> <img src=".&#x2F;images/haxe.png" alt="haxe"> </a></p>
+<hr>
+<h2 id="demo">Demo</h2>
+<ul>
+<li><a href="http://underscorediscovery.com/sven/hxcollision/usage1">usage demo 1</a></li>
+<li><a href="http://underscorediscovery.com/sven/hxcollision/usage2">usage demo 2</a></li>
+<li><a href="http://underscorediscovery.com/sven/hxcollision/usage3">usage demo 3</a></li>
+</ul>
+<h2 id="facts">Facts</h2>
+<ul>
+<li>This is a port of Separating Axis Theorem, for collision detection between shapes.</li>
+<li>Supports polygons and circles, currently.</li>
+<li>Includes a simple drawing interface for debugging shapes</li>
+<li><strong>COLLISION ONLY.</strong> No physics here. By design :)</li>
+<li>Contributions welcome</li>
+</ul>
+<h3 id="other-notes">Other notes</h3>
+<ul>
+<li><strong>not</strong> specific to OpenFL</li>
+<li>See tests/ for some OpenFL usage examples.</li>
+<li>Includes a drawing class for seeing shapes with OpenFL</li>
+</ul>
+<h3 id="more-notes">More Notes</h3>
+<ul>
+<li><a href="http://rocketmandevelopment.com/2010/05/19/separation-of-axis-theorem-for-collision-detection/">Original code ported from rocketmandevelopment blog</a></li>
+</ul>
+<h2 id="quick-look">Quick look</h2>
+<p><strong>A simple collision example</strong></p>
+<pre><code><span class="hljs-keyword">var</span> circle = <span class="hljs-keyword">new</span> Circle( <span class="hljs-number">300</span>, <span class="hljs-number">200</span>, <span class="hljs-number">50</span> );
+<span class="hljs-keyword">var</span> box = Polygon.rectangle( <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">50</span>, <span class="hljs-number">150</span> );
+
+box.rotation = <span class="hljs-number">45</span>;
+
+<span class="hljs-keyword">var</span> collideInfo = Collision.test( circle, box );
+
+<span class="hljs-keyword">if</span>(collideInfo != <span class="hljs-literal">null</span>) {
+    <span class="hljs-comment">//use collideInfo.separation.x</span>
+    <span class="hljs-comment">//use collideInfo.separation.y</span>
+}
+</code></pre><hr>
+<h2 id="documentation">Documentation</h2>
+<h3 id="-view-api-api-index-html-"><a href="api/index.html">View API</a></h3>
+<hr>
+<h2 id="getting-started">Getting Started</h2>
+<p><code>haxelib install hxcollision</code></p>
+<p>or </p>
+<p><code>haxelib git hxcollision https://github.com/underscorediscovery/hxcollision.git</code></p>
+<p>or git clone the repo, from here. Then use </p>
+<p><code>haxelib dev hxcollision /path/to/repo</code></p>
+<h2 id="building-the-usage-examples">Building the usage examples</h2>
+<p>To build the usage examples in the <code>test/</code> folder :</p>
+<ul>
+<li>install <a href="http://openfl.org">http://openfl.org</a></li>
+<li><code>lime test flash</code> (or any openfl target)</li>
+</ul>
+<h1 id="main-contributors">Main Contributors</h1>
+<ul>
+<li><a href="http://github.com/underscorediscovery">@underscorediscovery</a></li>
+<li><a href="http://github.com/Dvergar">@Dvergar</a></li>
+</ul>
+<h1 id="recent-changes">Recent changes</h1>
+<p><strong>1.1 (Latest repo)</strong></p>
+<ul>
+<li>Added documentation and clean up of code</li>
+<li>Renamed <code>BaseShape</code> to <code>Shape</code>, continued refactoring</li>
+<li>Renamed <code>Collision.testShapes</code> to <code>Collision.test</code></li>
+<li>Renamed <code>Collision.testShapeList</code> to <code>Collision.testShapes</code></li>
+<li>Renamed <code>Collision.rayCollision</code> to <code>Collision.ray</code></li>
+<li>Fixed various bugs in collisions</li>
+<li>Fixed <code>separation</code>/<code>unitVector</code> behaviour (signs bugs)</li>
+<li>Fixed bug with <code>Polygon</code>/<code>Polygon</code> collisions not returning best vectors </li>
+<li>Fixed bug where you couldn’t <code>beginFill</code> using <code>OpenFLDrawer</code></li>
+<li>Fixed <code>collisionData</code> in <code>CheckCircles</code>, shape2 wasn’t assigned.</li>
+<li><code>separation</code>/<code>unitVector</code> is now bound to shape1</li>
+<li>Added 2 samples (usage2 &amp; usage3)</li>
+<li>Added <code>drawVector</code> in <code>OpenFLDrawer</code> showing vector direction</li>
+<li>Added <code>drawShape</code> in <code>ShapeDrawer</code>, will cast proper types and call appropriate drawing functions.</li>
+</ul>
+<p><strong>1.0.4 (Latest release, haxelib)</strong></p>
+<ul>
+<li>Renamed <code>Polygon.normalPolygon</code> to <code>Polygon.create</code></li>
+<li>Added <code>testShapeList</code> for testing one shape with many</li>
+<li>Added changes to the test to display the <code>unitVector</code> response (soon to be renamed also)</li>
+<li>Migrating to more integration friendly api, and more logical order of arguments for shapes. </li>
+<li>Making rotation on the base shapes absolute (submitted by @grapefrukt). </li>
+<li>Adding name and data flag to <code>BaseShape</code></li>
+</ul>
+<p><strong>1.0.3</strong></p>
+<ul>
+<li>Fixed bug in circle vs polygon, when polygon was rotated.</li>
+<li>Added line raycast with collision shapes</li>
+<li>Added a custom <code>ShapeDrawer</code> class, for drawing the shapes in a non specific way. </li>
+<li>Moved to latest haxelib revisions</li>
+<li>Removed dependency on OpenFL, now completely standalone </li>
+</ul>
+<p><strong>1.0.2</strong></p>
+<ul>
+<li>uncommitted internal fixes</li>
+</ul>
+<p><strong>1.0.1</strong></p>
+<ul>
+<li>Added an option for <code>Polygon.rectangle()</code> to be non-centered</li>
+</ul>
+<p><strong>1.0.0</strong> </p>
+<ul>
+<li>Initial project pull and compile/port, functional</li>
+</ul>
+<hr>
+<p>&nbsp;</p>
+
+        </div>
+    </body>
+
+</html>

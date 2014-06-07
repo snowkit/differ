@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+    
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <link rel="shortcut icon" href="../images/favicon.png" />
+
+        <link rel="stylesheet" type="text/css" href="../css/style.css" media="all">
+        <link rel="stylesheet" type="text/css" href="../css/code.css" media="all">
+        <link rel="stylesheet" type="text/css" href="../css/font.css" media="all">
+        
+        <link rel="stylesheet" type="text/css" href="../css/tooltipster.css" media="all">
+        <link rel="stylesheet" type="text/css" href="../css/tooltipster-shadow.css" media="all">
+        
+        <script src="../js/jquery-2.0.3.min.js"> </script>
+        <script src="../js/jquery.tooltipster.min.js"> </script>
+
+        <script>
+
+            $(document).ready(function() {
+
+                $('.section').css('display','none');
+                $('.readmore').click(function(e){
+                    var _child = $(this).parent().find('.section').first();
+                    var _opp = 'block';
+                    if( _child.css('display') == 'block' ) {
+                        _opp = 'none';
+                    } else {
+                    }
+                    _child.css('display', _opp);
+                });
+
+                $('div.sample').on('click', function(e){
+                        //get the data tag
+                    var content = $(this).attr('data-content');
+                        //remove clicking handler
+                    $(this).off('click');
+                        //replace the content!
+                    $(this).html('<iframe src="'+content+'" sandbox="allow-same-origin allow-scripts" style="overflow:hidden; scrollbar:none; border: 0; width:645px; height:450px;"></iframe> ')
+                });
+
+                $('.tooltip').tooltipster({
+                    theme:'tooltipster-shadow'
+                });
+
+            }); //document.ready
+
+        </script>
+    </head>
+
+    <body>
+        <div class="content">
+            <p><a href="../index.html"><img src="../images/logo.png" alt="Logo"></a></p>
+<p><a name="hxcollision"/><h2><a href="#hxcollision">hxcollision</a></h2></a><a name="hxcollision.Collision"><h3 class="class_title"><a href="#hxcollision.Collision">Collision</a></h3> 
+    <a href="../api/hxcollision/Collision.html" title="view full documentation for this type" class="tooltip inherited fullpage">view</a>
+    </a><br/><div class="more">
+            <span class="readmore"><strong class="section_title">Methods</strong></span>
+            <span class="section"><span class="method"><code>bresenhamLine(start:<span><a href="#hxcollision.math.Vector2D">hxcollision.math.Vector2D</a></span>, end:<span><a href="#hxcollision.math.Vector2D">hxcollision.math.Vector2D</a></span>) : <a href="http://api.haxe.org/Array.html">Array</a>&lt;<a href="#hxcollision.math.Vector2D">hxcollision.math.Vector2D</a>&gt;</code></span><span class="method"><code>new() : <a href="http://api.haxe.org/Void.html">Void</a></code></span><span class="method"><code>pointInPoly(point:<span><a href="#hxcollision.math.Vector2D">hxcollision.math.Vector2D</a></span>, poly:<span><a href="#hxcollision.shapes.Polygon">hxcollision.shapes.Polygon</a></span>) : <a href="http://api.haxe.org/Bool.html">Bool</a></code></span><span class="method"><code>ray(lineStart:<span><a href="#hxcollision.math.Vector2D">hxcollision.math.Vector2D</a></span>, lineEnd:<span><a href="#hxcollision.math.Vector2D">hxcollision.math.Vector2D</a></span>, shapes:<span><a href="http://api.haxe.org/Array.html">Array</a>&lt;<a href="#hxcollision.shapes.Shape">hxcollision.shapes.Shape</a>&gt;</span>) : <a href="http://api.haxe.org/Bool.html">Bool</a></code></span><span class="method"><code>test(shape1:<span><a href="#hxcollision.shapes.Shape">hxcollision.shapes.Shape</a></span>, shape2:<span><a href="#hxcollision.shapes.Shape">hxcollision.shapes.Shape</a></span>) : <a href="#hxcollision.CollisionData">hxcollision.CollisionData</a></code></span><span class="method"><code>testCircleLine(circle:<span><a href="#hxcollision.shapes.Circle">hxcollision.shapes.Circle</a></span>, lineStart:<span><a href="#hxcollision.math.Vector2D">hxcollision.math.Vector2D</a></span>, lineEnd:<span><a href="#hxcollision.math.Vector2D">hxcollision.math.Vector2D</a></span>) : <a href="http://api.haxe.org/Bool.html">Bool</a></code></span><span class="method"><code>testShapes(shape1:<span><a href="#hxcollision.shapes.Shape">hxcollision.shapes.Shape</a></span>, shapes:<span><a href="http://api.haxe.org/Array.html">Array</a>&lt;<a href="#hxcollision.shapes.Shape">hxcollision.shapes.Shape</a>&gt;</span>) : <a href="http://api.haxe.org/Array.html">Array</a>&lt;<a href="#hxcollision.CollisionData">hxcollision.CollisionData</a>&gt;</code></span></span>
+        </div><a name="hxcollision.CollisionData"><h3 class="class_title"><a href="#hxcollision.CollisionData">CollisionData</a></h3> 
+    <a href="../api/hxcollision/CollisionData.html" title="view full documentation for this type" class="tooltip inherited fullpage">view</a>
+    </a><br/><div class="more">
+            <span class="readmore"><strong class="section_title">Members</strong></span>
+            <span class="section"><span class="member"><code>overlap : <a href="http://api.haxe.org/Float.html">Float</a></code><br/></span><span class="member"><code>separation : <a href="#hxcollision.math.Vector2D">hxcollision.math.Vector2D</a></code><br/></span><span class="member"><code>shape1 : <a href="#hxcollision.shapes.Shape">hxcollision.shapes.Shape</a></code><br/></span><span class="member"><code>shape2 : <a href="#hxcollision.shapes.Shape">hxcollision.shapes.Shape</a></code><br/></span><span class="member"><code>unitVector : <a href="#hxcollision.math.Vector2D">hxcollision.math.Vector2D</a></code><br/></span></span>
+        </div><div class="more">
+            <span class="readmore"><strong class="section_title">Methods</strong></span>
+            <span class="section"><span class="method"><code>new() : <a href="http://api.haxe.org/Void.html">Void</a></code></span></span>
+        </div><a name="hxcollision.OpenFLDrawer"><h3 class="class_title"><a href="#hxcollision.OpenFLDrawer">OpenFLDrawer</a></h3> 
+    <a href="../api/hxcollision/OpenFLDrawer.html" title="view full documentation for this type" class="tooltip inherited fullpage">view</a>
+    </a><br/><div class="more">
+            <span class="readmore"><strong class="section_title">Members</strong></span>
+            <span class="section"><span class="member"><code>graphics : <a href="">flash.display.Graphics</a></code><br/></span></span>
+        </div><div class="more">
+            <span class="readmore"><strong class="section_title">Methods</strong></span>
+            <span class="section"><span class="method"><a title="inherited from hxcollision.ShapeDrawer" class="tooltip inherited">&gt;</a><code>drawCircle(circle:<span><a href="#hxcollision.shapes.Circle">hxcollision.shapes.Circle</a></span>) : <a href="http://api.haxe.org/Void.html">Void</a></code></span><span class="method"><a title="inherited from hxcollision.ShapeDrawer" class="tooltip inherited">&gt;</a><code>drawLine(p0:<span><a href="#hxcollision.math.Vector2D">hxcollision.math.Vector2D</a></span>, p1:<span><a href="#hxcollision.math.Vector2D">hxcollision.math.Vector2D</a></span>, ?startPoint:<span><a href="http://api.haxe.org/Bool.html">Bool</a>=true</span>) : <a href="http://api.haxe.org/Void.html">Void</a></code></span><span class="method"><a title="inherited from hxcollision.ShapeDrawer" class="tooltip inherited">&gt;</a><code>drawVector(p0:<span><a href="#hxcollision.math.Vector2D">hxcollision.math.Vector2D</a></span>, p1:<span><a href="#hxcollision.math.Vector2D">hxcollision.math.Vector2D</a></span>, ?startPoint:<span><a href="http://api.haxe.org/Bool.html">Bool</a>=true</span>) : <a href="http://api.haxe.org/Void.html">Void</a></code></span><span class="method"><a title="inherited from hxcollision.ShapeDrawer" class="tooltip inherited">&gt;</a><code>new(_graphics:<span><a href="">flash.display.Graphics</a></span>) : <a href="http://api.haxe.org/Void.html">Void</a></code></span><span class="method"><a title="inherited from hxcollision.ShapeDrawer" class="tooltip inherited">&gt;</a><code>drawPolygon(poly:<span><a href="#hxcollision.shapes.Polygon">hxcollision.shapes.Polygon</a></span>) : <a href="http://api.haxe.org/Void.html">Void</a></code></span><span class="method"><a title="inherited from hxcollision.ShapeDrawer" class="tooltip inherited">&gt;</a><code>drawShape(shape:<span><a href="#hxcollision.shapes.Shape">hxcollision.shapes.Shape</a></span>) : <a href="http://api.haxe.org/Void.html">Void</a></code></span></span>
+        </div><a name="hxcollision.ShapeDrawer"><h3 class="class_title"><a href="#hxcollision.ShapeDrawer">ShapeDrawer</a></h3> 
+    <a href="../api/hxcollision/ShapeDrawer.html" title="view full documentation for this type" class="tooltip inherited fullpage">view</a>
+    </a><br/><div class="more">
+            <span class="readmore"><strong class="section_title">Methods</strong></span>
+            <span class="section"><span class="method"><code>drawCircle(circle:<span><a href="#hxcollision.shapes.Circle">hxcollision.shapes.Circle</a></span>) : <a href="http://api.haxe.org/Void.html">Void</a></code></span><span class="method"><code>drawLine(p0:<span><a href="#hxcollision.math.Vector2D">hxcollision.math.Vector2D</a></span>, p1:<span><a href="#hxcollision.math.Vector2D">hxcollision.math.Vector2D</a></span>, ?startPoint:<span><a href="http://api.haxe.org/Bool.html">Bool</a>=true</span>) : <a href="http://api.haxe.org/Void.html">Void</a></code></span><span class="method"><code>drawPolygon(poly:<span><a href="#hxcollision.shapes.Polygon">hxcollision.shapes.Polygon</a></span>) : <a href="http://api.haxe.org/Void.html">Void</a></code></span><span class="method"><code>drawShape(shape:<span><a href="#hxcollision.shapes.Shape">hxcollision.shapes.Shape</a></span>) : <a href="http://api.haxe.org/Void.html">Void</a></code></span><span class="method"><code>drawVector(v:<span><a href="#hxcollision.math.Vector2D">hxcollision.math.Vector2D</a></span>, start:<span><a href="#hxcollision.math.Vector2D">hxcollision.math.Vector2D</a></span>, ?startPoint:<span><a href="http://api.haxe.org/Bool.html">Bool</a>=true</span>) : <a href="http://api.haxe.org/Void.html">Void</a></code></span><span class="method"><code>new() : <a href="http://api.haxe.org/Void.html">Void</a></code></span></span>
+        </div></p>
+<p><a name="hxcollision.math"/><h2><a href="#hxcollision.math">hxcollision.math</a></h2></a><a name="hxcollision.math.Matrix"><h3 class="class_title"><a href="#hxcollision.math.Matrix">Matrix</a></h3> 
+    <a href="../api/hxcollision/math/Matrix.html" title="view full documentation for this type" class="tooltip inherited fullpage">view</a>
+    </a><br/><div class="more">
+            <span class="readmore"><strong class="section_title">Members</strong></span>
+            <span class="section"><span class="member"><code>a : <a href="http://api.haxe.org/Float.html">Float</a></code><br/></span><span class="member"><code>b : <a href="http://api.haxe.org/Float.html">Float</a></code><br/></span><span class="member"><code>c : <a href="http://api.haxe.org/Float.html">Float</a></code><br/></span><span class="member"><code>d : <a href="http://api.haxe.org/Float.html">Float</a></code><br/></span><span class="member"><code>tx : <a href="http://api.haxe.org/Float.html">Float</a></code><br/></span><span class="member"><code>ty : <a href="http://api.haxe.org/Float.html">Float</a></code><br/></span></span>
+        </div><div class="more">
+            <span class="readmore"><strong class="section_title">Methods</strong></span>
+            <span class="section"><span class="method"><code>new(?a:<span><a href="http://api.haxe.org/Float.html">Float</a>=1</span>, ?b:<span><a href="http://api.haxe.org/Float.html">Float</a>=0</span>, ?c:<span><a href="http://api.haxe.org/Float.html">Float</a>=0</span>, ?d:<span><a href="http://api.haxe.org/Float.html">Float</a>=1</span>, ?tx:<span><a href="http://api.haxe.org/Float.html">Float</a>=0</span>, ?ty:<span><a href="http://api.haxe.org/Float.html">Float</a>=0</span>) : <a href="http://api.haxe.org/Void.html">Void</a></code></span><span class="method"><code>rotate(angle:<span><a href="http://api.haxe.org/Float.html">Float</a></span>) : <a href="http://api.haxe.org/Void.html">Void</a></code></span><span class="method"><code>scale(x:<span><a href="http://api.haxe.org/Float.html">Float</a></span>, y:<span><a href="http://api.haxe.org/Float.html">Float</a></span>) : <a href="http://api.haxe.org/Void.html">Void</a></code></span><span class="method"><code>toString() : <a href="http://api.haxe.org/String.html">String</a></code></span><span class="method"><code>translate(x:<span><a href="http://api.haxe.org/Float.html">Float</a></span>, y:<span><a href="http://api.haxe.org/Float.html">Float</a></span>) : <a href="http://api.haxe.org/Void.html">Void</a></code></span></span>
+        </div><a name="hxcollision.math.Vector2D"><h3 class="class_title"><a href="#hxcollision.math.Vector2D">Vector2D</a></h3> 
+    <a href="../api/hxcollision/math/Vector2D.html" title="view full documentation for this type" class="tooltip inherited fullpage">view</a>
+    </a><br/><div class="more">
+            <span class="readmore"><strong class="section_title">Members</strong></span>
+            <span class="section"></span>
+        </div><div class="more">
+            <span class="readmore"><strong class="section_title">Methods</strong></span>
+            <span class="section"><span class="method"><code>add(vector2:<span><a href="#hxcollision.math.Vector2D">hxcollision.math.Vector2D</a></span>) : <a href="#hxcollision.math.Vector2D">hxcollision.math.Vector2D</a></code></span><span class="method"><code>angleBetween(vector1:<span><a href="#hxcollision.math.Vector2D">hxcollision.math.Vector2D</a></span>, vector2:<span><a href="#hxcollision.math.Vector2D">hxcollision.math.Vector2D</a></span>) : <a href="http://api.haxe.org/Float.html">Float</a></code></span><span class="method"><code>cloneVector() : <a href="#hxcollision.math.Vector2D">hxcollision.math.Vector2D</a></code></span><span class="method"><code>crossProd(vector2:<span><a href="#hxcollision.math.Vector2D">hxcollision.math.Vector2D</a></span>) : <a href="http://api.haxe.org/Float.html">Float</a></code></span><span class="method"><code>distance(vector2:<span><a href="#hxcollision.math.Vector2D">hxcollision.math.Vector2D</a></span>) : <a href="http://api.haxe.org/Float.html">Float</a></code></span><span class="method"><code>distSQ(vector2:<span><a href="#hxcollision.math.Vector2D">hxcollision.math.Vector2D</a></span>) : <a href="http://api.haxe.org/Float.html">Float</a></code></span><span class="method"><code>divide(scalar:<span><a href="http://api.haxe.org/Float.html">Float</a></span>) : <a href="#hxcollision.math.Vector2D">hxcollision.math.Vector2D</a></code></span><span class="method"><code>dotProduct(vector2:<span><a href="#hxcollision.math.Vector2D">hxcollision.math.Vector2D</a></span>) : <a href="http://api.haxe.org/Float.html">Float</a></code></span><span class="method"><code>equals(vector2:<span><a href="#hxcollision.math.Vector2D">hxcollision.math.Vector2D</a></span>) : <a href="http://api.haxe.org/Bool.html">Bool</a></code></span><span class="method"><code>fromString(string:<span><a href="http://api.haxe.org/String.html">String</a></span>) : <a href="#hxcollision.math.Vector2D">hxcollision.math.Vector2D</a></code></span><span class="method"><code>isNormalized() : <a href="http://api.haxe.org/Bool.html">Bool</a></code></span><span class="method"><code>isZero() : <a href="http://api.haxe.org/Bool.html">Bool</a></code></span><span class="method"><code>multiply(scalar:<span><a href="http://api.haxe.org/Float.html">Float</a></span>) : <a href="#hxcollision.math.Vector2D">hxcollision.math.Vector2D</a></code></span><span class="method"><code>new(?x:<span><a href="http://api.haxe.org/Float.html">Float</a>=0</span>, ?y:<span><a href="http://api.haxe.org/Float.html">Float</a>=0</span>) : <a href="http://api.haxe.org/Void.html">Void</a></code></span><span class="method"><code>normalcate(len:<span><a href="http://api.haxe.org/Float.html">Float</a></span>) : <a href="#hxcollision.math.Vector2D">hxcollision.math.Vector2D</a></code></span><span class="method"><code>normalize() : <a href="#hxcollision.math.Vector2D">hxcollision.math.Vector2D</a></code></span><span class="method"><code>reverse() : <a href="#hxcollision.math.Vector2D">hxcollision.math.Vector2D</a></code></span><span class="method"><code>set_length(value:<span><a href="http://api.haxe.org/Float.html">Float</a></span>) : <a href="http://api.haxe.org/Float.html">Float</a></code></span><span class="method"><code>sign(vector2:<span><a href="#hxcollision.math.Vector2D">hxcollision.math.Vector2D</a></span>) : <a href="http://api.haxe.org/Int.html">Int</a></code></span><span class="method"><code>subtract(vector2:<span><a href="#hxcollision.math.Vector2D">hxcollision.math.Vector2D</a></span>) : <a href="#hxcollision.math.Vector2D">hxcollision.math.Vector2D</a></code></span><span class="method"><code>toString() : <a href="http://api.haxe.org/String.html">String</a></code></span><span class="method"><code>transform(matrix:<span><a href="#hxcollision.math.Matrix">hxcollision.math.Matrix</a></span>) : <a href="#hxcollision.math.Vector2D">hxcollision.math.Vector2D</a></code></span><span class="method"><code>truncate(max:<span><a href="http://api.haxe.org/Float.html">Float</a></span>) : <a href="#hxcollision.math.Vector2D">hxcollision.math.Vector2D</a></code></span><span class="method"><code>zeroVector() : <a href="#hxcollision.math.Vector2D">hxcollision.math.Vector2D</a></code></span></span>
+        </div><div class="more">
+            <span class="readmore"><strong class="section_title">Properties</strong></span>
+            <span class="section">
+                        <span class="property"><code>angle : <a href="">Float</a></code></span>
+                        <span class="property"><code>length : <a href="">Float</a></code></span>
+                        <span class="property"><code>lengthSquared : <a href="">Float</a></code></span>
+                        <span class="property"><code>perpendicular : <a href="">hxcollision.math.Vector2D</a></code></span>
+                        <span class="property"><code>x : <a href="">Float</a></code></span>
+                        <span class="property"><code>y : <a href="">Float</a></code></span>
+            </span>
+        </div></p>
+<p><a name="hxcollision.shapes"/><h2><a href="#hxcollision.shapes">hxcollision.shapes</a></h2></a><a name="hxcollision.shapes.Circle"><h3 class="class_title"><a href="#hxcollision.shapes.Circle">Circle</a></h3> 
+    <a href="../api/hxcollision/shapes/Circle.html" title="view full documentation for this type" class="tooltip inherited fullpage">view</a>
+    </a><br/><div class="more">
+            <span class="readmore"><strong class="section_title">Members</strong></span>
+            <span class="section"><span class="member"><a title="inherited from hxcollision.shapes.Shape" class="tooltip inherited">&gt;</a><code>active : <a href="http://api.haxe.org/Bool.html">Bool</a></code><br/></span><span class="member"><a title="inherited from hxcollision.shapes.Shape" class="tooltip inherited">&gt;</a><code>data : <a href="http://api.haxe.org/Dynamic.html">Dynamic</a></code><br/></span><span class="member"><a title="inherited from hxcollision.shapes.Shape" class="tooltip inherited">&gt;</a><code>name : <a href="http://api.haxe.org/String.html">String</a></code><br/></span><span class="member"><a title="inherited from hxcollision.shapes.Shape" class="tooltip inherited">&gt;</a><code>tags : <a href="http://api.haxe.org/Map.html">Map</a>&lt;<a href="http://api.haxe.org/String.html">String</a>, <a href="http://api.haxe.org/String.html">String</a>&gt;</code><br/></span></span>
+        </div><div class="more">
+            <span class="readmore"><strong class="section_title">Methods</strong></span>
+            <span class="section"><span class="method"><a title="inherited from hxcollision.shapes.Shape" class="tooltip inherited">&gt;</a><code>new(x:<span><a href="http://api.haxe.org/Float.html">Float</a></span>, y:<span><a href="http://api.haxe.org/Float.html">Float</a></span>, radius:<span><a href="http://api.haxe.org/Float.html">Float</a></span>) : <a href="http://api.haxe.org/Void.html">Void</a></code></span><span class="method"><a title="inherited from hxcollision.shapes.Shape" class="tooltip inherited">&gt;</a><code>destroy() : <a href="http://api.haxe.org/Void.html">Void</a></code></span></span>
+        </div><div class="more">
+            <span class="readmore"><strong class="section_title">Properties</strong></span>
+            <span class="section">
+                        <span class="property"><code>radius : <a href="">Float</a></code></span>
+                        <span class="property"><code>transformedRadius : <a href="">Float</a></code></span>
+                        <span class="property"><a title="inherited from hxcollision.shapes.Shape" class="tooltip inherited">&gt;</a><code>position : <a href="">hxcollision.math.Vector2D</a></code></span>
+                        <span class="property"><a title="inherited from hxcollision.shapes.Shape" class="tooltip inherited">&gt;</a><code>rotation : <a href="">Float</a></code></span>
+                        <span class="property"><a title="inherited from hxcollision.shapes.Shape" class="tooltip inherited">&gt;</a><code>scaleX : <a href="">Float</a></code></span>
+                        <span class="property"><a title="inherited from hxcollision.shapes.Shape" class="tooltip inherited">&gt;</a><code>scaleY : <a href="">Float</a></code></span>
+                        <span class="property"><a title="inherited from hxcollision.shapes.Shape" class="tooltip inherited">&gt;</a><code>transformedVertices : <a href="">Array</a>&lt;<a href="">hxcollision.math.Vector2D</a>&gt;</code></span>
+                        <span class="property"><a title="inherited from hxcollision.shapes.Shape" class="tooltip inherited">&gt;</a><code>vertices : <a href="">Array</a>&lt;<a href="">hxcollision.math.Vector2D</a>&gt;</code></span>
+                        <span class="property"><a title="inherited from hxcollision.shapes.Shape" class="tooltip inherited">&gt;</a><code>x : <a href="">Float</a></code></span>
+                        <span class="property"><a title="inherited from hxcollision.shapes.Shape" class="tooltip inherited">&gt;</a><code>y : <a href="">Float</a></code></span>
+            </span>
+        </div><a name="hxcollision.shapes.Polygon"><h3 class="class_title"><a href="#hxcollision.shapes.Polygon">Polygon</a></h3> 
+    <a href="../api/hxcollision/shapes/Polygon.html" title="view full documentation for this type" class="tooltip inherited fullpage">view</a>
+    </a><br/><div class="more">
+            <span class="readmore"><strong class="section_title">Members</strong></span>
+            <span class="section"><span class="member"><a title="inherited from hxcollision.shapes.Shape" class="tooltip inherited">&gt;</a><code>active : <a href="http://api.haxe.org/Bool.html">Bool</a></code><br/></span><span class="member"><a title="inherited from hxcollision.shapes.Shape" class="tooltip inherited">&gt;</a><code>data : <a href="http://api.haxe.org/Dynamic.html">Dynamic</a></code><br/></span><span class="member"><a title="inherited from hxcollision.shapes.Shape" class="tooltip inherited">&gt;</a><code>name : <a href="http://api.haxe.org/String.html">String</a></code><br/></span><span class="member"><a title="inherited from hxcollision.shapes.Shape" class="tooltip inherited">&gt;</a><code>tags : <a href="http://api.haxe.org/Map.html">Map</a>&lt;<a href="http://api.haxe.org/String.html">String</a>, <a href="http://api.haxe.org/String.html">String</a>&gt;</code><br/></span></span>
+        </div><div class="more">
+            <span class="readmore"><strong class="section_title">Methods</strong></span>
+            <span class="section"><span class="method"><code>create(x:<span><a href="http://api.haxe.org/Float.html">Float</a></span>, y:<span><a href="http://api.haxe.org/Float.html">Float</a></span>, sides:<span><a href="http://api.haxe.org/Int.html">Int</a></span>, ?radius:<span><a href="http://api.haxe.org/Float.html">Float</a>=100</span>) : <a href="#hxcollision.shapes.Polygon">hxcollision.shapes.Polygon</a></code></span><span class="method"><a title="inherited from hxcollision.shapes.Shape" class="tooltip inherited">&gt;</a><code>destroy() : <a href="http://api.haxe.org/Void.html">Void</a></code></span><span class="method"><a title="inherited from hxcollision.shapes.Shape" class="tooltip inherited">&gt;</a><code>new(x:<span><a href="http://api.haxe.org/Float.html">Float</a></span>, y:<span><a href="http://api.haxe.org/Float.html">Float</a></span>, vertices:<span><a href="http://api.haxe.org/Array.html">Array</a>&lt;<a href="#hxcollision.math.Vector2D">hxcollision.math.Vector2D</a>&gt;</span>) : <a href="http://api.haxe.org/Void.html">Void</a></code></span><span class="method"><code>rectangle(x:<span><a href="http://api.haxe.org/Float.html">Float</a></span>, y:<span><a href="http://api.haxe.org/Float.html">Float</a></span>, width:<span><a href="http://api.haxe.org/Float.html">Float</a></span>, height:<span><a href="http://api.haxe.org/Float.html">Float</a></span>, ?centered:<span><a href="http://api.haxe.org/Bool.html">Bool</a>=true</span>) : <a href="#hxcollision.shapes.Polygon">hxcollision.shapes.Polygon</a></code></span><span class="method"><code>square(x:<span><a href="http://api.haxe.org/Float.html">Float</a></span>, y:<span><a href="http://api.haxe.org/Float.html">Float</a></span>, width:<span><a href="http://api.haxe.org/Float.html">Float</a></span>, ?centered:<span><a href="http://api.haxe.org/Bool.html">Bool</a>=true</span>) : <a href="#hxcollision.shapes.Polygon">hxcollision.shapes.Polygon</a></code></span><span class="method"><code>triangle(x:<span><a href="http://api.haxe.org/Float.html">Float</a></span>, y:<span><a href="http://api.haxe.org/Float.html">Float</a></span>, radius:<span><a href="http://api.haxe.org/Float.html">Float</a></span>) : <a href="#hxcollision.shapes.Polygon">hxcollision.shapes.Polygon</a></code></span></span>
+        </div><div class="more">
+            <span class="readmore"><strong class="section_title">Properties</strong></span>
+            <span class="section">
+                        <span class="property"><a title="inherited from hxcollision.shapes.Shape" class="tooltip inherited">&gt;</a><code>position : <a href="">hxcollision.math.Vector2D</a></code></span>
+                        <span class="property"><a title="inherited from hxcollision.shapes.Shape" class="tooltip inherited">&gt;</a><code>rotation : <a href="">Float</a></code></span>
+                        <span class="property"><a title="inherited from hxcollision.shapes.Shape" class="tooltip inherited">&gt;</a><code>scaleX : <a href="">Float</a></code></span>
+                        <span class="property"><a title="inherited from hxcollision.shapes.Shape" class="tooltip inherited">&gt;</a><code>scaleY : <a href="">Float</a></code></span>
+                        <span class="property"><a title="inherited from hxcollision.shapes.Shape" class="tooltip inherited">&gt;</a><code>transformedVertices : <a href="">Array</a>&lt;<a href="">hxcollision.math.Vector2D</a>&gt;</code></span>
+                        <span class="property"><a title="inherited from hxcollision.shapes.Shape" class="tooltip inherited">&gt;</a><code>vertices : <a href="">Array</a>&lt;<a href="">hxcollision.math.Vector2D</a>&gt;</code></span>
+                        <span class="property"><a title="inherited from hxcollision.shapes.Shape" class="tooltip inherited">&gt;</a><code>x : <a href="">Float</a></code></span>
+                        <span class="property"><a title="inherited from hxcollision.shapes.Shape" class="tooltip inherited">&gt;</a><code>y : <a href="">Float</a></code></span>
+            </span>
+        </div><a name="hxcollision.shapes.Shape"><h3 class="class_title"><a href="#hxcollision.shapes.Shape">Shape</a></h3> 
+    <a href="../api/hxcollision/shapes/Shape.html" title="view full documentation for this type" class="tooltip inherited fullpage">view</a>
+    </a><br/><div class="more">
+            <span class="readmore"><strong class="section_title">Members</strong></span>
+            <span class="section"><span class="member"><code>active : <a href="http://api.haxe.org/Bool.html">Bool</a></code><br/></span><span class="member"><code>data : <a href="http://api.haxe.org/Dynamic.html">Dynamic</a></code><br/></span><span class="member"><code>name : <a href="http://api.haxe.org/String.html">String</a></code><br/></span><span class="member"><code>tags : <a href="http://api.haxe.org/Map.html">Map</a>&lt;<a href="http://api.haxe.org/String.html">String</a>, <a href="http://api.haxe.org/String.html">String</a>&gt;</code><br/></span></span>
+        </div><div class="more">
+            <span class="readmore"><strong class="section_title">Methods</strong></span>
+            <span class="section"><span class="method"><code>destroy() : <a href="http://api.haxe.org/Void.html">Void</a></code></span><span class="method"><code>new(_x:<span><a href="http://api.haxe.org/Float.html">Float</a></span>, _y:<span><a href="http://api.haxe.org/Float.html">Float</a></span>) : <a href="http://api.haxe.org/Void.html">Void</a></code></span></span>
+        </div><div class="more">
+            <span class="readmore"><strong class="section_title">Properties</strong></span>
+            <span class="section">
+                        <span class="property"><code>position : <a href="">hxcollision.math.Vector2D</a></code></span>
+                        <span class="property"><code>rotation : <a href="">Float</a></code></span>
+                        <span class="property"><code>scaleX : <a href="">Float</a></code></span>
+                        <span class="property"><code>scaleY : <a href="">Float</a></code></span>
+                        <span class="property"><code>transformedVertices : <a href="">Array</a>&lt;<a href="">hxcollision.math.Vector2D</a>&gt;</code></span>
+                        <span class="property"><code>vertices : <a href="">Array</a>&lt;<a href="">hxcollision.math.Vector2D</a>&gt;</code></span>
+                        <span class="property"><code>x : <a href="">Float</a></code></span>
+                        <span class="property"><code>y : <a href="">Float</a></code></span>
+            </span>
+        </div></p>
+<p>&nbsp;
+&nbsp;
+&nbsp;</p>
+<hr>
+<p>&nbsp;<br>&nbsp;   </p>
+
+        </div>
+    </body>
+
+</html>
