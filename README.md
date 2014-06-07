@@ -1,4 +1,14 @@
-#hxcollision : SAT collision for Haxe
+
+[![Logo](docs/images/logo.png)](./index.html)
+
+--- 
+## About
+
+A [Separating Axis Theorom](http://en.wikipedia.org/wiki/Hyperplane_separation_theorem) collision library for [haxe](http://haxe.org)
+
+[ ![haxe](docs/images/haxe.png) ](http://haxe.org)
+
+----
 
 ##Demo
 
@@ -14,16 +24,39 @@
 - **COLLISION ONLY.** No physics here. By design :)
 - Contributions welcome
 
-###Other notes 
+### Other notes 
 
-- **not specific to OpenFL**
-- See tests/ for a OpenFL ready test project.
+- **not** specific to OpenFL
+- See tests/ for some OpenFL usage examples.
 - Includes a drawing class for seeing shapes with OpenFL
 
-## More Notes
+### More Notes
 
 - [Original code ported from rocketmandevelopment blog](http://rocketmandevelopment.com/2010/05/19/separation-of-axis-theorem-for-collision-detection/)
-- For usage examples, look inside /tests/
+
+##Quick look
+
+**A simple collision example**
+
+    var circle = new Circle( 300, 200, 50 );
+    var box = Polygon.rectangle( 0, 0, 50, 150 );
+
+    box.rotation = 45;
+
+    var collideInfo = Collision.test( circle, box );
+
+    if(collideInfo != null) {
+    	//use collideInfo.separation.x
+    	//use collideInfo.separation.y
+    }
+
+----
+
+##Documentation
+
+###[View API](api/index.html)   
+
+---
 
 ## Getting Started
 
@@ -33,7 +66,9 @@ or
 
 `haxelib git hxcollision https://github.com/underscorediscovery/hxcollision.git`
 
-or git clone the repo, from here.
+or git clone the repo, from here. Then use 
+
+`haxelib dev hxcollision /path/to/repo`
 
 ## Building the usage examples
 
@@ -42,10 +77,19 @@ To build the usage examples in the `test/` folder :
 - install http://openfl.org
 - `lime test flash` (or any openfl target)
 
+#Main Contributors
+
+- [@underscorediscovery](http://github.com/underscorediscovery)
+- [@Dvergar](http://github.com/Dvergar)
+
 #Recent changes
 
-**1.0.5 (Latest repo)**
+**1.1 (Latest repo) **
+ - Added documentation and clean up of code
  - Renamed `BaseShape` to `Shape`, continued refactoring
+ - Renamed `Collision.testShapes` to `Collision.test`
+ - Renamed `Collision.testShapeList` to `Collision.testShapes`
+ - Renamed `Collision.rayCollision` to `Collision.ray`
  - Fixed various bugs in collisions
  - Fixed `separation`/`unitVector` behaviour (signs bugs)
  - Fixed bug with `Polygon`/`Polygon` collisions not returning best vectors 
@@ -79,3 +123,8 @@ To build the usage examples in the `test/` folder :
  
 **1.0.0** 
  - Initial project pull and compile/port, functional
+
+---
+
+&nbsp;
+
