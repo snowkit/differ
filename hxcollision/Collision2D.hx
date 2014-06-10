@@ -1,8 +1,12 @@
 package hxcollision;
+import hxcollision.data.CollisionData;
+import hxcollision.data.RayData;
+import hxcollision.data.RayIntersectionData;
 import hxcollision.math.Common;
 import hxcollision.math.Vector;
 import hxcollision.shapes.Circle;
 import hxcollision.shapes.Polygon;
+import hxcollision.shapes.Ray;
 
 /**
  * ...
@@ -298,6 +302,102 @@ class Collision2D
         return collisionData;
 
     } //checkPolygons
+	
+	public static function rayCircle(ray:Ray, circle:Circle):RayData
+	{
+		var delta = new Vector(ray.x - circle.x, ray.y - circle.y);
+		
+		var a = ray.direction.lengthsq;
+		var b = 2 * ray.direction.dot(delta);
+		var c = delta.dot(delta) - circle.radius * circle.radius;
+		
+        var d:Float = b * b - 4 * a * c;
+		
+		if (d >= 0)
+		{
+			d = Math.sqrt(d);
+            
+            var t1:Float = (-b - d) / (2 * a);
+            var t2:Float = (-b + d) / (2 * a);
+			
+			return new RayData(circle, ray, t1, t2);
+		}
+		
+		return null;
+	}
+	
+	public static function rayPolygon(ray:Ray, polygon:Polygon):RayData
+	{
+		var vertices = polygon.transformedVertices;
+		
+		var min_u:Float = Math.POSITIVE_INFINITY;
+		var max_u:Float = 0.0;
+		
+		if (vertices.length > 2)
+		{
+			var v1 = vertices[vertices.length - 1];
+			var v2 = vertices[0];
+			
+			var r = intersectRayRay(ray, ray.direction, v1, v2.clone().subtract(v1));
+			if (r != null && r.ub >= 0.0 && r.ub <= 1.0)
+			{
+				if (r.ua < min_u) min_u = r.ua;
+				if (r.ua > max_u) max_u = r.ua;
+			}
+			
+			for (i in 1...vertices.length)
+			{
+				v1 = vertices[i - 1];
+				v2 = vertices[i];
+				
+				r = intersectRayRay(ray, ray.direction, v1, v2.clone().subtract(v1));
+				if (r != null && r.ub >= 0.0 && r.ub <= 1.0)
+				{
+					if (r.ua < min_u) min_u = r.ua;
+					if (r.ua > max_u) max_u = r.ua;
+				}
+			}
+			
+			return new RayData(polygon, ray, min_u, max_u);
+		}
+		
+		return null;
+	}
+	
+	/**
+	 * same thing as rayRay, except without using Ray objects - saves the construction of a Ray object when testing Polygon/Ray.
+	 * @param	a
+	 * @param	adelta
+	 * @param	b
+	 * @param	bdelta
+	 */
+	private static function intersectRayRay(a:Vector, adelta:Vector, b:Vector, bdelta:Vector) : { ua:Float, ub:Float }
+	{
+		var dx = a.clone().subtract(b);
+		
+		var d = bdelta.y * adelta.x - bdelta.x * adelta.y;
+		
+		if (d == 0.0) return null;
+		
+		var ua = (bdelta.x * dx.y - bdelta.y * dx.x) / d;
+		var ub = (adelta.x * dx.y - adelta.y * dx.x) / d;
+		
+		return { ua : ua, ub : ub };
+	}
+	
+	public static function rayRay(ray1:Ray, ray2:Ray):RayIntersectionData
+	{
+		var dx = ray1.clone().subtract(ray2);
+		
+		var d = ray2.direction.y * ray1.direction.x - ray2.direction.x * ray1.direction.y;
+		
+		if (d == 0.0) return null;
+		
+		var u1 = (ray2.direction.x * dx.y - ray2.direction.y * dx.x) / d;
+		var u2 = (ray1.direction.x * dx.y - ray1.direction.y * dx.x) / d;
+		
+		return new RayIntersectionData(ray1, u1, ray2, u2);
+	}
 	
 	/** Internal api - generate a bresenham line between given start and end points */
     @:noCompletion public static function bresenhamLine( start:Vector, end:Vector ) : Array<Vector> {

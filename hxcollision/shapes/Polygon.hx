@@ -1,6 +1,9 @@
 package hxcollision.shapes;
+import hxcollision.data.CollisionData;
+import hxcollision.shapes.Ray;
 
 import hxcollision.math.Vector;
+import hxcollision.data.RayData;
 import hxcollision.shapes.Shape;
 
 /** A polygon collision shape */
@@ -40,6 +43,11 @@ class Polygon extends Shape
 	override public function testPolygon(polygon:Polygon, flip:Bool = false):CollisionData 
 	{
 		return Collision2D.testPolygons( this, polygon, flip );
+	}
+	
+	override public function testRay(ray:Ray):RayData 
+	{
+		return Collision2D.rayPolygon(ray, this);
 	}
         
         /** Destroy this polygon and clean up. */

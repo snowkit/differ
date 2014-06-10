@@ -138,6 +138,16 @@ class Vector {
     public function dot( vector2:Vector ) : Float {
         return x * vector2.x + y * vector2.y;
     }
+	
+    /**
+     * Calculate the cross product of this vector and another.
+     * @param vector2 Another Vector.
+     * @return Float The dot product.
+     */
+	public function cross( vector2:Vector ) : Float
+	{
+		return x * vector2.y - y * vector2.x;
+	}
 
     /**
      * Add a vector to this vector.

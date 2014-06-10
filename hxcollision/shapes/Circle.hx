@@ -1,7 +1,8 @@
 package hxcollision.shapes;
 
 import hxcollision.Collision;
-import hxcollision.CollisionData;
+import hxcollision.data.CollisionData;
+import hxcollision.data.RayData;
 import hxcollision.shapes.Circle;
 import hxcollision.shapes.Polygon;
 import hxcollision.shapes.Shape;
@@ -24,21 +25,26 @@ class Circle extends Shape {
 
     } //new
 	
-	override public function test(shape:Shape):CollisionData 
+	override public function test(shape:Shape):CollisionData
 	{
 		return shape.testCircle(this, true);
 	}
 	
-	override public function testCircle(circle:Circle, flip:Bool = false):CollisionData 
+	override public function testCircle(circle:Circle, flip:Bool = false):CollisionData
 	{
 		var c1 = flip ? circle : this;
 		var c2 = flip ? this : circle;
 		return Collision2D.testCircles( c1, c2 );
 	}
 	
-	override public function testPolygon(polygon:Polygon, flip:Bool = false):CollisionData 
+	override public function testPolygon(polygon:Polygon, flip:Bool = false):CollisionData
 	{
 		return Collision2D.testCircleVsPolygon( this, polygon, flip );
+	}
+	
+	override public function testRay(ray:Ray):RayData 
+	{
+		return Collision2D.rayCircle(ray, this);
 	}
 
 //Internal API

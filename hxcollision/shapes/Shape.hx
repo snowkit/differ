@@ -2,9 +2,10 @@ package hxcollision.shapes;
 
     
 import hxcollision.Collision;
-import hxcollision.CollisionData;
+import hxcollision.data.CollisionData;
 import hxcollision.math.Matrix;
 import hxcollision.math.Vector;
+import hxcollision.data.RayData;
 
 /** A base collision class shape */
 class Shape {
@@ -73,6 +74,11 @@ class Shape {
 	}
 	
 	public function testPolygon( polygon:Polygon, flip:Bool = false ):CollisionData
+	{
+		return null;
+	}
+	
+	public function testRay( ray:Ray ):RayData
 	{
 		return null;
 	}
