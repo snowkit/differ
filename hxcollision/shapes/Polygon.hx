@@ -16,6 +16,21 @@ class Polygon extends Shape {
         _vertices = vertices;           
     
     } //new
+	
+	override public function test(shape:Shape):CollisionData 
+	{
+		return shape.testPolygon(this, true);
+	}
+	
+	override public function testCircle(circle:Circle, flip:Bool = false):CollisionData 
+	{
+		return Collision2D.testCircleVsPolygon( circle, this, flip );
+	}
+	
+	override public function testPolygon(polygon:Polygon, flip:Bool = false):CollisionData 
+	{
+		return Collision2D.testPolygons( this, polygon, flip );
+	}
         
         /** Destroy this polygon and clean up. */
     override public function destroy() : Void {

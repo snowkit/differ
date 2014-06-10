@@ -1,6 +1,8 @@
 package hxcollision.shapes;
 
     
+import hxcollision.Collision;
+import hxcollision.CollisionData;
 import hxcollision.math.Matrix;
 import hxcollision.math.Vector;
 
@@ -52,35 +54,48 @@ class Shape {
 //Public API
 
 
-        /** Create a new shape at give position x,y */
-    public function new( _x:Float, _y:Float ) {
-
+	/** Create a new shape at give position x,y */
+    public function new( _x:Float, _y:Float )
+	{
         tags = new Map();
-
+		
         _position = new Vector(_x,_y);
         _scale = new Vector(1,1);
         _rotation = 0;
-
+		
         _scaleX = 1;
         _scaleY = 1;
-
+		
         _transformMatrix = new Matrix();
         _transformMatrix.makeTranslation( _position.x, _position.y );
-
+		
         _transformedVertices = new Array<Vector>();
         _vertices = new Array<Vector>();
-
     } //new
-
-        /** clean up and destroy this shape */
-    public function destroy():Void {
-    
+	
+	public function test( shape:Shape ):CollisionData
+	{
+		return null;
+	}
+	
+	public function testCircle( circle:Circle, flip:Bool = false ):CollisionData
+	{
+		return null;
+	}
+	
+	public function testPolygon( polygon:Polygon, flip:Bool = false ):CollisionData
+	{
+		return null;
+	}
+	
+	/** clean up and destroy this shape */
+	public function destroy():Void
+	{
         _position = null;
         _scale = null;
         _transformMatrix = null;
         _transformedVertices = null;
         _vertices = null;
-
     } //destroy
     
 //Getters/Setters

@@ -15,29 +15,9 @@ class Collision {
             When no collision is found between them, this function returns null.
             Returns a `CollisionData` if a collision is found.
         */
-    public static function test( shape1:Shape, shape2:Shape ): CollisionData {
-
-        var result1:CollisionData;
-        var result2:CollisionData;
-
-        if( Std.is(shape1, Circle) && Std.is(shape2, Circle) ) {
-            return Collision2D.testCircles(cast(shape1,Circle), cast(shape2,Circle));
-        }
-
-        if( Std.is(shape1,Polygon) && Std.is(shape2,Polygon) ) {
-            return Collision2D.testPolygons(cast(shape1,Polygon), cast(shape2,Polygon));
-        }
-
-        if(Std.is(shape1,Circle)) {
-            return Collision2D.testCircleVsPolygon(cast(shape1,Circle), cast(shape2,Polygon), true);
-        }
-
-        if(Std.is(shape1,Polygon)) {
-            return Collision2D.testCircleVsPolygon(cast(shape2,Circle), cast(shape1,Polygon), false);
-        }
-
-        return null;
-
+    public static function test( shape1:Shape, shape2:Shape ): CollisionData
+	{
+		return shape1.test(shape2);
     } //test
    
         /** Test a single shape against multiple other shapes. 
