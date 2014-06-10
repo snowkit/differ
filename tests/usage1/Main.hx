@@ -9,7 +9,7 @@ import hxcollision.math.Vector;
 import hxcollision.shapes.Shape;
 import hxcollision.shapes.Circle;
 import hxcollision.shapes.Polygon;
-import hxcollision.results.CollisionData;
+import hxcollision.data.CollisionData;
 import hxcollision.Collision;
 import hxcollision.OpenFLDrawer;
 

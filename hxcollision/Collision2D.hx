@@ -305,11 +305,12 @@ class Collision2D
 	
 	public static function rayCircle(ray:Ray, circle:Circle):RayData
 	{
-		var delta = new Vector(ray.x - circle.x, ray.y - circle.y);
+		var delta = ray.end.clone().subtract(ray.start);
+		var ray2circle = ray.start.clone().subtract(circle.position);
 		
-		var a = ray.direction.lengthsq;
-		var b = 2 * ray.direction.dot(delta);
-		var c = delta.dot(delta) - circle.radius * circle.radius;
+		var a = delta.lengthsq;
+		var b = 2 * delta.dot(ray2circle);
+		var c = ray2circle.dot(ray2circle) - circle.radius * circle.radius;
 		
         var d:Float = b * b - 4 * a * c;
 		
@@ -320,7 +321,7 @@ class Collision2D
             var t1:Float = (-b - d) / (2 * a);
             var t2:Float = (-b + d) / (2 * a);
 			
-			return new RayData(circle, ray, t1, t2);
+			if (ray.isInfinite || t1 <= 1.0) return new RayData(circle, ray, t1, t2);
 		}
 		
 		return null;
@@ -328,6 +329,7 @@ class Collision2D
 	
 	public static function rayPolygon(ray:Ray, polygon:Polygon):RayData
 	{
+		var delta = ray.end.clone().subtract(ray.start);
 		var vertices = polygon.transformedVertices;
 		
 		var min_u:Float = Math.POSITIVE_INFINITY;
@@ -338,7 +340,7 @@ class Collision2D
 			var v1 = vertices[vertices.length - 1];
 			var v2 = vertices[0];
 			
-			var r = intersectRayRay(ray, ray.direction, v1, v2.clone().subtract(v1));
+			var r = intersectRayRay(ray.start, delta, v1, v2.clone().subtract(v1));
 			if (r != null && r.ub >= 0.0 && r.ub <= 1.0)
 			{
 				if (r.ua < min_u) min_u = r.ua;
@@ -350,7 +352,7 @@ class Collision2D
 				v1 = vertices[i - 1];
 				v2 = vertices[i];
 				
-				r = intersectRayRay(ray, ray.direction, v1, v2.clone().subtract(v1));
+				r = intersectRayRay(ray.start, delta, v1, v2.clone().subtract(v1));
 				if (r != null && r.ub >= 0.0 && r.ub <= 1.0)
 				{
 					if (r.ua < min_u) min_u = r.ua;
@@ -358,7 +360,7 @@ class Collision2D
 				}
 			}
 			
-			return new RayData(polygon, ray, min_u, max_u);
+			if (ray.isInfinite || min_u <= 1.0) return new RayData(polygon, ray, min_u, max_u);
 		}
 		
 		return null;
@@ -387,16 +389,20 @@ class Collision2D
 	
 	public static function rayRay(ray1:Ray, ray2:Ray):RayIntersectionData
 	{
-		var dx = ray1.clone().subtract(ray2);
+		var delta1 = ray1.end.clone().subtract(ray1.start);
+		var delta2 = ray2.end.clone().subtract(ray2.start);
 		
-		var d = ray2.direction.y * ray1.direction.x - ray2.direction.x * ray1.direction.y;
+		var dx = ray1.start.clone().subtract(ray2.start);
+		
+		var d = delta2.y * delta1.x - delta2.x * delta1.y;
 		
 		if (d == 0.0) return null;
 		
-		var u1 = (ray2.direction.x * dx.y - ray2.direction.y * dx.x) / d;
-		var u2 = (ray1.direction.x * dx.y - ray1.direction.y * dx.x) / d;
+		var u1 = (delta2.x * dx.y - delta2.y * dx.x) / d;
+		var u2 = (delta1.x * dx.y - delta1.y * dx.x) / d;
 		
-		return new RayIntersectionData(ray1, u1, ray2, u2);
+		if ((ray1.isInfinite || u1 <= 1.0) && (ray2.isInfinite || u2 <= 1.0)) return new RayIntersectionData(ray1, u1, ray2, u2);
+		return null;
 	}
 	
 	/** Internal api - generate a bresenham line between given start and end points */

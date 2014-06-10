@@ -5,16 +5,20 @@ import hxcollision.math.Vector;
  * ...
  * @author P Svilans
  */
-class Ray extends Vector
+class Ray
 {
 	
-	public var direction:Vector;
+	public var start:Vector;
+	public var end:Vector;
 	
-	public function new(x:Float = 0.0, y:Float = 0.0, direction:Vector) 
+	public var isInfinite:Bool;
+	
+	public function new(start:Vector, end:Vector, isInfinite:Bool = true) 
 	{
-		super(x, y);
+		this.start = start;
+		this.end = end;
 		
-		this.direction = direction;
+		this.isInfinite = isInfinite;
 	}
 	
 }
