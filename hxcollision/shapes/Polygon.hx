@@ -4,16 +4,26 @@ import hxcollision.math.Vector;
 import hxcollision.shapes.Shape;
 
 /** A polygon collision shape */
-class Polygon extends Shape {
-    
-        /** Create a new polygon with a given set of vertices at position x,y. */
+class Polygon extends Shape
+{
+	
+	/** The transformed (rotated/scale) vertices cache */
+    public var transformedVertices ( get, never ) : Array<Vector>;
+	/** The vertices of this shape */
+    public var vertices ( get, never ) : Array<Vector>;
+
+    var _transformedVertices : Array<Vector>;
+    var _vertices : Array<Vector>;
+	
+	/** Create a new polygon with a given set of vertices at position x,y. */
     public function new( x:Float, y:Float, vertices:Array<Vector> ) {
 
         super( x,y );
         
         name = vertices.length + 'polygon';
-
-        _vertices = vertices;           
+		
+        _transformedVertices = new Array<Vector>();
+        _vertices = vertices;
     
     } //new
 	
@@ -39,11 +49,36 @@ class Polygon extends Shape {
         for(i in 0 ... _count) {
             _vertices[i] = null;
         }
-
+		
+        _transformedVertices = null;
         _vertices = null;
         super.destroy();
 
-    } //destroy
+    } //destroy    
+
+//.transformedVertices
+
+    function get_transformedVertices() : Array<Vector> {
+
+        if(!_transformed) {
+            _transformedVertices = new Array<Vector>();
+            _transformed = true;
+
+            var _count : Int = _vertices.length;
+
+            for(i in 0..._count) {
+                _transformedVertices.push( _vertices[i].clone().transform( _transformMatrix ) );
+            }
+        }
+
+        return _transformedVertices;
+    }
+
+//.vertices 
+
+    function get_vertices() : Array<Vector> {
+        return _vertices;
+    }
 
         /** Helper to create an Ngon at x,y with given number of sides, and radius.
             A default radius of 100 if unspecified. Returns a ready made `Polygon` collision `Shape` */    

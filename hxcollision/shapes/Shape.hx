@@ -30,11 +30,6 @@ class Shape {
     public var scaleX ( get, set ) : Float;
         /** The scale in the y direction of this shape */
     public var scaleY ( get, set ) : Float;
-        /** The transformed (rotated/scale) vertices cache */
-    public var transformedVertices ( get, never ) : Array<Vector>;
-        /** The vertices of this shape */
-    public var vertices ( get, never ) : Array<Vector>;
-
 
     var _position : Vector;
     var _rotation : Float = 0;
@@ -46,9 +41,6 @@ class Shape {
 
     var _transformed : Bool = false;
     var _transformMatrix : Matrix;
-
-    var _transformedVertices : Array<Vector>;
-    var _vertices : Array<Vector>;
 
 
 //Public API
@@ -68,9 +60,6 @@ class Shape {
 		
         _transformMatrix = new Matrix();
         _transformMatrix.makeTranslation( _position.x, _position.y );
-		
-        _transformedVertices = new Array<Vector>();
-        _vertices = new Array<Vector>();
     } //new
 	
 	public function test( shape:Shape ):CollisionData
@@ -94,8 +83,6 @@ class Shape {
         _position = null;
         _scale = null;
         _transformMatrix = null;
-        _transformedVertices = null;
-        _vertices = null;
     } //destroy
     
 //Getters/Setters
@@ -185,30 +172,6 @@ class Shape {
         _scale.y = _scaleY;
         refresh_transform();
         return _scaleY;
-    }    
-
-//.transformedVertices
-
-    function get_transformedVertices() : Array<Vector> {
-
-        if(!_transformed) {
-            _transformedVertices = new Array<Vector>();
-            _transformed = true;
-
-            var _count : Int = _vertices.length;
-
-            for(i in 0..._count) {
-                _transformedVertices.push( _vertices[i].clone().transform( _transformMatrix ) );
-            }
-        }
-
-        return _transformedVertices;
-    }
-
-//.vertices 
-
-    function get_vertices() : Array<Vector> {
-        return _vertices;
     }
 
 }

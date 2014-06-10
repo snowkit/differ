@@ -13,8 +13,8 @@ import hxcollision.math.Matrix;
  */
 class Vector {
 
-    @:isVar public var x ( default, set ) : Float = 0;
-    @:isVar public var y ( default, set ) : Float = 0;
+    public var x  : Float = 0;
+    public var y  : Float = 0;
 
     public var length ( get, set ) : Float;
     public var lengthsq ( get, never ) : Float;
@@ -166,20 +166,6 @@ class Vector {
         return this;
 
     } //subtract
-
-    /**
-     * Set and get y component.
-     */
-    private function set_y(value:Float) : Float {
-        return y = value;
-    }
-
-    /**
-     * Set and get x component.
-     */
-    private function set_x(value:Float) : Float {
-        return x = value;
-    }
 
     /**
      * Turn this vector into a string.
