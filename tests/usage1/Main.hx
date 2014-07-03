@@ -9,7 +9,9 @@ import hxcollision.math.Vector;
 import hxcollision.shapes.Shape;
 import hxcollision.shapes.Circle;
 import hxcollision.shapes.Polygon;
+import hxcollision.shapes.Ray;
 import hxcollision.data.CollisionData;
+import hxcollision.data.RayData;
 import hxcollision.Collision;
 import hxcollision.OpenFLDrawer;
 
@@ -53,7 +55,7 @@ class Main extends Sprite {
         //A collision data object for the current mouse shape
     var mouse_collide : CollisionData;
         //True if there is a collision with the line and any shape
-    var line_collide = false;
+    var line_collide : Array<RayData>;
 
     public function new() {
 
@@ -289,7 +291,7 @@ class Main extends Sprite {
 
 //Test the line and all the shapes
 
-        line_collide = Collision.ray( line_start, line_end, 
+        line_collide = Collision.rayShapes( new Ray(line_start, line_end),
                 [ box_static, circle_static, oct_static, triangle_static, custom_static ]);
 
 //Now draw them
@@ -319,7 +321,7 @@ class Main extends Sprite {
 
         visualise.graphics.lineStyle( 2, normal_color );
 
-            if(line_collide) {
+            if(line_collide != null && line_collide.length > 0) {
                 visualise.graphics.lineStyle( 2, collide_color );
             } 
 

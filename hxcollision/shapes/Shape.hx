@@ -1,6 +1,6 @@
 package hxcollision.shapes;
 
-    
+
 import hxcollision.Collision;
 import hxcollision.data.CollisionData;
 import hxcollision.math.Matrix;
@@ -51,46 +51,45 @@ class Shape {
     public function new( _x:Float, _y:Float )
 	{
         tags = new Map();
-		
+
         _position = new Vector(_x,_y);
         _scale = new Vector(1,1);
         _rotation = 0;
-		
+
         _scaleX = 1;
         _scaleY = 1;
-		
+
         _transformMatrix = new Matrix();
         _transformMatrix.makeTranslation( _position.x, _position.y );
     } //new
-	
+
 	public function test( shape:Shape ):CollisionData
 	{
 		return null;
 	}
-	
+
 	public function testCircle( circle:Circle, flip:Bool = false ):CollisionData
 	{
 		return null;
 	}
-	
+
 	public function testPolygon( polygon:Polygon, flip:Bool = false ):CollisionData
 	{
 		return null;
 	}
-	
+
 	public function testRay( ray:Ray ):RayData
 	{
 		return null;
 	}
-	
+
 	/** clean up and destroy this shape */
-	public function destroy():Void
-	{
+	public function destroy():Void {
         _position = null;
         _scale = null;
         _transformMatrix = null;
     } //destroy
-    
+
 //Getters/Setters
 
     function refresh_transform() {
@@ -114,52 +113,52 @@ class Shape {
         return _position;
     }
 
-//.x 
+//.x
 
     function get_x() : Float {
         return _position.x;
     }
-    
+
     function set_x(x : Float) : Float {
         _position.x = x;
         refresh_transform();
         return _position.x;
     }
-    
+
 //.y
 
     function get_y() : Float {
         return _position.y;
     }
-    
+
     function set_y(y : Float) : Float {
         _position.y = y;
         refresh_transform();
         return _position.y;
-    }    
+    }
 
-//.rotation 
+//.rotation
 
     function get_rotation() : Float {
         return _rotation;
     }
 
     function set_rotation( v : Float ) : Float {
-        
+
         _rotation_radians = v * (Math.PI / 180);
 
         refresh_transform();
 
         return _rotation = v;
-    
+
     } //set_rotation
 
-//.scaleX 
+//.scaleX
 
     function get_scaleX():Float {
         return _scaleX;
     }
-    
+
     function set_scaleX( scale : Float ) : Float {
         _scaleX = scale;
         _scale.x = _scaleX;
@@ -172,7 +171,7 @@ class Shape {
     function get_scaleY():Float {
         return _scaleY;
     }
-    
+
     function set_scaleY(scale:Float) : Float {
         _scaleY = scale;
         _scale.y = _scaleY;
