@@ -94,6 +94,9 @@ class Shape {
 
     function refresh_transform() {
 
+        _transformMatrix = new Matrix();
+        _transformMatrix.makeTranslation(_position.x, _position.y);
+
         _transformMatrix.rotate( _rotation_radians );
 
         _transformMatrix.compose( _position, _rotation, _scale );
