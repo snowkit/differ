@@ -44,16 +44,12 @@ class Matrix #if cpp implements cpp.rtti.FieldNumericIntegerLookup #end {
     } //translate
 
     public function compose( _position:Vector, _rotation:Float, _scale:Vector ) {
-
-        var _diff = _rotation - _last_rotation;
-
+        
         identity();
 
         scale( _scale.x, _scale.y );
-        rotate( _diff );
+        rotate( _rotation );
         makeTranslation( _position.x, _position.y );
-
-        _last_rotation = _rotation;
 
     } //compose
 

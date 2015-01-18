@@ -94,9 +94,7 @@ class Shape {
 
     function refresh_transform() {
 
-        _transformMatrix.rotate( _rotation_radians );
-
-        _transformMatrix.compose( _position, _rotation, _scale );
+        _transformMatrix.compose( _position, _rotation_radians, _scale );
         _transformed = false;
 
     }
