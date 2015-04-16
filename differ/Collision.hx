@@ -3,6 +3,7 @@ package differ;
 import differ.math.*;
 import differ.shapes.*;
 import differ.data.*;
+import differ.sat.*;
 
 class Collision {
 
@@ -68,7 +69,7 @@ class Collision {
             Returns a `RayIntersection` if a collision is found. */
     public static function rayWithRay( ray1:Ray, ray2:Ray ) : RayIntersection {
 
-        return Collision2D.testRayVsRay(ray1, ray2);
+        return SAT2D.testRayVsRay(ray1, ray2);
 
     } //rayRay
 
@@ -80,7 +81,7 @@ class Collision {
         var results = [];
 
         for(other in rays) {
-            var result = Collision2D.testRayVsRay(ray, other);
+            var result = SAT2D.testRayVsRay(ray, other);
             if(result != null) {
                 results.push(result);
             }

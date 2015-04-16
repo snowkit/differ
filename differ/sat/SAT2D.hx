@@ -1,4 +1,4 @@
-package differ;
+package differ.sat;
 
 import differ.math.*;
 import differ.shapes.*;
@@ -6,7 +6,7 @@ import differ.data.*;
 
 /** Implementation details for the 2D SAT collision queries.
     Used by the various shapes, and Collision API, mostly internally.  */
-class Collision2D {
+class SAT2D {
 
         /** Internal api - test a circle against a polygon */
     public static function testCircleVsPolygon( circle:Circle, polygon:Polygon, flip:Bool=false ) : ShapeCollision {
@@ -502,4 +502,4 @@ class Collision2D {
 
     } //intersectRayRay
 
-} //Collision2D
+} //SAT2D

@@ -22,7 +22,7 @@
     build : {
       dependencies : {
         luxe : '*',
-        hxcollision : '*',
+        differ : '*',
       }
     },
 

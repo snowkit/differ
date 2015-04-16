@@ -3,6 +3,7 @@ package differ.shapes;
 import differ.math.*;
 import differ.shapes.*;
 import differ.data.*;
+import differ.sat.*;
 
 /** A circle collision shape */
 class Circle extends Shape {
@@ -35,21 +36,21 @@ class Circle extends Shape {
         var c1 = flip ? circle : this;
         var c2 = flip ? this : circle;
 
-        return Collision2D.testCircleVsCircle( c1, c2 );
+        return SAT2D.testCircleVsCircle( c1, c2 );
 
     } //testCircle
 
         /** Test for collision against a polygon. */
     override public function testPolygon( polygon:Polygon, flip:Bool = false ) : ShapeCollision {
 
-        return Collision2D.testCircleVsPolygon( this, polygon, flip );
+        return SAT2D.testCircleVsPolygon( this, polygon, flip );
 
     } //testPolygon
 
         /** Test for collision against a ray. */
     override public function testRay( ray:Ray ) : RayCollision {
 
-        return Collision2D.testRayVsCircle(ray, this);
+        return SAT2D.testRayVsCircle(ray, this);
 
     } //testRay
 
