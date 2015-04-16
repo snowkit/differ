@@ -1,0 +1,35 @@
+{
+
+  luxe:{
+    window: {
+      width:960,
+      height:640,
+      title:'differ - usage 0',
+      resizable:false
+    }
+  },
+
+  project : {
+    name : 'collision0',
+    version : '1.0.0',
+    author : 'luxeengine',
+
+    app : {
+      name : 'collision0',
+      package : 'com.underscorediscovery.differ0'
+    },
+
+    build : {
+      dependencies : {
+        luxe : '*',
+        hxcollision : '*',
+      }
+    },
+
+    files : {
+      assets : 'assets/'
+    }
+
+  }
+
+}
