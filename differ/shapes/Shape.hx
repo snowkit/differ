@@ -1,13 +1,10 @@
-package hxcollision.shapes;
+package differ.shapes;
 
+import differ.math.*;
+import differ.shapes.*;
+import differ.data.*;
 
-import hxcollision.Collision;
-import hxcollision.data.CollisionData;
-import hxcollision.math.Matrix;
-import hxcollision.math.Vector;
-import hxcollision.data.RayData;
-
-/** A base collision class shape */
+/** A base collision shape */
 class Shape {
 
 
@@ -61,33 +58,27 @@ class Shape {
 
         _transformMatrix = new Matrix();
         _transformMatrix.makeTranslation( _position.x, _position.y );
+
     } //new
 
-	public function test( shape:Shape ):CollisionData
-	{
-		return null;
-	}
+//Implemented in subclasses
 
-	public function testCircle( circle:Circle, flip:Bool = false ):CollisionData
-	{
-		return null;
-	}
+        /** Test this shape against another shape. */
+	public function test( shape:Shape ) : ShapeCollision return null;
+        /** Test this shape against a circle. */
+	public function testCircle( circle:Circle, flip:Bool = false ) : ShapeCollision return null;
+        /** Test this shape against a polygon. */
+	public function testPolygon( polygon:Polygon, flip:Bool = false ) : ShapeCollision return null;
+        /** Test this shape against a ray. */
+	public function testRay( ray:Ray ) : RayCollision return null;
 
-	public function testPolygon( polygon:Polygon, flip:Bool = false ):CollisionData
-	{
-		return null;
-	}
-
-	public function testRay( ray:Ray ):RayData
-	{
-		return null;
-	}
-
-	/** clean up and destroy this shape */
+    	/** clean up and destroy this shape */
 	public function destroy():Void {
+
         _position = null;
         _scale = null;
         _transformMatrix = null;
+
     } //destroy
 
 //Getters/Setters

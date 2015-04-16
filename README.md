@@ -1,8 +1,8 @@
 
 [![Logo](docs/images/logo.png)](./index.html)
 
---- 
-## About
+---
+## What is differ?
 
 A [Separating Axis Theorom](http://en.wikipedia.org/wiki/Hyperplane_separation_theorem) collision library for [haxe](http://haxe.org)
 
@@ -12,9 +12,12 @@ A [Separating Axis Theorom](http://en.wikipedia.org/wiki/Hyperplane_separation_t
 
 ##View docs info and more
 
-https://underscorediscovery.github.io/hxcollision/
+https://underscorediscovery.github.io/differ/
 
 ##Demos
+
+
+##Previous Demos (being updated)
 
 - [demo 1](http://underscorediscovery.com/sven/hxcollision/usage1)
 - [demo 2](http://underscorediscovery.com/sven/hxcollision/usage2)

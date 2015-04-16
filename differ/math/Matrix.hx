@@ -1,9 +1,15 @@
-package hxcollision.math;
+package differ.math;
+
+import differ.math.*;
+import differ.shapes.*;
+import differ.data.*;
 
 //NOTE : Only implements the basics required for the shape transformations
-//NOTE : Not a full implementation, but code copied from openfl/flash/geom/Matrix.hx
+//NOTE : Not a full implementation, some code copied from openfl/flash/geom/Matrix.hx
 
-class Matrix #if cpp implements cpp.rtti.FieldNumericIntegerLookup #end {
+class Matrix  {
+
+//#if cpp implements cpp.rtti.FieldNumericIntegerLookup #end
 
     public var a:Float;
     public var b:Float;
@@ -44,7 +50,7 @@ class Matrix #if cpp implements cpp.rtti.FieldNumericIntegerLookup #end {
     } //translate
 
     public function compose( _position:Vector, _rotation:Float, _scale:Vector ) {
-        
+
         identity();
 
         scale( _scale.x, _scale.y );

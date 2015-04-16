@@ -1,11 +1,10 @@
-package hxcollision;
+package differ;
 
 import flash.display.Graphics;
 
-import hxcollision.shapes.Circle;
-import hxcollision.shapes.Polygon;
-import hxcollision.math.Vector;
-
+import differ.math.*;
+import differ.shapes.*;
+import differ.data.*;
 
 class OpenFLDrawer extends ShapeDrawer {
 
@@ -21,7 +20,7 @@ class OpenFLDrawer extends ShapeDrawer {
 
         /** Implementation required by `ShapeDrawer` */
     public override function drawLine( p0:Vector, p1:Vector, ?startPoint:Bool = true ) {
-        
+
         if(graphics != null) {
             if(startPoint)
                 graphics.moveTo( p0.x, p0.y );
