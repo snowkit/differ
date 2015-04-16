@@ -31,6 +31,8 @@ https://underscorediscovery.github.io/differ/
 
  - renamed `hxcollision` to `differ`
     - diff tool for shapes/rays, differ as in separation
+ - Added ray intersection information, rather than just true/false
+ - Added ray vs ray intersection as well, with info on overlap
  - initial work separating code for 3D vs 2D
     - moved all internal 2D code into differ.sat.SAT2D
  - renamed `Collision.test` to `Collision.shapeWithShape`
@@ -43,6 +45,7 @@ https://underscorediscovery.github.io/differ/
  - renamed `data.CollisionData` to `data.ShapeCollision`
  - renamed `data.RayCollisionData` to `data.RayCollision`
  - renamed `data.RayIntersectionData` to `data.RayIntersection`
+ - removed `OpenFLDrawer`, will replace with gist or test later
 
 **1.1.0 (Latest release, haxelib)**
  - Added documentation and clean up of code
