@@ -32,7 +32,7 @@ https://underscorediscovery.github.io/differ/
  - renamed `hxcollision` to `differ`
     - diff tool for shapes/rays, differ as in separation
  - initial work separating code for 3D vs 2D
-    - moved all 2d code into Collision2D at SAT/Collision2D
+    - moved all internal 2D code into differ.sat.SAT2D
  - renamed `Collision.test` to `Collision.shapeWithShape`
  - renamed `Collision.testShapes` to `Collision.shapeWithShapes`
  - renamed `Collision.rayShape` to `Collision.rayWithShape`
