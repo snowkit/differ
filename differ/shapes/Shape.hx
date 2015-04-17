@@ -44,9 +44,9 @@ class Shape {
 //Public API
 
 
-	/** Create a new shape at give position x,y */
-    public function new( _x:Float, _y:Float )
-	{
+    /** Create a new shape at give position x,y */
+    public function new( _x:Float, _y:Float ) {
+
         tags = new Map();
 
         _position = new Vector(_x,_y);
@@ -64,16 +64,16 @@ class Shape {
 //Implemented in subclasses
 
         /** Test this shape against another shape. */
-	public function test( shape:Shape ) : ShapeCollision return null;
+    public function test( shape:Shape ) : ShapeCollision return null;
         /** Test this shape against a circle. */
-	public function testCircle( circle:Circle, flip:Bool = false ) : ShapeCollision return null;
+    public function testCircle( circle:Circle, flip:Bool = false ) : ShapeCollision return null;
         /** Test this shape against a polygon. */
-	public function testPolygon( polygon:Polygon, flip:Bool = false ) : ShapeCollision return null;
+    public function testPolygon( polygon:Polygon, flip:Bool = false ) : ShapeCollision return null;
         /** Test this shape against a ray. */
-	public function testRay( ray:Ray ) : RayCollision return null;
+    public function testRay( ray:Ray ) : RayCollision return null;
 
-    	/** clean up and destroy this shape */
-	public function destroy():Void {
+        /** clean up and destroy this shape */
+    public function destroy():Void {
 
         _position = null;
         _scale = null;

@@ -3,6 +3,7 @@ package differ.sat;
 import differ.math.*;
 import differ.shapes.*;
 import differ.data.*;
+import differ.sat.Common;
 
 /** Implementation details for the 2D SAT collision queries.
     Used by the various shapes, and Collision API, mostly internally.  */

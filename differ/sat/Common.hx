@@ -1,4 +1,4 @@
-package differ.math;
+package differ.sat;
 
 import differ.math.Vector;
 
