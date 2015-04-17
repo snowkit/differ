@@ -10,7 +10,41 @@ A [Separating Axis Theorom](http://en.wikipedia.org/wiki/Hyperplane_separation_t
 
 ----
 
-##View docs info and more
+## Facts
+
+- This is a port of Separating Axis Theorem, for collision detection between shapes.
+- Supports polygons, circles, and rays currently.
+- 2D only (for now).
+- Includes a simple drawing interface for debugging shapes
+- **COLLISION ONLY.** No physics here. By design :)
+- Contributions welcome
+
+##Quick look
+
+**A simple collision example**
+
+    var circle = new Circle( 300, 200, 50 );
+    var box = Polygon.rectangle( 0, 0, 50, 150 );
+
+    box.rotation = 45;
+
+    var collideInfo = Collision.shapeWithShape( circle, box );
+
+    if(collideInfo != null) {
+        //use collideInfo.separation.x
+        //    collideInfo.separation.y
+        //    collideInfo.normalAxis.x
+        //    collideInfo.normalAxis.y
+        //    collideInfo.overlap
+    }
+
+### Other notes
+
+- **not** specific to [luxe](http://luxeengine.com/)
+- See tests/ for usage examples and tests
+- [Original code ported from rocketmandevelopment blog](http://rocketmandevelopment.com/2010/05/19/separation-of-axis-theorem-for-collision-detection/)
+
+### API documentation
 
 https://underscorediscovery.github.io/differ/
 
@@ -23,6 +57,12 @@ https://underscorediscovery.github.io/differ/
 - [demo 1](http://underscorediscovery.com/sven/differ/usage1)
 - [demo 2](http://underscorediscovery.com/sven/differ/usage2)
 - [demo 3](http://underscorediscovery.com/sven/differ/usage3)
+
+#Main Contributors
+
+- [@underscorediscovery](http://github.com/underscorediscovery)
+- [@Dvergar](http://github.com/Dvergar)
+- [@PDeveloper](http://github.com/PDeveloper)
 
 ---
 
