@@ -65,6 +65,7 @@ class Main extends luxe.Game {
 
         state.add( new states.RayAndShape({ name:'state0' }) );
         state.add( new states.Circles({ name:'state1' }) );
+        state.add( new states.Polygons({ name:'state2' }) );
 
         count = Lambda.count( state._states );
         state.set( 'state0' );
