@@ -28,7 +28,10 @@ https://underscorediscovery.github.io/differ/
 
 #History
 
-**1.2.0 (github dev)**
+**1.3.0 (github dev)**
+
+
+**1.2.0 (Latest release, haxelib)**
 
  The biggest change for sure, renamed `hxcollision` to `differ`
  Now that the library is getting more use its better to have a consistent name
@@ -55,7 +58,7 @@ https://underscorediscovery.github.io/differ/
  - **Renamed** `data.RayIntersectionData` to `data.RayIntersection`
  - **Removed** `OpenFLDrawer`, will replace with gist or test later
 
-**1.1.0 (Latest release, haxelib)**
+**1.1.0**
  - **Added** documentation and clean up of code
  - **Renamed** `Vector2D` to `Vector` and cleaned up code to ONLY what is needed. This class is meant to be as small and easy to integrate as possible.   
  - **Refactor** for easier maintaining in embedded libraries   
