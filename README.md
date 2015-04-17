@@ -34,9 +34,9 @@ https://underscorediscovery.github.io/differ/
  and to have a more explicit path. Think of "differ" as a diff tool for shapes/rays, 
  it tells you how shapes differ (i.e the separation).
 
- - Added ray intersection information, rather than just true/false
- - Added ray vs ray intersection with info on overlap
- - Added more granular tests, that will expand further
+ - **Added** ray collision information, rather than just true/false
+ - **Added** ray vs ray intersection with info on overlap
+ - **Added** more granular tests, that will expand further
     - New test case uses luxe http://luxeengine.com/
     - hxcollision/differ was born for luxe.collision, separate for any framework
  - **Refactor** continued separating code for future 3D vs 2D
@@ -55,45 +55,45 @@ https://underscorediscovery.github.io/differ/
  - **Removed** `OpenFLDrawer`, will replace with gist or test later
 
 **1.1.0 (Latest release, haxelib)**
- - Added documentation and clean up of code
- - Renamed `Vector2D` to `Vector` and cleaned up code to ONLY what is needed. This class is meant to be as small and easy to integrate as possible.   
- - Refactored for easier maintaining in embedded libraries   
- - Renamed `BaseShape` to `Shape`, continued refactoring
- - Renamed `Collision.testShapes` to `Collision.test`
- - Renamed `Collision.testShapeList` to `Collision.testShapes`
- - Renamed `Collision.rayCollision` to `Collision.ray`
- - Fixed various bugs in collisions
- - Fixed `separation`/`unitVector` behaviour (signs bugs)
- - Fixed bug with `Polygon`/`Polygon` collisions not returning best vectors 
- - Fixed bug where you couldn't `beginFill` using `OpenFLDrawer`
- - Fixed `collisionData` in `CheckCircles`, shape2 wasn't assigned.
- - `separation`/`unitVector` is now bound to shape1
- - Added 2 samples (usage2 & usage3)
- - Added `drawVector` in `OpenFLDrawer` showing vector direction
- - Added `drawShape` in `ShapeDrawer`, will cast proper types and call appropriate drawing functions.
+ - **Added** documentation and clean up of code
+ - **Renamed** `Vector2D` to `Vector` and cleaned up code to ONLY what is needed. This class is meant to be as small and easy to integrate as possible.   
+ - **Refactor** for easier maintaining in embedded libraries   
+ - **Renamed** `BaseShape` to `Shape`, continued refactoring
+ - **Renamed** `Collision.testShapes` to `Collision.test`
+ - **Renamed** `Collision.testShapeList` to `Collision.testShapes`
+ - **Renamed** `Collision.rayCollision` to `Collision.ray`
+ - **Fixed** various bugs in collisions
+ - **Fixed** `separation`/`unitVector` behaviour (signs bugs)
+ - **Fixed** bug with `Polygon`/`Polygon` collisions not returning best vectors 
+ - **Fixed** bug where you couldn't `beginFill` using `OpenFLDrawer`
+ - **Fixed** `collisionData` in `CheckCircles`, shape2 wasn't assigned.
+ - **Fixed** `separation`/`unitVector` is now bound to shape1 as it should be
+ - **Added** 2 samples (usage2 & usage3)
+ - **Added** `drawVector` in `OpenFLDrawer` showing vector direction
+ - **Added** `drawShape` in `ShapeDrawer`, will cast proper types and call appropriate drawing functions.
 
 **1.0.4**
- - Renamed `Polygon.normalPolygon` to `Polygon.create`
- - Added `testShapeList` for testing one shape with many
- - Added changes to the test to display the `unitVector` response (soon to be renamed also)
- - Migrating to more integration friendly api, and more logical order of arguments for shapes. 
- - Making rotation on the base shapes absolute (submitted by @grapefrukt). 
- - Adding name and data flag to `BaseShape`
+ - **Renamed** `Polygon.normalPolygon` to `Polygon.create`
+ - **Added** `testShapeList` for testing one shape with many
+ - **Added** changes to the test to display the `unitVector` response (soon to be renamed also)
+ - **Refactor** to more integration friendly api, and more logical order of arguments for shapes. 
+ - **Fixed** rotation on the base shapes absolute (submitted by @grapefrukt). 
+ - **Added** name and data flag to `BaseShape`
 
 **1.0.3**
- - Fixed bug in circle vs polygon, when polygon was rotated.
- - Added line raycast with collision shapes
- - Added a custom `ShapeDrawer` class, for drawing the shapes in a non specific way. 
- - Moved to latest haxelib revisions
+ - **Fixed** bug in circle vs polygon, when polygon was rotated.
+ - **Added** line raycast with collision shapes
+ - **Added** a custom `ShapeDrawer` class, for drawing the shapes in a non specific way. 
+ - **Update** to latest haxelib revisions
  - Removed dependency on OpenFL, now completely standalone 
- 
+
 **1.0.2**
  - uncommitted internal fixes
 
 **1.0.1**
- - Added an option for `Polygon.rectangle()` to be non-centered
- 
-**1.0.0** 
+ - **Added** an option for `Polygon.rectangle()` to be non-centered
+
+**1.0.0**
  - Initial project pull and compile/port, functional
 
 ---
