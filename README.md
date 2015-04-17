@@ -29,23 +29,30 @@ https://underscorediscovery.github.io/differ/
 
 **1.2.0 (github dev)**
 
- - renamed `hxcollision` to `differ`
-    - diff tool for shapes/rays, differ as in separation
+ The biggest change for sure, renamed `hxcollision` to `differ`
+ Now that the library is getting more use its better to have a consistent name
+ and to have a more explicit path. Think of "differ" as a diff tool for shapes/rays, 
+ it tells you how shapes differ (i.e the separation).
+
  - Added ray intersection information, rather than just true/false
- - Added ray vs ray intersection as well, with info on overlap
- - initial work separating code for 3D vs 2D
+ - Added ray vs ray intersection with info on overlap
+ - Added more granular tests, that will expand further
+    - New test case uses luxe http://luxeengine.com/
+    - hxcollision/differ was born for luxe.collision, separate for any framework
+ - **Refactor** continued separating code for future 3D vs 2D
     - moved all internal 2D code into differ.sat.SAT2D
- - renamed `Collision.test` to `Collision.shapeWithShape`
- - renamed `Collision.testShapes` to `Collision.shapeWithShapes`
- - renamed `Collision.rayShape` to `Collision.rayWithShape`
- - renamed `Collision.rayShapes` to `Collision.rayWithShapes`
- - renamed `Collision.rayRay` to `Collision.rayWithRay`
- - renamed `Collision.rayRays` to `Collision.rayWithRays`
- - renamed `Collision.rayRays` to `Collision.rayWithRays`
- - renamed `data.CollisionData` to `data.ShapeCollision`
- - renamed `data.RayCollisionData` to `data.RayCollision`
- - renamed `data.RayIntersectionData` to `data.RayIntersection`
- - removed `OpenFLDrawer`, will replace with gist or test later
+    - moved all internal common code into differ.sat.Common
+ - **Renamed** `Collision.test` to `Collision.shapeWithShape`
+ - **Renamed** `Collision.testShapes` to `Collision.shapeWithShapes`
+ - **Renamed** `Collision.rayShape` to `Collision.rayWithShape`
+ - **Renamed** `Collision.rayShapes` to `Collision.rayWithShapes`
+ - **Renamed** `Collision.rayRay` to `Collision.rayWithRay`
+ - **Renamed** `Collision.rayRays` to `Collision.rayWithRays`
+ - **Renamed** `Collision.rayRays` to `Collision.rayWithRays`
+ - **Renamed** `data.CollisionData` to `data.ShapeCollision`
+ - **Renamed** `data.RayCollisionData` to `data.RayCollision`
+ - **Renamed** `data.RayIntersectionData` to `data.RayIntersection`
+ - **Removed** `OpenFLDrawer`, will replace with gist or test later
 
 **1.1.0 (Latest release, haxelib)**
  - Added documentation and clean up of code
