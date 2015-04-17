@@ -16,12 +16,13 @@ https://underscorediscovery.github.io/differ/
 
 ##Demos
 
+- [main demo](http://underscorediscovery.com/sven/differ/usage0)
 
-##Previous Demos (being updated)
+##Older Demos (being updated)
 
-- [demo 1](http://underscorediscovery.com/sven/hxcollision/usage1)
-- [demo 2](http://underscorediscovery.com/sven/hxcollision/usage2)
-- [demo 3](http://underscorediscovery.com/sven/hxcollision/usage3)
+- [demo 1](http://underscorediscovery.com/sven/differ/usage1)
+- [demo 2](http://underscorediscovery.com/sven/differ/usage2)
+- [demo 3](http://underscorediscovery.com/sven/differ/usage3)
 
 ---
 
