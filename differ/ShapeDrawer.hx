@@ -90,6 +90,47 @@ class ShapeDrawer {
 
     } //drawCircle
 
+    public function drawPoint( point:Vector, size:Float = 4 ) {
+
+        var xs = point.x - size;
+        var xe = point.x + size;
+        var ys = point.y;
+        var ye = point.y;
+
+        drawLine( new Vector(xs, ys), new Vector(xe, ye) );
+
+        xs = xe = point.x;
+        ys = point.y - size;
+        ye = point.y + size;
+
+        drawLine( new Vector(xs, ys), new Vector(xe, ye) );
+
+    } //drawPoint
+
+    public function drawShapeCollision( data:ShapeCollision, ?length:Float = 30 ) {
+
+        var shape1_o = new Vector(data.shape1.position.x, data.shape1.position.y);
+        var shape2_o = new Vector(data.shape2.position.x, data.shape2.position.y);
+
+        //origins
+
+        drawPoint(shape1_o);
+        drawPoint(shape2_o);
+
+        //unit vectors
+
+        var unit_line_end = new Vector( shape1_o.x + (data.unitVector.x * length), shape1_o.y + (data.unitVector.y * length) );
+
+        drawLine( shape1_o, unit_line_end );
+
+        //ghosts
+
+        var shape1p = shape1_o.clone().add(data.separation);
+
+        drawPoint(shape1p);
+
+    } //drawShapeCollision
+
 
 //Internal API
 
