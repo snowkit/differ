@@ -29,13 +29,21 @@ class Main extends luxe.Game {
 
     override function ready() {
 
-        Luxe.renderer.batcher.add_group(0,
-            function(_) {
-                Luxe.renderer.state.lineWidth(2);
-            },
-            function(_) {
-                Luxe.renderer.state.lineWidth(1);
-            });
+            //Set the line widths to the group number,
+            //so that the test cases can opt into sizes
+
+        Luxe.renderer.batcher.add_group(2,
+            function(_) Luxe.renderer.state.lineWidth(2),
+            function(_) Luxe.renderer.state.lineWidth(1)
+        );
+        Luxe.renderer.batcher.add_group(3,
+            function(_) Luxe.renderer.state.lineWidth(3),
+            function(_) Luxe.renderer.state.lineWidth(1)
+        );
+        Luxe.renderer.batcher.add_group(4,
+            function(_) Luxe.renderer.state.lineWidth(4),
+            function(_) Luxe.renderer.state.lineWidth(1)
+        );
 
         drawer = new LuxeDrawer();
         shapes = [];
@@ -44,7 +52,7 @@ class Main extends luxe.Game {
         desc = new Text({
             pos: new Vector(10,10),
             point_size: 18,
-            text: 'differ usage examples, press 1 or 2 to cycle'
+            text: 'differ usage examples, press 9 or 0 to cycle'
         });
 
         disp = new Text({
@@ -56,6 +64,7 @@ class Main extends luxe.Game {
         state = new luxe.States({ name:'machine' });
 
         state.add( new states.RayAndShape({ name:'state0' }) );
+        state.add( new states.Circles({ name:'state1' }) );
 
         count = Lambda.count( state._states );
         state.set( 'state0' );
@@ -75,13 +84,13 @@ class Main extends luxe.Game {
 
     override function onkeyup( e:KeyEvent ) {
 
-        if(e.keycode == Key.key_1) {
+        if(e.keycode == Key.key_9) {
             current--;
-            if(current <= count) current = count-1;
+            if(current < 0) current = count-1;
             change('state$current');
         }
 
-        if(e.keycode == Key.key_2) {
+        if(e.keycode == Key.key_0) {
             current++;
             if(current >= count) current = 0;
             change('state$current');

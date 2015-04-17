@@ -30,9 +30,9 @@ class RayAndShape extends luxe.States.State {
         Main.rays.push(beam);
         Main.shapes.push(new Circle(300,300,50));
 
-        intersect = Luxe.draw.line({ depth:100, group:1, p0:new Vector(), p1:new Vector(), color:new Color().rgb(0xffffff) });
-        before = Luxe.draw.line({ depth:100, group:1, p0:new Vector(), p1:new Vector(), color:new Color().rgb(0x00f67b) });
-        after = Luxe.draw.line({ depth:100, group:1, p0:new Vector(), p1:new Vector(), color:new Color().rgb(0x7b00f6) });
+        intersect = Luxe.draw.line({ depth:100, group:3, p0:new Vector(), p1:new Vector(), color:new Color().rgb(0xffffff) });
+        before = Luxe.draw.line({ depth:100, group:2, p0:new Vector(), p1:new Vector(), color:new Color().rgb(0x00f67b) });
+        after = Luxe.draw.line({ depth:100, group:2, p0:new Vector(), p1:new Vector(), color:new Color().rgb(0x7b00f6) });
 
     } //onenter
 

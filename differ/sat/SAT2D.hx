@@ -216,6 +216,7 @@ class SAT2D {
         (Math.abs(result1.overlap) < Math.abs(result2.overlap)) ?
             return result1:
             return result2;
+
     } //testPolygonVsPolygon
 
         /** Internal api - test a ray against a circle */
