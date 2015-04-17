@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <title>snow - </title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <link rel="shortcut icon" href="../../../images/favicon.png" />
+
+        <link rel="stylesheet" type="text/css" href="../../../css/style.css" media="all">
+        <link rel="stylesheet" type="text/css" href="../../../css/code.css" media="all">
+        <link rel="stylesheet" type="text/css" href="../../../css/font.css" media="all">
+
+        <link rel="stylesheet" type="text/css" href="../../../css/tooltipster.css" media="all">
+        <link rel="stylesheet" type="text/css" href="../../../css/tooltipster-shadow.css" media="all">
+
+        <script src="../../../js/jquery-2.0.3.min.js"> </script>
+        <script src="../../../js/jquery.tooltipster.min.js"> </script>
+
+        <script>
+
+            $(document).ready(function() {
+
+                $('.section').css('display','none');
+                $('.readmore').click(function(e){
+                    var _child = $(this).parent().find('.section').first();
+                    var _opp = 'block';
+                    if( _child.css('display') == 'block' ) {
+                        _opp = 'none';
+                    } else {
+                    }
+                    _child.css('display', _opp);
+                });
+
+                $('div.sample').on('click', function(e){
+                        //get the data tag
+                    var content = $(this).attr('data-content');
+                        //remove clicking handler
+                    $(this).off('click');
+                        //replace the content!
+                    $(this).html('<iframe src="'+content+'" sandbox="allow-same-origin allow-scripts" style="overflow:hidden; scrollbar:none; border: 0; width:645px; height:450px;"></iframe> ')
+                });
+
+                $('.tooltip').each(function(e){
+                    var c = $(this).attr('data-tooltip');
+                    $(this).tooltipster({
+                        content:$('<span>' + c + '</span>'),
+                        interactive:true,
+                    theme:'tooltipster-shadow'
+                    });
+                });
+
+            }); //document.ready
+
+        </script>
+    </head>
+
+    <body>
+        <div class="content">
+            <p><a href="../../../api/index.html"><img src="../../../images/logo.png" alt="Logo"></a></p>
+<p><hr/>
+<a href="#" id="search_bar" onclick="return;"><div> search API <em>(or start typing anywhere)</em> </div></a></p>
+<hr/>
+
+<script src="../../../js/omnibar.js"> </script>
+<link rel="stylesheet" type="text/css" href="../../../css/omnibar.css" media="all">
+
+<div id="omnibar"> <a href="#" onclick="return" id="omnibar_close"></a> <input id="omnibar_text" type="text" placeholder="search types..."></input></div>
+<script  id="typelist" data-relpath="../../../" data-types="differ.Collision,differ.ShapeDrawer,differ.data.RayCollision,differ.data.RayCollisionHelper,differ.data.RayIntersection,differ.data.ShapeCollision,differ.math.Matrix,differ.math.Vector,differ.sat.Common,differ.sat.SAT2D,differ.shapes.Circle,differ.shapes.Polygon,differ.shapes.Ray,differ.shapes.Shape"></script>
+
+
+<p><h1>Ray</h1>
+<small><code>differ.shapes.Ray</code></small></p>
+<hr/>
+
+<p><code>class</code><br/><span class="meta">
+meta: @:directlyUsed, @:keep</span></p>
+<hr/>
+
+
+<p>&nbsp;
+&nbsp;</p>
+<p><h3>Members</h3> <hr/><span class="member apipage">
+                <a name="end"><a class="lift" href="#end">end</a></a><div class="clear"></div>
+                <code class="signature apipage">end : <a href="../../../api/differ/math/Vector.html">differ.math.Vector</a></code><br/></span>
+            <span class="small_desc_flat">The end point of the ray.</span><br/><span class="member apipage">
+                <a name="infinite"><a class="lift" href="#infinite">infinite</a></a><div class="clear"></div>
+                <code class="signature apipage">infinite : <a href="http://api.haxe.org/Bool.html">Bool</a></code><br/></span>
+            <span class="small_desc_flat">Whether or not the ray is infinite.</span><br/><span class="member apipage">
+                <a name="start"><a class="lift" href="#start">start</a></a><div class="clear"></div>
+                <code class="signature apipage">start : <a href="../../../api/differ/math/Vector.html">differ.math.Vector</a></code><br/></span>
+            <span class="small_desc_flat">The start point of the ray.</span><br/></p>
+<p><h3>Properties</h3> <hr/><span class="member apipage">
+                <a name="dir"><a class="lift" href="#dir">dir</a></a><div class="clear"></div>
+                <code class="signature apipage">dir : <a href="../../../api/differ/math/Vector.html">differ.math.Vector</a></code><br/></span>
+            <span class="small_desc_flat">The direction of the ray.
+            Returns a cached vector, so modifying it will affect this instance.
+            Updates only when the dir value is accessed.</span></p>
+<p><h3>Methods</h3> <hr/><span class="method apipage">
+            <a name="new"><a class="lift" href="#new">new</a></a><div class="clear"></div>
+            <code class="signature apipage">new(_start:<a href="../../../api/differ/math/Vector.html">differ.math.Vector</a><span></span>, _end:<a href="../../../api/differ/math/Vector.html">differ.math.Vector</a><span></span>, _infinite:<a href="http://api.haxe.org/Bool.html">Bool</a><span></span>) : <a href="http://api.haxe.org/Void.html">Void</a></code><br/><span class="small_desc_flat">Create a new ray with the start and end point,
+            which determine the direction of the ray, and optionally specifying
+            that this ray is an infinite one.</span></p>
+<p></span></p>
+<hr/>
+
+<p>&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;</p>
+
+        </div>
+    </body>
+
+</html>

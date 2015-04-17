@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <title>snow - </title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <link rel="shortcut icon" href="../../../images/favicon.png" />
+
+        <link rel="stylesheet" type="text/css" href="../../../css/style.css" media="all">
+        <link rel="stylesheet" type="text/css" href="../../../css/code.css" media="all">
+        <link rel="stylesheet" type="text/css" href="../../../css/font.css" media="all">
+
+        <link rel="stylesheet" type="text/css" href="../../../css/tooltipster.css" media="all">
+        <link rel="stylesheet" type="text/css" href="../../../css/tooltipster-shadow.css" media="all">
+
+        <script src="../../../js/jquery-2.0.3.min.js"> </script>
+        <script src="../../../js/jquery.tooltipster.min.js"> </script>
+
+        <script>
+
+            $(document).ready(function() {
+
+                $('.section').css('display','none');
+                $('.readmore').click(function(e){
+                    var _child = $(this).parent().find('.section').first();
+                    var _opp = 'block';
+                    if( _child.css('display') == 'block' ) {
+                        _opp = 'none';
+                    } else {
+                    }
+                    _child.css('display', _opp);
+                });
+
+                $('div.sample').on('click', function(e){
+                        //get the data tag
+                    var content = $(this).attr('data-content');
+                        //remove clicking handler
+                    $(this).off('click');
+                        //replace the content!
+                    $(this).html('<iframe src="'+content+'" sandbox="allow-same-origin allow-scripts" style="overflow:hidden; scrollbar:none; border: 0; width:645px; height:450px;"></iframe> ')
+                });
+
+                $('.tooltip').each(function(e){
+                    var c = $(this).attr('data-tooltip');
+                    $(this).tooltipster({
+                        content:$('<span>' + c + '</span>'),
+                        interactive:true,
+                    theme:'tooltipster-shadow'
+                    });
+                });
+
+            }); //document.ready
+
+        </script>
+    </head>
+
+    <body>
+        <div class="content">
+            <p><a href="../../../api/index.html"><img src="../../../images/logo.png" alt="Logo"></a></p>
+<p><hr/>
+<a href="#" id="search_bar" onclick="return;"><div> search API <em>(or start typing anywhere)</em> </div></a></p>
+<hr/>
+
+<script src="../../../js/omnibar.js"> </script>
+<link rel="stylesheet" type="text/css" href="../../../css/omnibar.css" media="all">
+
+<div id="omnibar"> <a href="#" onclick="return" id="omnibar_close"></a> <input id="omnibar_text" type="text" placeholder="search types..."></input></div>
+<script  id="typelist" data-relpath="../../../" data-types="differ.Collision,differ.ShapeDrawer,differ.data.RayCollision,differ.data.RayCollisionHelper,differ.data.RayIntersection,differ.data.ShapeCollision,differ.math.Matrix,differ.math.Vector,differ.sat.Common,differ.sat.SAT2D,differ.shapes.Circle,differ.shapes.Polygon,differ.shapes.Ray,differ.shapes.Shape"></script>
+
+
+<p><h1>Vector</h1>
+<small><code>differ.math.Vector</code></small></p>
+<p>2D vector class</p>
+<hr/>
+
+<p><code>class</code><br/><span class="meta">
+meta: @:directlyUsed, @:keep</span></p>
+<hr/>
+
+
+<p>&nbsp;
+&nbsp;</p>
+<p><h3>Members</h3> <hr/><span class="member apipage">
+                <a name="x"><a class="lift" href="#x">x</a></a><div class="clear"></div>
+                <code class="signature apipage">x : <a href="http://api.haxe.org/Float.html">Float</a></code><br/></span>
+            <span class="small_desc_flat">The x component</span><br/><span class="member apipage">
+                <a name="y"><a class="lift" href="#y">y</a></a><div class="clear"></div>
+                <code class="signature apipage">y : <a href="http://api.haxe.org/Float.html">Float</a></code><br/></span>
+            <span class="small_desc_flat">The y component</span><br/></p>
+<p><h3>Properties</h3> <hr/><span class="member apipage">
+                <a name="length"><a class="lift" href="#length">length</a></a><div class="clear"></div>
+                <code class="signature apipage">length : <a href="http://api.haxe.org/Float.html">Float</a></code><br/></span>
+            <span class="small_desc_flat">The length of the vector</span><span class="member apipage">
+                <a name="lengthsq"><a class="lift" href="#lengthsq">lengthsq</a></a><div class="clear"></div>
+                <code class="signature apipage">lengthsq : <a href="http://api.haxe.org/Float.html">Float</a></code><br/></span>
+            <span class="small_desc_flat">The length, squared, of the vector</span></p>
+<p><h3>Methods</h3> <hr/><span class="method apipage">
+            <a name="add"><a class="lift" href="#add">add</a></a><div class="clear"></div>
+            <code class="signature apipage">add(other:<a href="../../../api/differ/math/Vector.html">differ.math.Vector</a><span></span>) : <a href="../../../api/differ/math/Vector.html">differ.math.Vector</a></code><br/><span class="small_desc_flat">Add a vector to this vector. Returns this vector, modified.</span></p>
+<p></span>
+<span class="method apipage">
+            <a name="clone"><a class="lift" href="#clone">clone</a></a><div class="clear"></div>
+            <code class="signature apipage">clone() : <a href="../../../api/differ/math/Vector.html">differ.math.Vector</a></code><br/><span class="small_desc_flat">Copy, returns a new vector instance from this vector.</span></p>
+<p></span>
+<span class="method apipage">
+            <a name="cross"><a class="lift" href="#cross">cross</a></a><div class="clear"></div>
+            <code class="signature apipage">cross(other:<a href="../../../api/differ/math/Vector.html">differ.math.Vector</a><span></span>) : <a href="http://api.haxe.org/Float.html">Float</a></code><br/><span class="small_desc_flat">Return the cross product of this vector and another vector.</span></p>
+<p></span>
+<span class="method apipage">
+            <a name="dot"><a class="lift" href="#dot">dot</a></a><div class="clear"></div>
+            <code class="signature apipage">dot(other:<a href="../../../api/differ/math/Vector.html">differ.math.Vector</a><span></span>) : <a href="http://api.haxe.org/Float.html">Float</a></code><br/><span class="small_desc_flat">Return the dot product of this vector and another vector.</span></p>
+<p></span>
+<span class="method apipage">
+            <a name="invert"><a class="lift" href="#invert">invert</a></a><div class="clear"></div>
+            <code class="signature apipage">invert() : <a href="../../../api/differ/math/Vector.html">differ.math.Vector</a></code><br/><span class="small_desc_flat">Invert this vector. Returns this vector, modified.</span></p>
+<p></span>
+<span class="method apipage">
+            <a name="new"><a class="lift" href="#new">new</a></a><div class="clear"></div>
+            <code class="signature apipage">new(_x:<a href="http://api.haxe.org/Float.html">Float</a><span></span>, _y:<a href="http://api.haxe.org/Float.html">Float</a><span></span>) : <a href="http://api.haxe.org/Void.html">Void</a></code><br/><span class="small_desc_flat"></span></p>
+<p></span>
+<span class="method apipage">
+            <a name="normalize"><a class="lift" href="#normalize">normalize</a></a><div class="clear"></div>
+            <code class="signature apipage">normalize() : <a href="../../../api/differ/math/Vector.html">differ.math.Vector</a></code><br/><span class="small_desc_flat">Sets the vector’s length to 1. Returns this vector, modified.</span></p>
+<p></span>
+<span class="method apipage">
+            <a name="subtract"><a class="lift" href="#subtract">subtract</a></a><div class="clear"></div>
+            <code class="signature apipage">subtract(other:<a href="../../../api/differ/math/Vector.html">differ.math.Vector</a><span></span>) : <a href="../../../api/differ/math/Vector.html">differ.math.Vector</a></code><br/><span class="small_desc_flat">Subtract a vector from this one. Returns this vector, modified.</span></p>
+<p></span>
+<span class="method apipage">
+            <a name="toString"><a class="lift" href="#toString">toString</a></a><div class="clear"></div>
+            <code class="signature apipage">toString() : <a href="http://api.haxe.org/String.html">String</a></code><br/><span class="small_desc_flat">Return a string representation of this vector.</span></p>
+<p></span>
+<span class="method apipage">
+            <a name="transform"><a class="lift" href="#transform">transform</a></a><div class="clear"></div>
+            <code class="signature apipage">transform(matrix:<a href="../../../api/differ/math/Matrix.html">differ.math.Matrix</a><span></span>) : <a href="../../../api/differ/math/Vector.html">differ.math.Vector</a></code><br/><span class="small_desc_flat">Transforms Vector based on the given Matrix. Returns this vector, modified.</span></p>
+<p></span>
+<span class="method apipage">
+            <a name="truncate"><a class="lift" href="#truncate">truncate</a></a><div class="clear"></div>
+            <code class="signature apipage">truncate(max:<a href="http://api.haxe.org/Float.html">Float</a><span></span>) : <a href="../../../api/differ/math/Vector.html">differ.math.Vector</a></code><br/><span class="small_desc_flat">Sets the length to fit under the given maximum value.
+            Nothing is done if the vector is already shorter.
+            Returns this vector, modified.</span></p>
+<p></span></p>
+<hr/>
+
+<p>&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;</p>
+
+        </div>
+    </body>
+
+</html>
