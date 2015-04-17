@@ -11,15 +11,25 @@ import differ.data.*;
 
 class Polygons extends luxe.States.State {
 
-    var fixed : Polygon;
+    var fixed : Array<Shape>;
     var mover : Polygon;
+    var colors : Array<Color>;
 
     override function onenter<T>(_:T) {
 
-        fixed = Polygon.rectangle(Luxe.screen.mid.x, Luxe.screen.mid.y, 100, 60);
+        colors = [ new Color(1,1,1,0.5), new Color(1,1,1,0.5).rgb(0x007bf6) ];
+
+        fixed = [
+            Polygon.triangle(100, Luxe.screen.mid.y, 50),
+            Polygon.rectangle(300, Luxe.screen.mid.y, 100, 60),
+            Polygon.create(500, Luxe.screen.mid.y, 5, 50),
+            Polygon.create(600, Luxe.screen.mid.y, 8, 50),
+        ];
+
+
         mover = Polygon.square(10, 100, 50);
 
-        Main.shapes.push(fixed);
+        for(fix in fixed) Main.shapes.push(fix);
         Main.shapes.push(mover);
 
         var text =  '\nThe white polygon is the position the separation would result in.\n';
@@ -31,7 +41,7 @@ class Polygons extends luxe.States.State {
 
     override function onleave<T>(_:T) {
 
-        fixed.destroy();
+        for(fix in fixed) fix.destroy();
         fixed = null;
 
         mover.destroy();
@@ -56,9 +66,13 @@ class Polygons extends luxe.States.State {
             mover.rotation -= 50 * Luxe.dt;
         }
 
-        var coll = Collision.shapeWithShape(mover, fixed);
+        var collisions = Collision.shapeWithShapes(mover, fixed);
 
-        if(coll != null) {
+        if(collisions.length == 0) return;
+
+        var index = 0;
+        for(coll in collisions) {
+
             Main.drawer.drawShapeCollision(coll);
 
             //draw a ghost shape where the collision would resolve to
@@ -71,7 +85,7 @@ class Polygons extends luxe.States.State {
 
             var r = Luxe.draw.rectangle({
                 immediate: true,
-                color: new Color(1,1,1,0.4),
+                color: colors[index],
                 group: 2,
                 x: mover_separated_pos.x,
                 y: mover_separated_pos.y,
@@ -81,6 +95,8 @@ class Polygons extends luxe.States.State {
 
             var rot_radians = luxe.utils.Maths.radians(mover.rotation);
             r.transform.rotation.setFromEuler(new Vector(0,0,rot_radians));
+
+            index++;
 
         }
 
