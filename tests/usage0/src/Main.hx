@@ -22,7 +22,10 @@ class Main extends luxe.Game {
 
     override function config(config:luxe.AppConfig) {
 
-        config.render.antialiasing = 8;
+            //if you have errors about the window being created,
+            //lower this to 2, or 0. it can also be 8
+        config.render.antialiasing = 4;
+
         return config;
 
     } //config
