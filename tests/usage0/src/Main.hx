@@ -58,11 +58,12 @@ class Main extends luxe.Game {
         state = new luxe.States({ name:'machine' });
 
         state.add( new states.RayAndShape({ name:'state0' }) );
-        state.add( new states.Circles({ name:'state1' }) );
-        state.add( new states.Polygons({ name:'state2' }) );
+        state.add( new states.Rays({ name:'state1' }) );
+        state.add( new states.Circles({ name:'state2' }) );
+        state.add( new states.Polygons({ name:'state3' }) );
 
         count = Lambda.count( state._states );
-        state.set( 'state0' );
+        state.set( 'state$current' );
 
     } //ready
 
