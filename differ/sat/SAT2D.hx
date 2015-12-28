@@ -3,6 +3,7 @@ package differ.sat;
 import differ.math.*;
 import differ.shapes.*;
 import differ.data.*;
+import differ.math.Util.*;
 import differ.sat.Common;
 
 /** Implementation details for the 2D SAT collision queries.
@@ -12,116 +13,85 @@ class SAT2D {
         /** Internal api - test a circle against a polygon */
     public static function testCircleVsPolygon( circle:Circle, polygon:Polygon, flip:Bool=false ) : ShapeCollision {
 
-        var ep : Float = 0.0000000001;
-        var test1 : Float; //numbers for testing max/mins
-        var test2 : Float;
-        var test : Float;
+        var into = new ShapeCollision();
+        var verts = polygon.transformedVertices;
 
-        var min1 : Float = 0; //same as above
-        var max1 : Float = 0x3FFFFFFF;
-        var min2 : Float = 0;
-        var max2 : Float = 0x3FFFFFFF;
-        var normalAxis:Vector = new Vector();
-        var offset : Float;
-        var vectorOffset:Vector = new Vector();
-        var vectors:Array<Vector>;
-        var shortestDistance : Float = 0x3FFFFFFF;
-        var collisionData = new ShapeCollision();
-        var distMin : Float;
+        var circleX = circle.x;
+        var circleY = circle.y;
 
-        var distance : Float = 0xFFFFFFFF;
         var testDistance : Float = 0x3FFFFFFF;
-        var closestVector:Vector = new Vector(); //the vector to use to find the normal
+        var distance = 0.0, closestX = 0.0, closestY = 0.0;
+        for(i in 0 ... verts.length) {
 
-        // find offset
-        vectorOffset = new Vector(-circle.x,-circle.y);
-        vectors = polygon.transformedVertices.copy();
+            distance = vec_lengthsq(circleX - verts[i].x, circleY - verts[i].y);
 
-        //adds some padding to make it more accurate
-        if(vectors.length == 2) {
-            var temp:Vector = new Vector(-(vectors[1].y - vectors[0].y), vectors[1].x - vectors[0].x);
-            temp.truncate(ep);
-            vectors.push( vectors[1].clone().add(temp) );
-        }
-
-        // find the closest vertex to use to find normal
-        for(i in 0 ... vectors.length) {
-
-            // trace(i + ' @ ' + vectors[i]);
-
-            distance =  (circle.x - (vectors[i].x)) * (circle.x - (vectors[i].x)) +
-                        (circle.y - (vectors[i].y)) * (circle.y - (vectors[i].y));
-
-            if(distance < testDistance) { //closest has the lowest distance
+            if(distance < testDistance) {
                 testDistance = distance;
-                closestVector.x = vectors[i].x;
-                closestVector.y = vectors[i].y;
+                closestX = verts[i].x;
+                closestY = verts[i].y;
             }
 
         } //for
 
-        //get the normal vector
-        normalAxis = new Vector(closestVector.x - circle.x, closestVector.y - circle.y);
-        normalAxis.normalize(); //normalize is(set its length to 1)
+        var normalAxisX = closestX - circleX;
+        var normalAxisY = closestY - circleY;
+        var normAxisLen = vec_length(normalAxisX, normalAxisY);
+            normalAxisX = vec_normalize(normAxisLen, normalAxisX);
+            normalAxisY = vec_normalize(normAxisLen, normalAxisY);
 
-        // project the polygon's points
-        min1 = normalAxis.dot(vectors[0]);
-        max1 = min1; //set max and min
 
-        for(j in 1 ... vectors.length) { //project all its points, starting with the first(the 0th was done up there^)
-            test = normalAxis.dot(vectors[j]); //dot to project
-            if(test < min1) {
-                min1 = test;
-            } //smallest min is wanted
-            if(test > max1) {
-                max1 = test;
-            } //largest max is wanted
-        }
+            //project all its points, 0 outside the loop
+        var test = 0.0;
+        var min1 = vec_dot(normalAxisX, normalAxisY, verts[0].x, verts[0].y);
+        var max1 = min1;
 
-        // project the circle
-        max2 = circle.transformedRadius; //max is radius
-        min2 -= circle.transformedRadius; //min is negative radius
+        for(j in 1 ... verts.length) {
+            test = vec_dot(normalAxisX, normalAxisY, verts[j].x, verts[j].y);
+            if(test < min1) min1 = test;
+            if(test > max1) max1 = test;
+        } //each vert
 
-        // offset the polygon's max/min
-        offset = normalAxis.dot(vectorOffset);
+            // project the circle
+        var max2 = circle.transformedRadius;
+        var min2 = -circle.transformedRadius;
+        var offset = vec_dot(normalAxisX, normalAxisY, -circleX, -circleY);
+            
         min1 += offset;
         max1 += offset;
 
-        // do the big test
-        test1 = min1 - max2;
-        test2 = min2 - max1;
+        var test1 = min1 - max2;
+        var test2 = min2 - max1;
 
-        if(test1 > 0 || test2 > 0) { //if either test is greater than 0, there is a gap, we can give up now.
-            return null;
-        }
+            //if either test is greater than 0, there is a gap, we can give up now.
+        if(test1 > 0 || test2 > 0) return null;
 
             // circle distance check
-        distMin = -(max2 - min1);
+        var distMin = -(max2 - min1);
         if(flip) distMin *= -1;
-        if(Math.abs(distMin) < shortestDistance) {
-            collisionData.unitVector = normalAxis;
-            collisionData.overlap = distMin;
-            shortestDistance = Math.abs(distMin);
-        }
+
+        into.overlap = distMin;
+        into.unitVectorX = normalAxisX;
+        into.unitVectorY = normalAxisY;
+        var closest = Math.abs(distMin);
 
             // find the normal axis for each point and project
-        for(i in 0 ... vectors.length) {
+        for(i in 0 ... verts.length) {
 
-            normalAxis = Common.findNormalAxis(vectors, i);
+            normalAxisX = Common.findNormalAxisX(verts, i);
+            normalAxisY = Common.findNormalAxisY(verts, i);
+            var aLen = vec_length(normalAxisX, normalAxisY);
+            normalAxisX = vec_normalize(aLen, normalAxisX);
+            normalAxisY = vec_normalize(aLen, normalAxisY);
 
-            // project the polygon(again? yes, circles vs. polygon require more testing...)
-            min1 = normalAxis.dot(vectors[0]); //project
+                // project the polygon(again? yes, circles vs. polygon require more testing...)
+            min1 = vec_dot(normalAxisX, normalAxisY, verts[0].x, verts[0].y);
             max1 = min1; //set max and min
 
             //project all the other points(see, cirlces v. polygons use lots of this...)
-            for(j in 1 ... vectors.length) {
-                test = normalAxis.dot(vectors[j]); //more projection
-                if(test < min1) {
-                    min1 = test;
-                } //smallest min
-                if(test > max1) {
-                    max1 = test;
-                } //largest max
+            for(j in 1 ... verts.length) {
+                test = vec_dot(normalAxisX, normalAxisY, verts[j].x, verts[j].y);
+                if(test < min1) min1 = test;
+                if(test > max1) max1 = test;
             }
 
             // project the circle(again)
@@ -129,7 +99,7 @@ class SAT2D {
             min2 = -circle.transformedRadius; //min is negative radius
 
             //offset points
-            offset = normalAxis.dot(vectorOffset);
+            offset = vec_dot(normalAxisX, normalAxisY, -circleX, -circleY);
             min1 += offset;
             max1 += offset;
 
@@ -144,30 +114,38 @@ class SAT2D {
 
             distMin = -(max2 - min1);
             if(flip) distMin *= -1;
-            if(Math.abs(distMin) < shortestDistance) {
-                collisionData.unitVector = normalAxis;
-                collisionData.overlap = distMin;
-                shortestDistance = Math.abs(distMin);
+
+            if(Math.abs(distMin) < closest) {
+                into.unitVectorX = normalAxisX;
+                into.unitVectorY = normalAxisY;
+                into.overlap = distMin;
+                closest = Math.abs(distMin);
             }
 
         } //for
 
         //if you made it here, there is a collision!!!!!
 
-        collisionData.shape2 = if(flip) polygon else circle;
-        collisionData.shape1 = if(flip) circle else polygon;
-        collisionData.separation = new Vector(-collisionData.unitVector.x * collisionData.overlap,
-                                                -collisionData.unitVector.y * collisionData.overlap); //return the separation distance
+        into.shape1 = if(flip) polygon else circle;
+        into.shape2 = if(flip) circle else polygon;
+        into.separationX = into.unitVectorX * into.overlap;
+        into.separationY = into.unitVectorY * into.overlap;
 
-        if(flip) collisionData.unitVector.invert();
+        if(!flip) {
+            into.unitVectorX = -into.unitVectorX;
+            into.unitVectorY = -into.unitVectorY;
+        }
 
-        return collisionData;
+        return into;
 
     } //testCircleVsPolygon
 
         /** Internal api - test a circle against a circle */
-    public static function testCircleVsCircle( circle1:Circle, circle2:Circle ) : ShapeCollision {
+    public static function testCircleVsCircle( circleA:Circle, circleB:Circle, flip:Bool = false ) : ShapeCollision {
         //
+
+        var circle1 = flip ? circleB : circleA;
+        var circle2 = flip ? circleA : circleB;
 
             //add both radii together to get the colliding distance
         var totalRadius = circle1.transformedRadius + circle2.transformedRadius;
@@ -177,24 +155,30 @@ class SAT2D {
             //if your distance is less than the totalRadius square(because distance is squared)
         if(distancesq < totalRadius * totalRadius) {
 
+            var into = new ShapeCollision();
                 //find the difference. Square roots are needed here.
             var difference : Float = totalRadius - Math.sqrt(distancesq);
 
-            var collisionData =  new ShapeCollision();
+                into.shape1 = circle1;
+                into.shape2 = circle2;
 
-                collisionData.shape1 = circle1;
-                collisionData.shape2 = circle2;
-                collisionData.unitVector = new Vector(circle1.x - circle2.x, circle1.y - circle2.y);
-                collisionData.unitVector.normalize();
+                var unitVecX = circle1.x - circle2.x;
+                var unitVecY = circle1.y - circle2.y;
+                var unitVecLen = vec_length(unitVecX, unitVecY);
+
+                unitVecX = vec_normalize(unitVecLen, unitVecX);
+                unitVecY = vec_normalize(unitVecLen, unitVecY);
+
+                into.unitVectorX = unitVecX;
+                into.unitVectorY = unitVecY;
 
                     //find the movement needed to separate the circles
-                collisionData.separation = new Vector( collisionData.unitVector.x * difference,
-                                                       collisionData.unitVector.y * difference );
-
+                into.separationX = into.unitVectorX * difference;
+                into.separationY = into.unitVectorY * difference;
                     //the magnitude of the overlap
-                collisionData.overlap = collisionData.separation.length;
+                into.overlap = vec_length(into.separationX, into.separationY);
 
-            return collisionData;
+            return into;
 
         } //if distanceSq
 
@@ -213,7 +197,7 @@ class SAT2D {
 
         if (result2 == null) return null;
 
-            //take the closest overlap
+            //:todo: expose both: take the closest overlap 
         (Math.abs(result1.overlap) < Math.abs(result2.overlap)) ?
             return result1:
             return result2;
@@ -405,7 +389,7 @@ class SAT2D {
         var vectors1:Array<Vector>; //the points
         var vectors2:Array<Vector>; //the points
         var shortestDistance : Float = 0x3FFFFFFF;
-        var collisionData = new ShapeCollision();
+        var into = new ShapeCollision();
 
         vectors1 = polygon1.transformedVertices.copy();
         vectors2 = polygon2.transformedVertices.copy();
@@ -467,21 +451,26 @@ class SAT2D {
             var distMin : Float = -(max2 - min1);
             if(flip) distMin *= -1;
             if(Math.abs(distMin) < shortestDistance) {
-                collisionData.unitVector = axis;
-                collisionData.overlap = distMin;
+                into.unitVectorX = axis.x;
+                into.unitVectorY = axis.y;
+                into.overlap = distMin;
                 shortestDistance = Math.abs(distMin);
             }
         }
 
         //if you're here, there is a collision
 
-        collisionData.shape1 = if(flip) polygon2 else polygon1;
-        collisionData.shape2 = if(flip) polygon1 else polygon2;
-        collisionData.separation = new Vector(-collisionData.unitVector.x * collisionData.overlap,
-                                                -collisionData.unitVector.y * collisionData.overlap); //return the separation, apply it to a polygon to separate the two shapes.
-        if(flip) collisionData.unitVector.invert();
+        into.shape1 = if(flip) polygon2 else polygon1;
+        into.shape2 = if(flip) polygon1 else polygon2;
+        into.separationX = -into.unitVectorX * into.overlap;
+        into.separationY = -into.unitVectorY * into.overlap;
 
-        return collisionData;
+        if(flip) {
+            into.unitVectorX = -into.unitVectorX;
+            into.unitVectorY = -into.unitVectorY;
+        }
+
+        return into;
 
     } //checkPolygons
 

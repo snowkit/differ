@@ -40,7 +40,7 @@ class Polygon extends Shape {
         /** Test for a collision with a circle. */
     override public function testCircle( circle:Circle, flip:Bool = false ) : ShapeCollision {
 
-        return SAT2D.testCircleVsPolygon( circle, this, flip );
+        return SAT2D.testCircleVsPolygon( circle, this, !flip );
 
     } //testCircle
 
