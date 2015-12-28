@@ -39,7 +39,6 @@ class SAT2D {
             normalAxisX = vec_normalize(normAxisLen, normalAxisX);
             normalAxisY = vec_normalize(normAxisLen, normalAxisY);
 
-
             //project all its points, 0 outside the loop
         var test = 0.0;
         var min1 = vec_dot(normalAxisX, normalAxisY, verts[0].x, verts[0].y);
@@ -150,14 +149,14 @@ class SAT2D {
             //add both radii together to get the colliding distance
         var totalRadius = circle1.transformedRadius + circle2.transformedRadius;
             //find the distance between the two circles using Pythagorean theorem. No square roots for optimization
-        var distancesq = (circle1.x - circle2.x) * (circle1.x - circle2.x) + (circle1.y - circle2.y) * (circle1.y - circle2.y);
+        var distancesq = vec_lengthsq(circle1.x - circle2.x, circle1.y - circle2.y);
 
             //if your distance is less than the totalRadius square(because distance is squared)
         if(distancesq < totalRadius * totalRadius) {
 
             var into = new ShapeCollision();
                 //find the difference. Square roots are needed here.
-            var difference : Float = totalRadius - Math.sqrt(distancesq);
+            var difference = totalRadius - Math.sqrt(distancesq);
 
                 into.shape1 = circle1;
                 into.shape2 = circle2;
@@ -175,12 +174,13 @@ class SAT2D {
                     //find the movement needed to separate the circles
                 into.separationX = into.unitVectorX * difference;
                 into.separationY = into.unitVectorY * difference;
+
                     //the magnitude of the overlap
                 into.overlap = vec_length(into.separationX, into.separationY);
 
             return into;
 
-        } //if distanceSq
+        } //if distancesq < r^2
 
         return null;
 
