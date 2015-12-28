@@ -308,7 +308,7 @@ class SAT2D {
         var u1 = (delta2X * diffY - delta2Y * diffX) / ud;
         var u2 = (delta1X * diffY - delta1Y * diffX) / ud;
 
-        if ((ray1.infinite || u1 <= 1.0) && (ray2.infinite || u2 <= 1.0)) {
+        if ((ray1.infinite || (u1 > 0.0 && u1 <= 1.0)) && (ray2.infinite || (u2 > 0.0 && u2 <= 1.0))) {
             return new RayIntersection(ray1, u1, ray2, u2);
         }
 
