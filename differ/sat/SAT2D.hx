@@ -197,7 +197,8 @@ class SAT2D {
 
         if (result2 == null) return null;
 
-            //:todo: expose both: take the closest overlap 
+            //:todo: expose both: 
+            //take the closest overlap 
         (Math.abs(result1.overlap) < Math.abs(result2.overlap)) ?
             return result1:
             return result2;
@@ -207,12 +208,14 @@ class SAT2D {
         /** Internal api - test a ray against a circle */
     public static function testRayVsCircle( ray:Ray, circle:Circle ) : RayCollision {
 
-        var delta = ray.end.clone().subtract(ray.start);
-        var ray2circle = ray.start.clone().subtract(circle.position);
+        var deltaX = ray.end.x - ray.start.x;
+        var deltaY = ray.end.y - ray.start.y;
+        var ray2circleX = ray.start.x - circle.position.x;
+        var ray2circleY = ray.start.y - circle.position.y;
 
-        var a = delta.lengthsq;
-        var b = 2 * delta.dot(ray2circle);
-        var c = ray2circle.dot(ray2circle) - circle.radius * circle.radius;
+        var a = vec_lengthsq(deltaX, deltaY);
+        var b = 2 * vec_dot(deltaX, deltaY, ray2circleX, ray2circleY);
+        var c = vec_dot(ray2circleX, ray2circleY, ray2circleX, ray2circleY) - (circle.radius * circle.radius);
 
         var d:Float = b * b - 4 * a * c;
 
@@ -220,14 +223,14 @@ class SAT2D {
 
             d = Math.sqrt(d);
 
-            var t1:Float = (-b - d) / (2 * a);
-            var t2:Float = (-b + d) / (2 * a);
+            var t1 = (-b - d) / (2 * a);
+            var t2 = (-b + d) / (2 * a);
 
-            if (ray.infinite || ((t1 <= 1.0)&&(t1 >=0.0)) ) {
+            if (ray.infinite || (t1 <= 1.0 && t1 >= 0.0)) {
                 return new RayCollision(circle, ray, t1, t2);
             }
 
-        } //d>=0
+        } //d >= 0
 
         return null;
 
