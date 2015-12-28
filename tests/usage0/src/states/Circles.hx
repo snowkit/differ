@@ -58,9 +58,7 @@ class Circles extends luxe.States.State {
             //we do that by using the separation data, and add it to the "shape1"
             //position, above, that shape1 is mover
 
-            var sep = new Vector(coll.separation.x, coll.separation.y);
-
-            var mover_separated_pos = new Vector( coll.shape1.position.x + sep.x, coll.shape1.position.y + sep.y );
+            var mover_separated_pos = new Vector( coll.shape1.position.x + coll.separationX, coll.shape1.position.y + coll.separationY);
 
             Luxe.draw.ring({
                 immediate: true,

@@ -12,7 +12,10 @@ import differ.data.*;
 class Polygons extends luxe.States.State {
 
     var fixed : Array<Shape>;
-    var mover : Polygon;
+    var mover : Shape;
+    var moverA : Polygon;
+    var moverB : Circle;
+    var toggle : Bool = false;
     var colors : Array<Color>;
 
     override function onenter<T>(_:T) {
@@ -24,13 +27,17 @@ class Polygons extends luxe.States.State {
             Polygon.rectangle(300, Luxe.screen.mid.y, 100, 60),
             Polygon.create(500, Luxe.screen.mid.y, 5, 50),
             Polygon.create(600, Luxe.screen.mid.y, 8, 50),
+            new Circle(400, Luxe.screen.mid.y, 40),
         ];
 
 
-        mover = Polygon.square(10, 100, 50);
+        moverA = Polygon.square(10, 100, 50);
+        moverB = new Circle(10, 100, 30);
+        mover = moverA;
 
         for(fix in fixed) Main.shapes.push(fix);
-        Main.shapes.push(mover);
+        Main.shapes.push(moverA);
+        Main.shapes.push(moverB);
 
         var text =  '\nThe white polygon is the position the separation would result in.\n';
             text += 'Hold down left or right mouse to rotate the box.';
@@ -49,6 +56,17 @@ class Polygons extends luxe.States.State {
 
     } //onleave
 
+
+    override function onkeyup(e:KeyEvent) {
+        if(e.keycode == Key.key_m) {
+            toggle = !toggle;
+            if(toggle) {
+                mover = moverB; 
+            } else {
+                mover = moverA;
+            }
+        }
+    }
 
     override function onmousemove(e:MouseEvent) {
 
@@ -79,19 +97,28 @@ class Polygons extends luxe.States.State {
             //we do that by using the separation data, and add it to the "shape1"
             //position, above, that shape1 is mover
 
-            var sep = new Vector(coll.separation.x, coll.separation.y);
+            var r : phoenix.geometry.Geometry;
 
-            var mover_separated_pos = new Vector( coll.shape1.position.x + sep.x, coll.shape1.position.y + sep.y );
-
-            var r = Luxe.draw.rectangle({
-                immediate: true,
-                color: colors[index],
-                batcher: Main.thicker,
-                x: mover_separated_pos.x,
-                y: mover_separated_pos.y,
-                w: 50, h: 50,
-                origin: new Vector(25,25)
-            });
+            if(toggle) {
+                r = Luxe.draw.ring({
+                    immediate: true,
+                    color: colors[index],
+                    batcher: Main.thicker,
+                    x: coll.shape1.position.x + coll.separationX,
+                    y: coll.shape1.position.y + coll.separationY,
+                    r: 30
+                });
+            } else {
+                r = Luxe.draw.rectangle({
+                    immediate: true,
+                    color: colors[index],
+                    batcher: Main.thicker,
+                    x: coll.shape1.position.x + coll.separationX,
+                    y: coll.shape1.position.y + coll.separationY,
+                    w: 50, h: 50,
+                    origin: new Vector(25,25)
+                });
+            }
 
             var rot_radians = luxe.utils.Maths.radians(mover.rotation);
             r.transform.rotation.setFromEuler(new Vector(0,0,rot_radians));
