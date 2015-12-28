@@ -119,13 +119,15 @@ class ShapeDrawer {
 
         //unit vectors
 
-        var unit_line_end = new Vector( shape1_o.x + (data.unitVector.x * length), shape1_o.y + (data.unitVector.y * length) );
+        var unit_line_end = new Vector( shape1_o.x + (data.unitVectorX * length), shape1_o.y + (data.unitVectorY * length) );
 
         drawLine( shape1_o, unit_line_end );
 
         //ghosts
 
-        var shape1p = shape1_o.clone().add(data.separation);
+        var shape1p = shape1_o.clone();
+            shape1p.x += data.separationX;
+            shape1p.y += data.separationY;
 
         drawPoint(shape1p);
 
