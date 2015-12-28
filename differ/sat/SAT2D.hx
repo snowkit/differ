@@ -16,6 +16,8 @@ class SAT2D {
         var into = new ShapeCollision();
         var verts = polygon.transformedVertices;
 
+        //:todo: removed line segment polygon padding
+
         var circleX = circle.x;
         var circleY = circle.y;
 
@@ -216,8 +218,7 @@ class SAT2D {
         var a = vec_lengthsq(deltaX, deltaY);
         var b = 2 * vec_dot(deltaX, deltaY, ray2circleX, ray2circleY);
         var c = vec_dot(ray2circleX, ray2circleY, ray2circleX, ray2circleY) - (circle.radius * circle.radius);
-
-        var d:Float = b * b - 4 * a * c;
+        var d = b * b - 4 * a * c;
 
         if (d >= 0) {
 
@@ -236,8 +237,11 @@ class SAT2D {
 
     } //testRayVsCircle
 
+        /** Internal helper for ray overlaps */
     static inline function rayU(udelta:Float, aX:Float, aY:Float, bX:Float, bY:Float, dX:Float, dY:Float) : Float {
+        
         return (dX * (aY - bY) - dY * (aX - bX)) / udelta;
+
     } //rayU
 
         /** Internal api - test a ray against a polygon */
@@ -291,19 +295,22 @@ class SAT2D {
         /** Internal api - test a ray against another ray */
     public static function testRayVsRay( ray1:Ray, ray2:Ray ) : RayIntersection {
 
-        var delta1 = ray1.end.clone().subtract(ray1.start);
-        var delta2 = ray2.end.clone().subtract(ray2.start);
+        var delta1X = ray1.end.x - ray1.start.x;
+        var delta1Y = ray1.end.y - ray1.start.y;
+        var delta2X = ray2.end.x - ray2.start.x;
+        var delta2Y = ray2.end.y - ray2.start.y;
+        var diffX = ray1.start.x - ray2.start.x;
+        var diffY = ray1.start.y - ray2.start.y;
+        var ud = delta2Y * delta1X - delta2X * delta1Y;
 
-        var dx = ray1.start.clone().subtract(ray2.start);
+        if(ud == 0.0) return null;
 
-        var d = delta2.y * delta1.x - delta2.x * delta1.y;
+        var u1 = (delta2X * diffY - delta2Y * diffX) / ud;
+        var u2 = (delta1X * diffY - delta1Y * diffX) / ud;
 
-        if (d == 0.0) return null;
-
-        var u1 = (delta2.x * dx.y - delta2.y * dx.x) / d;
-        var u2 = (delta1.x * dx.y - delta1.y * dx.x) / d;
-
-        if ((ray1.infinite || u1 <= 1.0) && (ray2.infinite || u2 <= 1.0)) return new RayIntersection(ray1, u1, ray2, u2);
+        if ((ray1.infinite || u1 <= 1.0) && (ray2.infinite || u2 <= 1.0)) {
+            return new RayIntersection(ray1, u1, ray2, u2);
+        }
 
         return null;
 
