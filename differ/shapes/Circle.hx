@@ -26,17 +26,14 @@ class Circle extends Shape {
         /** Test for collision against a shape. */
     override public function test( shape:Shape ) : ShapeCollision {
 
-        return shape.testCircle(this, true);
+        return shape.testCircle( this, true );
 
     } //test
 
         /** Test for collision against a circle. */
     override public function testCircle( circle:Circle, flip:Bool = false ) : ShapeCollision {
 
-        var c1 = flip ? circle : this;
-        var c2 = flip ? this : circle;
-
-        return SAT2D.testCircleVsCircle( c1, c2 );
+        return SAT2D.testCircleVsCircle( this, circle, flip );
 
     } //testCircle
 
