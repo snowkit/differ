@@ -16,8 +16,6 @@ class SAT2D {
         var into = new ShapeCollision();
         var verts = polygon.transformedVertices;
 
-        //:todo: removed line segment polygon padding
-
         var circleX = circle.x;
         var circleY = circle.y;
 
@@ -321,89 +319,62 @@ class SAT2D {
         /** Internal api - implementation details for testPolygonVsPolygon */
     static function checkPolygons( polygon1:Polygon, polygon2:Polygon, flip:Bool=false ) : ShapeCollision {
 
-        var ep : Float = 0.0000000001;
-        var test1 : Float; // numbers to use to test for overlap
-        var test2 : Float;
-        var testNum : Float; // number to test if its the new max/min
-        var min1 : Float; //current smallest(shape 1)
-        var max1 : Float; //current largest(shape 1)
-        var min2 : Float; //current smallest(shape 2)
-        var max2 : Float; //current largest(shape 2)
-        var axis:Vector; //the normal axis for projection
-        var offset : Float;
-        var vectors1:Array<Vector>; //the points
-        var vectors2:Array<Vector>; //the points
-        var shortestDistance : Float = 0x3FFFFFFF;
         var into = new ShapeCollision();
 
-        vectors1 = polygon1.transformedVertices.copy();
-        vectors2 = polygon2.transformedVertices.copy();
+        var offset = 0.0, test1 = 0.0, test2 = 0.0, testNum = 0.0;
+        var min1 = 0.0, max1 = 0.0, min2 = 0.0, max2 = 0.0;
+        var closest : Float = 0x3FFFFFFF;
 
-            // add a little padding to make the test work correctly for lines
-        if(vectors1.length == 2) {
-            var temp = new Vector(-(vectors1[1].y - vectors1[0].y), vectors1[1].x - vectors1[0].x);
-            temp.truncate(ep);
-            vectors1.push(vectors1[1].add(temp));
-        }
-
-        if(vectors2.length == 2) {
-            var temp = new Vector(-(vectors2[1].y - vectors2[0].y), vectors2[1].x - vectors2[0].x);
-            temp.truncate(ep);
-            vectors2.push(vectors2[1].add(temp));
-        }
+        var axisX = 0.0;
+        var axisY = 0.0;
+        var verts1 = polygon1.transformedVertices;
+        var verts2 = polygon2.transformedVertices;
 
             // loop to begin projection
-        for(i in 0 ... vectors1.length) {
+        for(i in 0 ... verts1.length) {
 
-                // get the normal axis, and begin projection
-            axis = Common.findNormalAxis(vectors1, i);
+            axisX = Common.findNormalAxisX(verts1, i);
+            axisY = Common.findNormalAxisY(verts1, i);
+            var aLen = vec_length(axisX, axisY);
+            axisX = vec_normalize(aLen, axisX);
+            axisY = vec_normalize(aLen, axisY);
 
                 // project polygon1
-            min1 = axis.dot(vectors1[0]);
-            max1 = min1; //set max and min equal
+            min1 = vec_dot(axisX, axisY, verts1[0].x, verts1[0].y);
+            max1 = min1;
 
-            for(j in 1 ... vectors1.length) {
-                testNum = axis.dot(vectors1[j]); //project each point
-                if(testNum < min1) {
-                    min1 = testNum;
-                } //test for new smallest
-                if(testNum > max1) {
-                    max1 = testNum;
-                } //test for new largest
+            for(j in 1 ... verts1.length) {
+                testNum = vec_dot(axisX, axisY, verts1[j].x, verts1[j].y);
+                if(testNum < min1) min1 = testNum;
+                if(testNum > max1) max1 = testNum;
             }
 
-            // project polygon2
-            min2 = axis.dot(vectors2[0]);
-            max2 = min2; //set 2's max and min
+                // project polygon2
+            min2 = vec_dot(axisX, axisY, verts2[0].x, verts2[0].y);
+            max2 = min2;
 
-            for(j in 1 ... vectors2.length) {
-                testNum = axis.dot(vectors2[j]); //project the point
-                if(testNum < min2) {
-                    min2 = testNum;
-                } //test for new min
-                if(testNum > max2) {
-                    max2 = testNum;
-                } //test for new max
+            for(j in 1 ... verts2.length) {
+                testNum = vec_dot(axisX, axisY, verts2[j].x, verts2[j].y);
+                if(testNum < min2) min2 = testNum;
+                if(testNum > max2) max2 = testNum;
             }
 
-            // and test if they are touching
-            test1 = min1 - max2; //test min1 and max2
-            test2 = min2 - max1; //test min2 and max1
-            if(test1 > 0 || test2 > 0) { //if they are greater than 0, there is a gap
-                return null; //just quit
-            }
+            test1 = min1 - max2;
+            test2 = min2 - max1;
 
-            var distMin : Float = -(max2 - min1);
+            if(test1 > 0 || test2 > 0) return null;
+
+            var distMin = -(max2 - min1);
             if(flip) distMin *= -1;
-            if(Math.abs(distMin) < shortestDistance) {
-                into.unitVectorX = axis.x;
-                into.unitVectorY = axis.y;
-                into.overlap = distMin;
-                shortestDistance = Math.abs(distMin);
-            }
-        }
 
-        //if you're here, there is a collision
+            if(Math.abs(distMin) < closest) {
+                into.unitVectorX = axisX;
+                into.unitVectorY = axisY;
+                into.overlap = distMin;
+                closest = Math.abs(distMin);
+            }
+
+        }
 
         into.shape1 = if(flip) polygon2 else polygon1;
         into.shape2 = if(flip) polygon1 else polygon2;
