@@ -236,46 +236,53 @@ class SAT2D {
 
     } //testRayVsCircle
 
+    static inline function rayU(udelta:Float, aX:Float, aY:Float, bX:Float, bY:Float, dX:Float, dY:Float) : Float {
+        return (dX * (aY - bY) - dY * (aX - bX)) / udelta;
+    } //rayU
+
         /** Internal api - test a ray against a polygon */
     public static function testRayVsPolygon( ray:Ray, polygon:Polygon ) : RayCollision {
 
-        var delta = ray.end.clone().subtract(ray.start);
-        var vertices = polygon.transformedVertices;
+        var min_u = Math.POSITIVE_INFINITY;
+        var max_u = 0.0;
 
-        var min_u:Float = Math.POSITIVE_INFINITY;
-        var max_u:Float = 0.0;
+        var startX = ray.start.x;
+        var startY = ray.start.y;
+        var deltaX = ray.end.x - startX;
+        var deltaY = ray.end.y - startY;
 
-        if (vertices.length > 2) {
+        var verts = polygon.transformedVertices;
+        var v1 = verts[verts.length - 1];
+        var v2 = verts[0];
 
-            var v1 = vertices[vertices.length - 1];
-            var v2 = vertices[0];
+        var ud = (v2.y-v1.y) * deltaX - (v2.x-v1.x) * deltaY;
+        var ua = rayU(ud, startX, startY, v1.x, v1.y, v2.x - v1.x, v2.y - v1.y);
+        var ub = rayU(ud, startX, startY, v1.x, v1.y, deltaX, deltaY);
 
-            var r = intersectRayRay(ray.start, delta, v1, v2.clone().subtract(v1));
+        if (ud != 0.0 && ub >= 0.0 && ub <= 1.0) {
+            if (ua < min_u) min_u = ua;
+            if (ua > max_u) max_u = ua;
+        }
 
-            if (r != null && r.ub >= 0.0 && r.ub <= 1.0) {
-                if (r.ua < min_u) min_u = r.ua;
-                if (r.ua > max_u) max_u = r.ua;
+        for (i in 1...verts.length) {
+
+            v1 = verts[i - 1];
+            v2 = verts[i];
+
+            ud = (v2.y-v1.y) * deltaX - (v2.x-v1.x) * deltaY;
+            ua = rayU(ud, startX, startY, v1.x, v1.y, v2.x - v1.x, v2.y - v1.y);
+            ub = rayU(ud, startX, startY, v1.x, v1.y, deltaX, deltaY);
+
+            if (ud != 0.0 && ub >= 0.0 && ub <= 1.0) {
+                if (ua < min_u) min_u = ua;
+                if (ua > max_u) max_u = ua;
             }
 
-            for (i in 1...vertices.length) {
+        } //each vert
 
-                v1 = vertices[i - 1];
-                v2 = vertices[i];
-
-                r = intersectRayRay(ray.start, delta, v1, v2.clone().subtract(v1));
-
-                if (r != null && r.ub >= 0.0 && r.ub <= 1.0) {
-                    if (r.ua < min_u) min_u = r.ua;
-                    if (r.ua > max_u) max_u = r.ua;
-                }
-
-            } //each vert
-
-            if(ray.infinite || ((min_u <= 1.0) && (min_u >= 0.0)) ) {
-                return new RayCollision(polygon, ray, min_u, max_u);
-            }
-
-        } //vert length > 2
+        if(ray.infinite || (min_u <= 1.0 && min_u >= 0.0) ) {
+            return new RayCollision(polygon, ray, min_u, max_u);
+        }
 
         return null;
 
@@ -301,78 +308,6 @@ class SAT2D {
         return null;
 
     } //testRayVsRay
-
-//Helpers
-
-        /** Internal api - generate a bresenham line between given start and end points */
-    public static function bresenhamLine( start:Vector, end:Vector ) : Array<Vector> {
-        //
-
-            //the array of all the points on the line
-        var points:Array<Vector> = [];
-        var steep:Bool = Math.abs(end.y - start.y) > Math.abs(end.x - start.x);
-            //check if rise is greater than run
-        var swapped:Bool = false;
-
-            //reflect the line
-        if(steep) {
-            start = swap(start);
-            end = swap(end);
-        } //if steep
-
-             //make sure the line goes downward
-        if(start.x > end.x) {
-
-            var t:Float = start.x;
-
-            start.x = end.x;
-            end.x = t;
-            t = start.y;
-            start.y = end.y;
-            end.y = t;
-            swapped = true;
-
-        } //if start.x > end.x
-
-            //x slope
-        var deltax:Float = end.x - start.x;
-            //y slope, positive because the lines always go  down
-        var deltay:Float = Math.abs(end.y - start.y);
-            //error is used instead of tracking the y values.
-        var error:Float = deltax / 2;
-        var ystep:Float;
-        var y:Float = start.y;
-
-        if(start.y < end.y) {
-            ystep = 1;
-        } else {
-            ystep = -1;
-        }
-
-        var x:Int = Std.int(start.x);
-        for(x in Std.int(start.x) ... Std.int(end.x)) { //for each point
-
-            if(steep) {
-                points.push(new Vector(y, x)); //if its steep, push flipped version
-            } else {
-                points.push(new Vector(x, y)); //push normal
-            }
-
-            error -= deltay; //change the error
-
-            if(error < 0) {
-                y += ystep; //if the error is too much, adjust the ystep
-                error += deltax;
-            }
-        }
-
-        if(swapped) {
-            points.reverse();
-        }
-
-        return points;
-
-    } //bresenhamLine
 
 //Internal helpers
 
@@ -476,24 +411,5 @@ class SAT2D {
         return into;
 
     } //checkPolygons
-
-        /** Internal api - swap x and y of a vector, returning a new vector. :todo: this is silly */
-    static inline function swap(v:Vector) : Vector return new Vector(v.y, v.x);
-
-        /** Internal api - same thing as rayRay, except without using Ray objects - saves the construction of a Ray object when testing Polygon/Ray. */
-    static function intersectRayRay(a:Vector, adelta:Vector, b:Vector, bdelta:Vector) : { ua:Float, ub:Float } {
-
-        var dx = a.clone().subtract(b);
-
-        var d = bdelta.y * adelta.x - bdelta.x * adelta.y;
-
-        if (d == 0.0) return null;
-
-        var ua = (bdelta.x * dx.y - bdelta.y * dx.x) / d;
-        var ub = (adelta.x * dx.y - adelta.y * dx.x) / d;
-
-        return { ua : ua, ub : ub };
-
-    } //intersectRayRay
 
 } //SAT2D
