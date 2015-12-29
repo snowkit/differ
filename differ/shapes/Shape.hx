@@ -64,11 +64,11 @@ class Shape {
 //Implemented in subclasses
 
         /** Test this shape against another shape. */
-    public function test( shape:Shape ) : ShapeCollision return null;
+    public function test( shape:Shape, ?into:ShapeCollision ) : ShapeCollision return null;
         /** Test this shape against a circle. */
-    public function testCircle( circle:Circle, flip:Bool = false ) : ShapeCollision return null;
+    public function testCircle( circle:Circle, ?into:ShapeCollision, flip:Bool = false ) : ShapeCollision return null;
         /** Test this shape against a polygon. */
-    public function testPolygon( polygon:Polygon, flip:Bool = false ) : ShapeCollision return null;
+    public function testPolygon( polygon:Polygon, ?into:ShapeCollision, flip:Bool = false ) : ShapeCollision return null;
         /** Test this shape against a ray. */
     public function testRay( ray:Ray ) : RayCollision return null;
 

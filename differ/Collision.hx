@@ -10,9 +10,9 @@ class Collision {
         /** Test a single shape against another shape.
             When no collision is found between them, this function returns null.
             Returns a `ShapeCollision` if a collision is found. */
-    public static function shapeWithShape( shape1:Shape, shape2:Shape ) : ShapeCollision {
+    public static inline function shapeWithShape( shape1:Shape, shape2:Shape, ?into:ShapeCollision ) : ShapeCollision {
 
-        return shape1.test(shape2);
+        return shape1.test(shape2, into);
 
     } //test
 
@@ -26,7 +26,7 @@ class Collision {
             //:todo: pair wise
         for(other_shape in shapes) {
 
-            var result = shapeWithShape(shape1, other_shape);
+            var result = shapeWithShape(shape1, other_shape, null);
             if(result != null) {
                 results.push(result);
             }
@@ -40,7 +40,7 @@ class Collision {
         /** Test a line between two points against a list of shapes.
             When no collision is found, this function returns null.
             Returns a `RayCollision` if a collision is found. */
-    public static function rayWithShape( ray:Ray, shape:Shape ) : RayCollision {
+    public static inline function rayWithShape( ray:Ray, shape:Shape ) : RayCollision {
 
         return shape.testRay(ray);
 
@@ -67,7 +67,7 @@ class Collision {
         /** Test a ray against another ray.
             When no collision is found, this function returns null.
             Returns a `RayIntersection` if a collision is found. */
-    public static function rayWithRay( ray1:Ray, ray2:Ray ) : RayIntersection {
+    public static inline function rayWithRay( ray1:Ray, ray2:Ray ) : RayIntersection {
 
         return SAT2D.testRayVsRay(ray1, ray2);
 

@@ -31,23 +31,23 @@ class Polygon extends Shape {
     } //new
 
         /** Test for a collision with a shape. */
-    override public function test( shape:Shape ) : ShapeCollision {
+    override public function test( shape:Shape, ?into:ShapeCollision ) : ShapeCollision {
 
-        return shape.testPolygon(this, true);
+        return shape.testPolygon(this, into, true);
 
     } //test
 
         /** Test for a collision with a circle. */
-    override public function testCircle( circle:Circle, flip:Bool = false ) : ShapeCollision {
+    override public function testCircle( circle:Circle, ?into:ShapeCollision, flip:Bool = false ) : ShapeCollision {
 
-        return SAT2D.testCircleVsPolygon( circle, this, !flip );
+        return SAT2D.testCircleVsPolygon( circle, this, into, !flip );
 
     } //testCircle
 
         /** Test for a collision with a polygon. */
-    override public function testPolygon( polygon:Polygon, flip:Bool = false ) : ShapeCollision {
+    override public function testPolygon( polygon:Polygon, ?into:ShapeCollision, flip:Bool = false ) : ShapeCollision {
 
-        return SAT2D.testPolygonVsPolygon( this, polygon, flip );
+        return SAT2D.testPolygonVsPolygon( this, polygon, into, flip );
 
     } //testPolygon
 

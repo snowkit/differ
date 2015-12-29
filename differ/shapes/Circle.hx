@@ -24,23 +24,23 @@ class Circle extends Shape {
     } //new
 
         /** Test for collision against a shape. */
-    override public function test( shape:Shape ) : ShapeCollision {
+    override public function test( shape:Shape, ?into:ShapeCollision ) : ShapeCollision {
 
-        return shape.testCircle( this, true );
+        return shape.testCircle( this, into, true );
 
     } //test
 
         /** Test for collision against a circle. */
-    override public function testCircle( circle:Circle, flip:Bool = false ) : ShapeCollision {
+    override public function testCircle( circle:Circle, ?into:ShapeCollision, flip:Bool = false ) : ShapeCollision {
 
-        return SAT2D.testCircleVsCircle( this, circle, flip );
+        return SAT2D.testCircleVsCircle( this, circle, into, flip );
 
     } //testCircle
 
         /** Test for collision against a polygon. */
-    override public function testPolygon( polygon:Polygon, flip:Bool = false ) : ShapeCollision {
+    override public function testPolygon( polygon:Polygon, ?into:ShapeCollision, flip:Bool = false ) : ShapeCollision {
 
-        return SAT2D.testCircleVsPolygon( this, polygon, flip );
+        return SAT2D.testCircleVsPolygon( this, polygon, into, flip );
 
     } //testPolygon
 
