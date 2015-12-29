@@ -93,27 +93,29 @@ class Collision {
 
         /** Test if a given point lands inside the given polygon.
             Returns true if it does, false otherwise. */
-    public static function pointInPoly( point:Vector, poly:Polygon ) : Bool {
+    public static function pointInPoly( x:Float, y:Float, poly:Polygon ) : Bool {
 
         var sides:Int = poly.transformedVertices.length; //amount of sides the polygon has
+        var verts = poly.transformedVertices;
+
         var i:Int = 0;
         var j:Int = sides - 1;
         var oddNodes:Bool = false;
 
         for(i in 0 ... sides) {
 
-            if( (poly.transformedVertices[i].y < point.y && poly.transformedVertices[j].y >= point.y) ||
-                (poly.transformedVertices[j].y < point.y && poly.transformedVertices[i].y >= point.y))
+            if( (verts[i].y < y && verts[j].y >= y) ||
+                (verts[j].y < y && verts[i].y >= y))
             {
-                if( poly.transformedVertices[i].x +
-                    (point.y - poly.transformedVertices[i].y) /
-                    (poly.transformedVertices[j].y - poly.transformedVertices[i].y) *
-                    (poly.transformedVertices[j].x - poly.transformedVertices[i].x) < point.x)
+                if( verts[i].x +
+                    (y - verts[i].y) /
+                    (verts[j].y - verts[i].y) *
+                    (verts[j].x - verts[i].x) < x)
                 {
                     oddNodes = !oddNodes;
-                } //second if
+                }
 
-            } //first if
+            }
 
             j = i;
 
