@@ -317,7 +317,7 @@ class SAT2D {
     } //testRayVsPolygon
 
         /** Internal api - test a ray against another ray */
-    public static function testRayVsRay( ray1:Ray, ray2:Ray ) : RayIntersection {
+    public static function testRayVsRay( ray1:Ray, ray2:Ray, ?into:RayIntersection ) : RayIntersection {
 
         var delta1X = ray1.end.x - ray1.start.x;
         var delta1Y = ray1.end.y - ray1.start.y;
@@ -333,7 +333,12 @@ class SAT2D {
         var u2 = (delta1X * diffY - delta1Y * diffX) / ud;
 
         if ((ray1.infinite || (u1 > 0.0 && u1 <= 1.0)) && (ray2.infinite || (u2 > 0.0 && u2 <= 1.0))) {
-            return new RayIntersection(ray1, u1, ray2, u2);
+            into = (into == null) ? new RayIntersection() : into.reset();
+                into.ray1 = ray1;
+                into.ray2 = ray2;
+                into.u1 = u1;
+                into.u2 = u2;
+            return into;
         }
 
         return null;

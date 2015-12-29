@@ -17,8 +17,11 @@ class Polygons extends luxe.States.State {
     var moverB : Circle;
     var toggle : Bool = false;
     var colors : Array<Color>;
+    var ghostcol : Color;
 
     override function onenter<T>(_:T) {
+
+        ghostcol = new Color(1,1,1,0.1);
 
         colors = [ new Color(1,1,1,0.5), new Color(1,1,1,0.5).rgb(0x007bf6) ];
 
@@ -123,7 +126,7 @@ class Polygons extends luxe.States.State {
                 if(coll.otherOverlap != 0) {
                     r1 = Luxe.draw.rectangle({
                         immediate: true,
-                        color: colors[index],
+                        color: ghostcol,
                         x: coll.shape1.position.x + coll.otherSeparationX,
                         y: coll.shape1.position.y + coll.otherSeparationY,
                         w: 50, h: 50,

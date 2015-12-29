@@ -54,7 +54,7 @@ class Collision {
         var results = [];
 
         for(shape in shapes) {
-            var result = shape.testRay(ray, null);
+            var result = rayWithShape(ray, shape, null);
             if(result != null) {
                 results.push(result);
             }
@@ -67,9 +67,9 @@ class Collision {
         /** Test a ray against another ray.
             When no collision is found, this function returns null.
             Returns a `RayIntersection` if a collision is found. */
-    public static inline function rayWithRay( ray1:Ray, ray2:Ray ) : RayIntersection {
+    public static inline function rayWithRay( ray1:Ray, ray2:Ray, ?into:RayIntersection ) : RayIntersection {
 
-        return SAT2D.testRayVsRay(ray1, ray2);
+        return SAT2D.testRayVsRay(ray1, ray2, into);
 
     } //rayRay
 
@@ -81,7 +81,7 @@ class Collision {
         var results = [];
 
         for(other in rays) {
-            var result = SAT2D.testRayVsRay(ray, other);
+            var result = rayWithRay(ray, other, null);
             if(result != null) {
                 results.push(result);
             }
