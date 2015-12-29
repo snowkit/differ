@@ -4,16 +4,15 @@ import differ.math.*;
 import differ.shapes.*;
 import differ.data.*;
 import differ.math.Util.*;
-import differ.sat.Common;
 
 /** Implementation details for the 2D SAT collision queries.
     Used by the various shapes, and Collision API, mostly internally.  */
 class SAT2D {
 
         /** Internal api - test a circle against a polygon */
-    public static function testCircleVsPolygon( circle:Circle, polygon:Polygon, flip:Bool=false ) : ShapeCollision {
+    public static function testCircleVsPolygon( circle:Circle, polygon:Polygon, ?into:ShapeCollision, flip:Bool=false ) : ShapeCollision {
 
-        var into = new ShapeCollision();
+        var into = into == null ? new ShapeCollision() : into.reset();
         var verts = polygon.transformedVertices;
 
         var circleX = circle.x;
@@ -76,8 +75,8 @@ class SAT2D {
             // find the normal axis for each point and project
         for(i in 0 ... verts.length) {
 
-            normalAxisX = Common.findNormalAxisX(verts, i);
-            normalAxisY = Common.findNormalAxisY(verts, i);
+            normalAxisX = findNormalAxisX(verts, i);
+            normalAxisY = findNormalAxisY(verts, i);
             var aLen = vec_length(normalAxisX, normalAxisY);
             normalAxisX = vec_normalize(aLen, normalAxisX);
             normalAxisY = vec_normalize(aLen, normalAxisY);
@@ -140,7 +139,7 @@ class SAT2D {
     } //testCircleVsPolygon
 
         /** Internal api - test a circle against a circle */
-    public static function testCircleVsCircle( circleA:Circle, circleB:Circle, flip:Bool = false ) : ShapeCollision {
+    public static function testCircleVsCircle( circleA:Circle, circleB:Circle, ?into:ShapeCollision, flip:Bool = false ) : ShapeCollision {
         //
 
         var circle1 = flip ? circleB : circleA;
@@ -154,7 +153,7 @@ class SAT2D {
             //if your distance is less than the totalRadius square(because distance is squared)
         if(distancesq < totalRadius * totalRadius) {
 
-            var into = new ShapeCollision();
+            var into = into == null ? new ShapeCollision() : into.reset();
                 //find the difference. Square roots are needed here.
             var difference = totalRadius - Math.sqrt(distancesq);
 
@@ -187,21 +186,40 @@ class SAT2D {
     } //testCircleVsCircle
 
         /** Internal api - test a polygon against another polygon */
-    public static function testPolygonVsPolygon( polygon1:Polygon, polygon2:Polygon, flip:Bool=false ) : ShapeCollision {
+    static var tmp1:ShapeCollision = new ShapeCollision();
+    static var tmp2:ShapeCollision = new ShapeCollision();
 
-        var result1 = checkPolygons(polygon1, polygon2, flip);
+    public static function testPolygonVsPolygon( polygon1:Polygon, polygon2:Polygon, ?into:ShapeCollision, flip:Bool=false ) : ShapeCollision {
 
-        if(result1 == null) return null;
+        var into = into == null ? new ShapeCollision() : into.reset();
+        
+        if(checkPolygons(polygon1, polygon2, tmp1, flip) == null) {
+            return null;
+        }
 
-        var result2 = checkPolygons(polygon2, polygon1, !flip);
+        if(checkPolygons(polygon2, polygon1, tmp2, !flip) == null) {
+            return null;
+        }
 
-        if (result2 == null) return null;
+        var result = null, other = null;
+        if(Math.abs(tmp1.overlap) < Math.abs(tmp2.overlap)) {
+            result = tmp1;
+            other = tmp2;
+        } else {
+            result = tmp2;
+            other = tmp1;
+        }
 
-            //:todo: expose both: 
-            //take the closest overlap 
-        (Math.abs(result1.overlap) < Math.abs(result2.overlap)) ?
-            return result1:
-            return result2;
+        result.otherOverlap = other.overlap;
+        result.otherSeparationX = other.separationX;
+        result.otherSeparationY = other.separationY;
+        result.otherUnitVectorX = other.unitVectorX;
+        result.otherUnitVectorY = other.unitVectorY;
+
+        into.copy_from(result);
+        result = other = null;
+
+        return into;
 
     } //testPolygonVsPolygon
 
@@ -234,13 +252,6 @@ class SAT2D {
         return null;
 
     } //testRayVsCircle
-
-        /** Internal helper for ray overlaps */
-    static inline function rayU(udelta:Float, aX:Float, aY:Float, bX:Float, bY:Float, dX:Float, dY:Float) : Float {
-        
-        return (dX * (aY - bY) - dY * (aX - bX)) / udelta;
-
-    } //rayU
 
         /** Internal api - test a ray against a polygon */
     public static function testRayVsPolygon( ray:Ray, polygon:Polygon ) : RayCollision {
@@ -314,12 +325,12 @@ class SAT2D {
 
     } //testRayVsRay
 
-//Internal helpers
+//Internal implementation detail helpers
 
         /** Internal api - implementation details for testPolygonVsPolygon */
-    static function checkPolygons( polygon1:Polygon, polygon2:Polygon, flip:Bool=false ) : ShapeCollision {
+    static function checkPolygons( polygon1:Polygon, polygon2:Polygon, into:ShapeCollision, flip:Bool=false ) : ShapeCollision {
 
-        var into = new ShapeCollision();
+        into.reset();
 
         var offset = 0.0, test1 = 0.0, test2 = 0.0, testNum = 0.0;
         var min1 = 0.0, max1 = 0.0, min2 = 0.0, max2 = 0.0;
@@ -333,8 +344,8 @@ class SAT2D {
             // loop to begin projection
         for(i in 0 ... verts1.length) {
 
-            axisX = Common.findNormalAxisX(verts1, i);
-            axisY = Common.findNormalAxisY(verts1, i);
+            axisX = findNormalAxisX(verts1, i);
+            axisY = findNormalAxisY(verts1, i);
             var aLen = vec_length(axisX, axisY);
             axisX = vec_normalize(aLen, axisX);
             axisY = vec_normalize(aLen, axisY);
@@ -389,5 +400,23 @@ class SAT2D {
         return into;
 
     } //checkPolygons
+
+
+//Internal helpers
+
+        /** Internal helper for ray overlaps */
+    static inline function rayU(udelta:Float, aX:Float, aY:Float, bX:Float, bY:Float, dX:Float, dY:Float) : Float {
+        return (dX * (aY - bY) - dY * (aX - bX)) / udelta;
+    } //rayU
+
+    static inline function findNormalAxisX(verts:Array<Vector>, index:Int) : Float {
+        var v2 = (index >= verts.length - 1) ? verts[0] : verts[index + 1];
+        return -(v2.y - verts[index].y);
+    }
+
+    static inline function findNormalAxisY(verts:Array<Vector>, index:Int) : Float {
+        var v2 = (index >= verts.length - 1) ? verts[0] : verts[index + 1];
+        return (v2.x - verts[index].x);
+    }
 
 } //SAT2D
