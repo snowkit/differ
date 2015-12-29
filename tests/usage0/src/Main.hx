@@ -100,7 +100,7 @@ class Main extends luxe.Game {
 
     override function onrender() {
         for(shape in shapes) drawer.drawShape(shape);
-        for(ray in rays) drawer.drawLine(ray.start, ray.end);
+        for(ray in rays) drawer.drawLine(ray.start.x, ray.start.y, ray.end.x, ray.end.y);
     }
 
 } //Main
