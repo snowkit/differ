@@ -76,19 +76,19 @@ class RayAndShape extends luxe.States.State {
         var textYval = 30;
 
         for (c in colls) {
-            var hitstart = c.hitStart();
-            var hitend = c.hitEnd();
-            var raystart = c.ray.start;
-            var rayend = c.ray.end;
+            var hitstartx = c.hitStartX();
+            var hitstarty = c.hitStartY();
+            var hitendx = c.hitEndX();
+            var hitendy = c.hitEndY();
 
-            intersect.p0 = new Vector(hitstart.x, hitstart.y);
-            intersect.p1 = new Vector(hitend.x, hitend.y);
+            intersect.p0 = new Vector(hitstartx, hitstarty);
+            intersect.p1 = new Vector(hitendx, hitendy);
 
-            before.p0 = new Vector(raystart.x, raystart.y);
-            before.p1 = new Vector(hitstart.x, hitstart.y);
+            before.p0 = new Vector(c.ray.start.x, c.ray.start.y);
+            before.p1 = new Vector(hitstartx, hitstarty);
 
-            after.p0 = new Vector(hitend.x, hitend.y);
-            after.p1 = new Vector(rayend.x, rayend.y);
+            after.p0 = new Vector(hitendx, hitendy);
+            after.p1 = new Vector(c.ray.end.x, c.ray.end.y);
 
             Luxe.draw.text({
                 point_size:13,

@@ -49,18 +49,7 @@ class ShapeCollision {
 
         var _clone = new ShapeCollision();
 
-            _clone.overlap = overlap;
-            _clone.separationX = separationX;
-            _clone.separationY = separationY;
-            _clone.unitVectorX = unitVectorX;
-            _clone.unitVectorY = unitVectorY;
-            _clone.otherOverlap = otherOverlap;
-            _clone.otherSeparationX = otherSeparationX;
-            _clone.otherSeparationY = otherSeparationY;
-            _clone.otherUnitVectorX = otherUnitVectorX;
-            _clone.otherUnitVectorY = otherUnitVectorY;
-            _clone.shape1 = shape1;
-            _clone.shape2 = shape2;
+        _clone.copy_from(this);
 
         return _clone;
 

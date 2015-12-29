@@ -12,7 +12,8 @@ class SAT2D {
         /** Internal api - test a circle against a polygon */
     public static function testCircleVsPolygon( circle:Circle, polygon:Polygon, ?into:ShapeCollision, flip:Bool=false ) : ShapeCollision {
 
-        var into = into == null ? new ShapeCollision() : into.reset();
+        into = into == null ? new ShapeCollision() : into.reset();
+
         var verts = polygon.transformedVertices;
 
         var circleX = circle.x;
@@ -153,7 +154,7 @@ class SAT2D {
             //if your distance is less than the totalRadius square(because distance is squared)
         if(distancesq < totalRadius * totalRadius) {
 
-            var into = into == null ? new ShapeCollision() : into.reset();
+            into = (into == null) ? new ShapeCollision() : into.reset();
                 //find the difference. Square roots are needed here.
             var difference = totalRadius - Math.sqrt(distancesq);
 
@@ -191,7 +192,7 @@ class SAT2D {
 
     public static function testPolygonVsPolygon( polygon1:Polygon, polygon2:Polygon, ?into:ShapeCollision, flip:Bool=false ) : ShapeCollision {
 
-        var into = into == null ? new ShapeCollision() : into.reset();
+        into = (into == null) ? new ShapeCollision() : into.reset();
         
         if(checkPolygons(polygon1, polygon2, tmp1, flip) == null) {
             return null;
@@ -224,7 +225,7 @@ class SAT2D {
     } //testPolygonVsPolygon
 
         /** Internal api - test a ray against a circle */
-    public static function testRayVsCircle( ray:Ray, circle:Circle ) : RayCollision {
+    public static function testRayVsCircle( ray:Ray, circle:Circle, ?into:RayCollision ) : RayCollision {
 
         var deltaX = ray.end.x - ray.start.x;
         var deltaY = ray.end.y - ray.start.y;
@@ -244,8 +245,17 @@ class SAT2D {
             var t2 = (-b + d) / (2 * a);
 
             if (ray.infinite || (t1 <= 1.0 && t1 >= 0.0)) {
-                return new RayCollision(circle, ray, t1, t2);
-            }
+                
+                into = (into == null) ? new RayCollision() : into.reset();
+                    
+                    into.shape = circle;
+                    into.ray = ray;
+                    into.start = t1;
+                    into.end = t2;
+
+                return into;
+
+            } //
 
         } //d >= 0
 
@@ -254,7 +264,7 @@ class SAT2D {
     } //testRayVsCircle
 
         /** Internal api - test a ray against a polygon */
-    public static function testRayVsPolygon( ray:Ray, polygon:Polygon ) : RayCollision {
+    public static function testRayVsPolygon( ray:Ray, polygon:Polygon, ?into:RayCollision ) : RayCollision {
 
         var min_u = Math.POSITIVE_INFINITY;
         var max_u = 0.0;
@@ -294,7 +304,12 @@ class SAT2D {
         } //each vert
 
         if(ray.infinite || (min_u <= 1.0 && min_u >= 0.0) ) {
-            return new RayCollision(polygon, ray, min_u, max_u);
+            into = (into == null) ? new RayCollision() : into.reset();
+                into.shape = polygon;
+                into.ray = ray;
+                into.start = min_u; 
+                into.end = max_u;
+            return into;
         }
 
         return null;

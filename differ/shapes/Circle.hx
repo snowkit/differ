@@ -45,9 +45,9 @@ class Circle extends Shape {
     } //testPolygon
 
         /** Test for collision against a ray. */
-    override public function testRay( ray:Ray ) : RayCollision {
+    override public function testRay( ray:Ray, ?into:RayCollision ) : RayCollision {
 
-        return SAT2D.testRayVsCircle(ray, this);
+        return SAT2D.testRayVsCircle(ray, this, into);
 
     } //testRay
 

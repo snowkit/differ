@@ -40,9 +40,9 @@ class Collision {
         /** Test a line between two points against a list of shapes.
             When no collision is found, this function returns null.
             Returns a `RayCollision` if a collision is found. */
-    public static inline function rayWithShape( ray:Ray, shape:Shape ) : RayCollision {
+    public static inline function rayWithShape( ray:Ray, shape:Shape, ?into:RayCollision ) : RayCollision {
 
-        return shape.testRay(ray);
+        return shape.testRay(ray, into);
 
     } //rayShape
 
@@ -54,7 +54,7 @@ class Collision {
         var results = [];
 
         for(shape in shapes) {
-            var result = shape.testRay(ray);
+            var result = shape.testRay(ray, null);
             if(result != null) {
                 results.push(result);
             }

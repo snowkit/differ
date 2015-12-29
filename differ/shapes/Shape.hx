@@ -70,7 +70,7 @@ class Shape {
         /** Test this shape against a polygon. */
     public function testPolygon( polygon:Polygon, ?into:ShapeCollision, flip:Bool = false ) : ShapeCollision return null;
         /** Test this shape against a ray. */
-    public function testRay( ray:Ray ) : RayCollision return null;
+    public function testRay( ray:Ray, ?into:RayCollision ) : RayCollision return null;
 
         /** clean up and destroy this shape */
     public function destroy():Void {
