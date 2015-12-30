@@ -31,10 +31,10 @@ A [Separating Axis Theorom](http://en.wikipedia.org/wiki/Hyperplane_separation_t
     var collideInfo = Collision.shapeWithShape( circle, box );
 
     if(collideInfo != null) {
-        //use collideInfo.separation.x
-        //    collideInfo.separation.y
-        //    collideInfo.normalAxis.x
-        //    collideInfo.normalAxis.y
+        //use collideInfo.separationX
+        //    collideInfo.separationY
+        //    collideInfo.normalAxisX
+        //    collideInfo.normalAxisY
         //    collideInfo.overlap
     }
 
