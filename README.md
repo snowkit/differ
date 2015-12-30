@@ -68,10 +68,42 @@ https://underscorediscovery.github.io/differ/
 
 #History
 
-**1.3.0 (github dev)**
+**1.4.0 (github dev)**
 
+**1.3.0 (Latest release, haxelib)**
 
-**1.2.0 (Latest release, haxelib)**
+The goal of this release is as follows : 
+- Reduce the usage of Vector internally, simplifying the code to primitives
+- Remove internal allocations, like the myriads of them the old code had that were carried over
+- Add ways to reuse allocated instances for efficiency when querying
+- Add more test/example cases
+- Expose the alternative polygon vs polygon overlaps
+- Move the code more forward to be internally consistent and maintainable
+
+All of this was achieved, with the following changes.
+
+- **Refactor** continued clean up
+    - remove all allocations in SAT2D, except for results if not provided
+    - refactor away internal uses of `Vector`
+    - remove superfluous use of `Vector` in the API
+        + `ShapeDrawer`: `drawLine`,`drawPoint`
+        + `Collision.pointInPoly`
+- **Added** `Rays` test in usage0
+- **Added** ShapeCollision/RayCollision/RayIntersection
+    - added `clone()`, `copy_from(other)`, `reset()`
+- **Added** differ.math.Util
+    - removes internal SAT2D use of the `Vector` class
+- **Added** `into` argument for all internal and most external calls
+    - this reuses the existing instance for the result
+    - all calls will always reset the collision result
+    - all calls still return null as "no result"
+- **Fixed** Bug in `testCircleVsPolygon`
+    - When testing polygon vs circle values were flipped/wrong
+- **Fixed** Bug in `rayVsRay` with a negative overlap
+- **Removed** `Common` util class, it's internal to SAT2D and simplified now 
+- **Removed** `drawVector` in `ShapeDrawer`, wasn't used (use `drawLine` if needed)
+
+**1.2.0**
 
  The biggest change for sure, renamed `hxcollision` to `differ`
  Now that the library is getting more use its better to have a consistent name
