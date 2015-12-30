@@ -70,7 +70,7 @@ https://underscorediscovery.github.io/differ/
 
 **1.4.0 (github dev)**
 
-**1.3.0 (Latest release, haxelib)**
+**1.3.0 (preparing for release)**
 
 The goal of this release is as follows : 
 - Reduce the usage of Vector internally, simplifying the code to primitives
@@ -103,7 +103,7 @@ All of this was achieved, with the following changes.
 - **Removed** `Common` util class, it's internal to SAT2D and simplified now 
 - **Removed** `drawVector` in `ShapeDrawer`, wasn't used (use `drawLine` if needed)
 
-**1.2.0**
+**1.2.0 (Latest release, haxelib)**
 
  The biggest change for sure, renamed `hxcollision` to `differ`
  Now that the library is getting more use its better to have a consistent name
