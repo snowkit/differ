@@ -23,7 +23,6 @@ class Collision {
 
         var results = [];
 
-            //:todo: pair wise
         for(other_shape in shapes) {
 
             var result = shapeWithShape(shape1, other_shape, null);
