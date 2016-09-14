@@ -14,6 +14,7 @@ class Rays extends luxe.States.State {
     var beam : Ray;
     var others : Array<Ray>;
     var colors:Array<Color>;
+    var flip = false;
 
     override function onenter<T>(_:T) {
 
@@ -22,16 +23,14 @@ class Rays extends luxe.States.State {
             new Color(),
             new Color().rgb(0x00e7b3),
             new Color().rgb(0x00b1dd),
-            new Color().rgb(0xa0e300),
-            new Color().rgb(0xff8400),
-            new Color().rgb(0x3984ff),
+            new Color().rgb(0xa0e300)
         ];
 
         Main.display('move the mouse around');
 
         beam = new Ray( new V(50,300), new V(600,400), false );
 
-        for(i in 0 ... 4) {
+        for(i in 0 ... colors.length) {
             var sx = (i+1) * 120;
             var ray = new Ray( new V(sx, 100), new V(sx, 500), false );
             others.push(ray);
@@ -51,8 +50,35 @@ class Rays extends luxe.States.State {
 
     override function onmousemove( e:MouseEvent ) {
         if(beam != null) {
-            beam.end.x = e.pos.x;
-            beam.end.y = e.pos.y;
+            if(beam.infinite) {
+                var end = new Vector(e.pos.x, e.pos.y);
+                end.subtract_xyz(beam.start.x, beam.start.y);
+                end.normalize();
+                end.multiplyScalar(9999);
+                beam.end.x = end.x;
+                beam.end.y = end.y;
+            } else {
+                beam.end.x = e.pos.x;
+                beam.end.y = e.pos.y;
+            }
+        }
+    }
+
+    override function onkeyup(e:KeyEvent) {
+        
+        if(e.keycode == Key.space) {
+            if(beam != null) beam.infinite = !beam.infinite;
+        }
+
+        if(e.keycode == Key.key_f) {
+            if(beam != null) {
+                flip = !flip;
+                if(flip) {
+                    beam.start.x = 100+(colors.length * 120);
+                } else {
+                    beam.start.x = 50;
+                }
+            }
         }
     }
 
@@ -71,7 +97,7 @@ class Rays extends luxe.States.State {
         var bstart = new Vector(beam.start.x, beam.start.y);
 
         var textYval = 30;
-        var idx = 0;
+        var idx = flip ? (colors.length-1) : 0;
 
         for (c in colls) {
             var rend = new Vector(c.ray2.end.x, c.ray2.end.y);
@@ -104,7 +130,11 @@ class Rays extends luxe.States.State {
             });
 
             textYval += 30;
-            idx++;
+            if(flip) {
+                idx--;
+            } else {
+                idx++;
+            }
         }
 
     } //update

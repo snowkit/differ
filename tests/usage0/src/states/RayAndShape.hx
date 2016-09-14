@@ -52,10 +52,27 @@ class RayAndShape extends luxe.States.State {
 
     } //onleave
 
+     override function onkeyup(e:KeyEvent) {
+        
+        if(e.keycode == Key.space) {
+            if(beam != null) beam.infinite = !beam.infinite;
+        }
+
+    } //onkeyup
+
     override function onmousemove( e:MouseEvent ) {
         if(beam != null) {
-            beam.end.x = e.pos.x;
-            beam.end.y = e.pos.y;
+            if(beam.infinite) {
+                var end = new Vector(e.pos.x, e.pos.y);
+                end.subtract_xyz(beam.start.x, beam.start.y);
+                end.normalize();
+                end.multiplyScalar(9999);
+                beam.end.x = end.x;
+                beam.end.y = end.y;
+            } else {
+                beam.end.x = e.pos.x;
+                beam.end.y = e.pos.y;
+            }
         }
     }
 
