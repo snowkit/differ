@@ -174,9 +174,7 @@ class SAT2D {
                     //find the movement needed to separate the circles
                 into.separationX = into.unitVectorX * difference;
                 into.separationY = into.unitVectorY * difference;
-
-                    //the magnitude of the overlap
-                into.overlap = vec_length(into.separationX, into.separationY);
+                into.overlap = difference;
 
             return into;
 
