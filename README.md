@@ -12,11 +12,11 @@ A [Separating Axis Theorom](http://en.wikipedia.org/wiki/Hyperplane_separation_t
 
 ## Facts
 
-- This is a port of Separating Axis Theorem, for collision detection between shapes.
-- Supports polygons, circles, and rays currently.
+- Implements Separating Axis Theorem, for collision detection.
+- Supports concave polygons, circles, and rays.
 - 2D only (for now).
 - Includes a simple drawing interface for debugging shapes
-- **COLLISION ONLY.** No physics here. By design :)
+- **COLLISION ONLY.** No physics responses - This is by design.
 - Contributions welcome
 
 ##Quick look
@@ -40,29 +40,25 @@ A [Separating Axis Theorom](http://en.wikipedia.org/wiki/Hyperplane_separation_t
 
 ### Other notes
 
-- **not** specific to [luxe](http://luxeengine.com/)
+- **Not** framework specific
 - See tests/ for usage examples and tests
 - [Original code ported from rocketmandevelopment blog](http://rocketmandevelopment.com/2010/05/19/separation-of-axis-theorem-for-collision-detection/)
 
 ### API documentation
 
-https://underscorediscovery.github.io/differ/
+https://snowkit.github.io/differ/
 
 ##Demos
 
 - [main demo](http://underscorediscovery.com/sven/differ/usage0)
-
-##Older Demos (being updated)
-
-- [demo 1](http://underscorediscovery.com/sven/differ/usage1)
-- [demo 2](http://underscorediscovery.com/sven/differ/usage2)
-- [demo 3](http://underscorediscovery.com/sven/differ/usage3)
 
 #Main Contributors
 
 - [@underscorediscovery](http://github.com/underscorediscovery)
 - [@Dvergar](http://github.com/Dvergar)
 - [@PDeveloper](http://github.com/PDeveloper)
+
+[view all contributors](https://github.com/snowkit/differ/graphs/contributors)
 
 ---
 
@@ -74,11 +70,12 @@ https://underscorediscovery.github.io/differ/
 
 The goal of this release is as follows : 
 - Reduce the usage of Vector internally, simplifying the code to primitives
-- Remove internal allocations, like the myriads of them the old code had that were carried over
-- Add ways to reuse allocated instances for efficiency when querying
+- Remove allocations, myriads of them the old code had that carried over
+- Add ways to reuse allocated results for efficiency when querying
 - Add more test/example cases
 - Expose the alternative polygon vs polygon overlaps
 - Move the code more forward to be internally consistent and maintainable
+- Fix the bugs with the rays and infinite flags
 
 All of this was achieved, with the following changes.
 
@@ -93,10 +90,12 @@ All of this was achieved, with the following changes.
     - added `clone()`, `copy_from(other)`, `reset()`
 - **Added** differ.math.Util
     - removes internal SAT2D use of the `Vector` class
-- **Added** `into` argument for all internal and most external calls
+- **Added** `into` argument for all internal and external calls
     - this reuses the existing instance for the result
     - all calls will always reset the collision result
-    - all calls still return null as "no result"
+    - all direct calls still return null as "no result"
+    - added `Results<T>` results cache helper
+    - all plural calls reeturn `Results<T>`
 - **Fixed** Bug in `testCircleVsPolygon`
     - When testing polygon vs circle values were flipped/wrong
 - **Fixed** Bug in `rayVsRay` with a negative overlap

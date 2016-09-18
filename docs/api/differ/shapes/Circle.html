@@ -65,7 +65,7 @@
 <link rel="stylesheet" type="text/css" href="../../../css/omnibar.css" media="all">
 
 <div id="omnibar"> <a href="#" onclick="return" id="omnibar_close"></a> <input id="omnibar_text" type="text" placeholder="search types..."></input></div>
-<script  id="typelist" data-relpath="../../../" data-types="differ.Collision,differ.ShapeDrawer,differ.data.RayCollision,differ.data.RayCollisionHelper,differ.data.RayIntersection,differ.data.ShapeCollision,differ.math.Matrix,differ.math.Vector,differ.sat.Common,differ.sat.SAT2D,differ.shapes.Circle,differ.shapes.Polygon,differ.shapes.Ray,differ.shapes.Shape"></script>
+<script  id="typelist" data-relpath="../../../" data-types="differ.Collision,differ.Results,differ.ResultsIterator,differ.ShapeDrawer,differ._Collision.Constructible,differ.data.RayCollision,differ.data.RayCollisionHelper,differ.data.RayIntersection,differ.data.ShapeCollision,differ.math.Matrix,differ.math.Util,differ.math.Vector,differ.sat.SAT2D,differ.shapes.Circle,differ.shapes.Polygon,differ.shapes.Ray,differ.shapes.Shape"></script>
 
 
 <p><h1>Circle</h1>
@@ -74,7 +74,7 @@
 <hr/>
 
 <p><code>class</code>extends <code><span>differ.shapes.Shape</span></code><br/><span class="meta">
-meta: @:directlyUsed, @:keep</span></p>
+meta: @:keep</span></p>
 <hr/>
 
 
@@ -94,19 +94,19 @@ meta: @:directlyUsed, @:keep</span></p>
 <p></span>
 <span class="method apipage">
             <a name="test"><a class="lift" href="#test">test</a></a><div class="clear"></div>
-            <code class="signature apipage">test(shape:<a href="../../../api/differ/shapes/Shape.html">differ.shapes.Shape</a><span></span>) : <a href="../../../api/differ/data/ShapeCollision.html">differ.data.ShapeCollision</a></code><br/><span class="small_desc_flat">Test for collision against a shape.</span></p>
+            <code class="signature apipage">test(shape:<a href="../../../api/differ/shapes/Shape.html">differ.shapes.Shape</a><span></span>, into:<a href="../../../api/differ/data/ShapeCollision.html">differ.data.ShapeCollision</a><span></span>) : <a href="../../../api/differ/data/ShapeCollision.html">differ.data.ShapeCollision</a></code><br/><span class="small_desc_flat">Test for collision against a shape.</span></p>
 <p></span>
 <span class="method apipage">
             <a name="testCircle"><a class="lift" href="#testCircle">testCircle</a></a><div class="clear"></div>
-            <code class="signature apipage">testCircle(circle:<a href="../../../api/differ/shapes/Circle.html">differ.shapes.Circle</a><span></span>, flip:<a href="http://api.haxe.org/Bool.html">Bool</a><span></span>) : <a href="../../../api/differ/data/ShapeCollision.html">differ.data.ShapeCollision</a></code><br/><span class="small_desc_flat">Test for collision against a circle.</span></p>
+            <code class="signature apipage">testCircle(circle:<a href="../../../api/differ/shapes/Circle.html">differ.shapes.Circle</a><span></span>, into:<a href="../../../api/differ/data/ShapeCollision.html">differ.data.ShapeCollision</a><span></span>, flip:<a href="http://api.haxe.org/Bool.html">Bool</a><span></span>) : <a href="../../../api/differ/data/ShapeCollision.html">differ.data.ShapeCollision</a></code><br/><span class="small_desc_flat">Test for collision against a circle.</span></p>
 <p></span>
 <span class="method apipage">
             <a name="testPolygon"><a class="lift" href="#testPolygon">testPolygon</a></a><div class="clear"></div>
-            <code class="signature apipage">testPolygon(polygon:<a href="../../../api/differ/shapes/Polygon.html">differ.shapes.Polygon</a><span></span>, flip:<a href="http://api.haxe.org/Bool.html">Bool</a><span></span>) : <a href="../../../api/differ/data/ShapeCollision.html">differ.data.ShapeCollision</a></code><br/><span class="small_desc_flat">Test for collision against a polygon.</span></p>
+            <code class="signature apipage">testPolygon(polygon:<a href="../../../api/differ/shapes/Polygon.html">differ.shapes.Polygon</a><span></span>, into:<a href="../../../api/differ/data/ShapeCollision.html">differ.data.ShapeCollision</a><span></span>, flip:<a href="http://api.haxe.org/Bool.html">Bool</a><span></span>) : <a href="../../../api/differ/data/ShapeCollision.html">differ.data.ShapeCollision</a></code><br/><span class="small_desc_flat">Test for collision against a polygon.</span></p>
 <p></span>
 <span class="method apipage">
             <a name="testRay"><a class="lift" href="#testRay">testRay</a></a><div class="clear"></div>
-            <code class="signature apipage">testRay(ray:<a href="../../../api/differ/shapes/Ray.html">differ.shapes.Ray</a><span></span>) : <a href="../../../api/differ/data/RayCollision.html">differ.data.RayCollision</a></code><br/><span class="small_desc_flat">Test for collision against a ray.</span></p>
+            <code class="signature apipage">testRay(ray:<a href="../../../api/differ/shapes/Ray.html">differ.shapes.Ray</a><span></span>, into:<a href="../../../api/differ/data/RayCollision.html">differ.data.RayCollision</a><span></span>) : <a href="../../../api/differ/data/RayCollision.html">differ.data.RayCollision</a></code><br/><span class="small_desc_flat">Test for collision against a ray.</span></p>
 <p></span></p>
 <hr/>
 
