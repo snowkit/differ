@@ -11,9 +11,11 @@ import differ.data.*;
 
 class Rays extends luxe.States.State {
 
-    var beam : Ray;
-    var others : Array<Ray>;
-    var colors:Array<Color>;
+    var beam: Ray;
+    var others: Array<Ray>;
+    var colors: Array<Color>;
+    var results: Results<RayIntersection>;
+
     var flip = false;
 
     override function onenter<T>(_:T) {
@@ -38,6 +40,9 @@ class Rays extends luxe.States.State {
         }
 
         Main.rays.push(beam);
+
+            //allocate a precreated list of results, to avoid allocating every time
+        results = new Results<RayIntersection>(colors.length);
 
     }
 
@@ -84,7 +89,7 @@ class Rays extends luxe.States.State {
 
     override function update(dt:Float) {
 
-        var colls = Collision.rayWithRays(beam, others);
+        var colls = Collision.rayWithRays(beam, others, results);
 
         Luxe.draw.text({
             point_size:15,
