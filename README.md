@@ -23,6 +23,7 @@ A [Separating Axis Theorom](http://en.wikipedia.org/wiki/Hyperplane_separation_t
 
 **A simple collision example**
 
+```haxe
     var circle = new Circle( 300, 200, 50 );
     var box = Polygon.rectangle( 0, 0, 50, 150 );
 
@@ -37,6 +38,7 @@ A [Separating Axis Theorom](http://en.wikipedia.org/wiki/Hyperplane_separation_t
         //    collideInfo.normalAxisY
         //    collideInfo.overlap
     }
+```
 
 ### Other notes
 
