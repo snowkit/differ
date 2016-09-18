@@ -68,46 +68,60 @@
 <script  id="typelist" data-relpath="../../" data-types="differ.Collision,differ.Results,differ.ResultsIterator,differ.ShapeDrawer,differ._Collision.Constructible,differ.data.RayCollision,differ.data.RayCollisionHelper,differ.data.RayIntersection,differ.data.ShapeCollision,differ.math.Matrix,differ.math.Util,differ.math.Vector,differ.sat.SAT2D,differ.shapes.Circle,differ.shapes.Polygon,differ.shapes.Ray,differ.shapes.Shape"></script>
 
 
-<p><h1>ShapeDrawer</h1>
-<small><code>differ.ShapeDrawer</code></small></p>
-<p>To implement your own debug drawing class, you only need to override drawLine function and implement it
-    the rest is handled internally. You can override specifics if you want, but it’s not required</p>
+<p><h1>Results</h1>
+<small><code>differ.Results</code></small></p>
+<p>A result set container.
+    Items in the container are preallocated, then pulled out and updated.
+    The container will behave like a regular container, where iterating, 
+    and get will only return values from the valid set. Pushing items
+    will increase the valid set.</p>
 <hr/>
 
 <p><code>class</code><br/><span class="meta">
-meta: @:keep</span></p>
+meta: @:keep, @:generic</span></p>
 <hr/>
 
 
 <p>&nbsp;
 &nbsp;</p>
+<p><h3>Members</h3> <hr/></p>
+<p><h3>Properties</h3> <hr/><span class="member apipage">
+                <a name="length"><a class="lift" href="#length">length</a></a><div class="clear"></div>
+                <code class="signature apipage">length : <a href="http://api.haxe.org/Int.html">Int</a></code><br/></span>
+            <span class="small_desc_flat"></span><span class="member apipage">
+                <a name="total"><a class="lift" href="#total">total</a></a><div class="clear"></div>
+                <code class="signature apipage">total : <a href="http://api.haxe.org/Int.html">Int</a></code><br/></span>
+            <span class="small_desc_flat"></span></p>
 <p><h3>Methods</h3> <hr/><span class="method apipage">
-            <a name="drawCircle"><a class="lift" href="#drawCircle">drawCircle</a></a><div class="clear"></div>
-            <code class="signature apipage">drawCircle(circle:<a href="../../api/differ/shapes/Circle.html">differ.shapes.Circle</a><span></span>) : <a href="http://api.haxe.org/Void.html">Void</a></code><br/><span class="small_desc_flat">Draw a circle <code>Shape</code></span></p>
+            <a name="clear"><a class="lift" href="#clear">clear</a></a><div class="clear"></div>
+            <code class="signature apipage">clear() : <a href="../../api/differ/Results.html">differ.Results</a>&lt;<a href="../../api/differ/Results/T.html">differ.Results.T</a>&gt;</code><br/><span class="small_desc_flat">Clear the container, which sets the length to 0. 
+            This keeps the cached items but won’t return them 
+            while iterating or accessing them.
+            Returns <code>this</code> for convience.</span></p>
 <p></span>
 <span class="method apipage">
-            <a name="drawLine"><a class="lift" href="#drawLine">drawLine</a></a><div class="clear"></div>
-            <code class="signature apipage">drawLine(p0x:<a href="http://api.haxe.org/Float.html">Float</a><span></span>, p0y:<a href="http://api.haxe.org/Float.html">Float</a><span></span>, p1x:<a href="http://api.haxe.org/Float.html">Float</a><span></span>, p1y:<a href="http://api.haxe.org/Float.html">Float</a><span></span>, startPoint:<a href="http://api.haxe.org/Bool.html">Bool</a><span></span>) : <a href="http://api.haxe.org/Void.html">Void</a></code><br/><span class="small_desc_flat">Draw a line between p0 and p1. Implement this function at minimum in custom drawing handlers</span></p>
+            <a name="get"><a class="lift" href="#get">get</a></a><div class="clear"></div>
+            <code class="signature apipage">get(index:<a href="http://api.haxe.org/Int.html">Int</a><span></span>) : <a href="../../api/differ/Results/T.html">differ.Results.T</a></code><br/><span class="small_desc_flat">Get the item at the given index. 
+            If the index is &lt; 0 and &gt; length-1 it returns null;</span></p>
 <p></span>
 <span class="method apipage">
-            <a name="drawPoint"><a class="lift" href="#drawPoint">drawPoint</a></a><div class="clear"></div>
-            <code class="signature apipage">drawPoint(x:<a href="http://api.haxe.org/Float.html">Float</a><span></span>, y:<a href="http://api.haxe.org/Float.html">Float</a><span></span>, size:<a href="http://api.haxe.org/Float.html">Float</a><span></span>) : <a href="http://api.haxe.org/Void.html">Void</a></code><br/><span class="small_desc_flat"></span></p>
-<p></span>
-<span class="method apipage">
-            <a name="drawPolygon"><a class="lift" href="#drawPolygon">drawPolygon</a></a><div class="clear"></div>
-            <code class="signature apipage">drawPolygon(poly:<a href="../../api/differ/shapes/Polygon.html">differ.shapes.Polygon</a><span></span>) : <a href="http://api.haxe.org/Void.html">Void</a></code><br/><span class="small_desc_flat">Draw a <code>Polygon</code></span></p>
-<p></span>
-<span class="method apipage">
-            <a name="drawShape"><a class="lift" href="#drawShape">drawShape</a></a><div class="clear"></div>
-            <code class="signature apipage">drawShape(shape:<a href="../../api/differ/shapes/Shape.html">differ.shapes.Shape</a><span></span>) : <a href="http://api.haxe.org/Void.html">Void</a></code><br/><span class="small_desc_flat">Draw a <code>Shape</code>, it will determine the type and draw it for you.</span></p>
-<p></span>
-<span class="method apipage">
-            <a name="drawShapeCollision"><a class="lift" href="#drawShapeCollision">drawShapeCollision</a></a><div class="clear"></div>
-            <code class="signature apipage">drawShapeCollision(c:<a href="../../api/differ/data/ShapeCollision.html">differ.data.ShapeCollision</a><span></span>, length:<a href="http://api.haxe.org/Float.html">Float</a><span></span>) : <a href="http://api.haxe.org/Void.html">Void</a></code><br/><span class="small_desc_flat"></span></p>
+            <a name="iterator"><a class="lift" href="#iterator">iterator</a></a><div class="clear"></div>
+            <code class="signature apipage">iterator() : <a href="../../api/differ/ResultsIterator.html">differ.ResultsIterator</a>&lt;<a href="../../api/differ/Results/T.html">differ.Results.T</a>&gt;</code><br/><span class="small_desc_flat">Returns an iterator over the valid items in this set.</span></p>
 <p></span>
 <span class="method apipage">
             <a name="new"><a class="lift" href="#new">new</a></a><div class="clear"></div>
-            <code class="signature apipage">new() : <a href="http://api.haxe.org/Void.html">Void</a></code><br/><span class="small_desc_flat"></span></p>
+            <code class="signature apipage">new(size:<a href="http://api.haxe.org/Int.html">Int</a><span></span>) : <a href="http://api.haxe.org/Void.html">Void</a></code><br/><span class="small_desc_flat">Create a new set of results. 
+            Preallocates <code>size</code> items into the list.</span></p>
+<p></span>
+<span class="method apipage">
+            <a name="pull"><a class="lift" href="#pull">pull</a></a><div class="clear"></div>
+            <code class="signature apipage">pull() : <a href="../../api/differ/Results/T.html">differ.Results.T</a></code><br/><span class="small_desc_flat">Grabs the last item from the cache to reuse.
+            If there are no free items, it adds a new one.
+            Typically internal use.</span></p>
+<p></span>
+<span class="method apipage">
+            <a name="push"><a class="lift" href="#push">push</a></a><div class="clear"></div>
+            <code class="signature apipage">push(value:<a href="../../api/differ/Results/T.html">differ.Results.T</a><span></span>) : <a href="http://api.haxe.org/Void.html">Void</a></code><br/><span class="small_desc_flat">Add an item to the container.</span></p>
 <p></span></p>
 <hr/>
 

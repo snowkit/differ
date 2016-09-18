@@ -2,7 +2,7 @@
 <html>
 
     <head>
-        <title>snow - </title>
+        <title>differ - </title>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
         <link rel="shortcut icon" href="../../../images/favicon.png" />
 
@@ -65,7 +65,7 @@
 <link rel="stylesheet" type="text/css" href="../../../css/omnibar.css" media="all">
 
 <div id="omnibar"> <a href="#" onclick="return" id="omnibar_close"></a> <input id="omnibar_text" type="text" placeholder="search types..."></input></div>
-<script  id="typelist" data-relpath="../../../" data-types="differ.Collision,differ.ShapeDrawer,differ.data.RayCollision,differ.data.RayCollisionHelper,differ.data.RayIntersection,differ.data.ShapeCollision,differ.math.Matrix,differ.math.Vector,differ.sat.Common,differ.sat.SAT2D,differ.shapes.Circle,differ.shapes.Polygon,differ.shapes.Ray,differ.shapes.Shape"></script>
+<script  id="typelist" data-relpath="../../../" data-types="differ.Collision,differ.Results,differ.ResultsIterator,differ.ShapeDrawer,differ._Collision.Constructible,differ.data.RayCollision,differ.data.RayCollisionHelper,differ.data.RayIntersection,differ.data.ShapeCollision,differ.math.Matrix,differ.math.Util,differ.math.Vector,differ.sat.SAT2D,differ.shapes.Circle,differ.shapes.Polygon,differ.shapes.Ray,differ.shapes.Shape"></script>
 
 
 <p><h1>RayIntersection</h1>
@@ -74,7 +74,7 @@
 <hr/>
 
 <p><code>class</code><br/><span class="meta">
-meta: @:directlyUsed, @:keep</span></p>
+meta: @:keep, @:publicFields</span></p>
 <hr/>
 
 
@@ -94,8 +94,16 @@ meta: @:directlyUsed, @:keep</span></p>
                 <code class="signature apipage">u2 : <a href="http://api.haxe.org/Float.html">Float</a></code><br/></span>
             <span class="small_desc_flat">u value for ray2.</span><br/></p>
 <p><h3>Methods</h3> <hr/><span class="method apipage">
-            <a name="new"><a class="lift" href="#new">new</a></a><div class="clear"></div>
-            <code class="signature apipage">new(ray1:<a href="../../../api/differ/shapes/Ray.html">differ.shapes.Ray</a><span></span>, u1:<a href="http://api.haxe.org/Float.html">Float</a><span></span>, ray2:<a href="../../../api/differ/shapes/Ray.html">differ.shapes.Ray</a><span></span>, u2:<a href="http://api.haxe.org/Float.html">Float</a><span></span>) : <a href="http://api.haxe.org/Void.html">Void</a></code><br/><span class="small_desc_flat"></span></p>
+            <a name="clone"><a class="lift" href="#clone">clone</a></a><div class="clear"></div>
+            <code class="signature apipage">clone() : <a href="../../../api/differ/data/RayIntersection.html">differ.data.RayIntersection</a></code><br/><span class="small_desc_flat"></span></p>
+<p></span>
+<span class="method apipage">
+            <a name="copy_from"><a class="lift" href="#copy_from">copy_from</a></a><div class="clear"></div>
+            <code class="signature apipage">copy_from(other:<a href="../../../api/differ/data/RayIntersection.html">differ.data.RayIntersection</a><span></span>) : <a href="http://api.haxe.org/Void.html">Void</a></code><br/><span class="small_desc_flat"></span></p>
+<p></span>
+<span class="method apipage">
+            <a name="reset"><a class="lift" href="#reset">reset</a></a><div class="clear"></div>
+            <code class="signature apipage">reset() : <a href="../../../api/differ/data/RayIntersection.html">differ.data.RayIntersection</a></code><br/><span class="small_desc_flat"></span></p>
 <p></span></p>
 <hr/>
 

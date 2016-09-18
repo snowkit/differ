@@ -2,7 +2,7 @@
 <html>
 
     <head>
-        <title>snow - </title>
+        <title>differ - </title>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
         <link rel="shortcut icon" href="../../../images/favicon.png" />
 
@@ -65,7 +65,7 @@
 <link rel="stylesheet" type="text/css" href="../../../css/omnibar.css" media="all">
 
 <div id="omnibar"> <a href="#" onclick="return" id="omnibar_close"></a> <input id="omnibar_text" type="text" placeholder="search types..."></input></div>
-<script  id="typelist" data-relpath="../../../" data-types="differ.Collision,differ.ShapeDrawer,differ.data.RayCollision,differ.data.RayCollisionHelper,differ.data.RayIntersection,differ.data.ShapeCollision,differ.math.Matrix,differ.math.Vector,differ.sat.Common,differ.sat.SAT2D,differ.shapes.Circle,differ.shapes.Polygon,differ.shapes.Ray,differ.shapes.Shape"></script>
+<script  id="typelist" data-relpath="../../../" data-types="differ.Collision,differ.Results,differ.ResultsIterator,differ.ShapeDrawer,differ._Collision.Constructible,differ.data.RayCollision,differ.data.RayCollisionHelper,differ.data.RayIntersection,differ.data.ShapeCollision,differ.math.Matrix,differ.math.Util,differ.math.Vector,differ.sat.SAT2D,differ.shapes.Circle,differ.shapes.Polygon,differ.shapes.Ray,differ.shapes.Shape"></script>
 
 
 <p><h1>ShapeCollision</h1>
@@ -74,29 +74,61 @@
 <hr/>
 
 <p><code>class</code><br/><span class="meta">
-meta: @:directlyUsed, @:keep</span></p>
+meta: @:keep, @:publicFields</span></p>
 <hr/>
 
 
 <p>&nbsp;
 &nbsp;</p>
 <p><h3>Members</h3> <hr/><span class="member apipage">
+                <a name="otherOverlap"><a class="lift" href="#otherOverlap">otherOverlap</a></a><div class="clear"></div>
+                <code class="signature apipage">otherOverlap : <a href="http://api.haxe.org/Float.html">Float</a></code><br/></span>
+            <span class="small_desc_flat"></span><br/><span class="member apipage">
+                <a name="otherSeparationX"><a class="lift" href="#otherSeparationX">otherSeparationX</a></a><div class="clear"></div>
+                <code class="signature apipage">otherSeparationX : <a href="http://api.haxe.org/Float.html">Float</a></code><br/></span>
+            <span class="small_desc_flat"></span><br/><span class="member apipage">
+                <a name="otherSeparationY"><a class="lift" href="#otherSeparationY">otherSeparationY</a></a><div class="clear"></div>
+                <code class="signature apipage">otherSeparationY : <a href="http://api.haxe.org/Float.html">Float</a></code><br/></span>
+            <span class="small_desc_flat"></span><br/><span class="member apipage">
+                <a name="otherUnitVectorX"><a class="lift" href="#otherUnitVectorX">otherUnitVectorX</a></a><div class="clear"></div>
+                <code class="signature apipage">otherUnitVectorX : <a href="http://api.haxe.org/Float.html">Float</a></code><br/></span>
+            <span class="small_desc_flat"></span><br/><span class="member apipage">
+                <a name="otherUnitVectorY"><a class="lift" href="#otherUnitVectorY">otherUnitVectorY</a></a><div class="clear"></div>
+                <code class="signature apipage">otherUnitVectorY : <a href="http://api.haxe.org/Float.html">Float</a></code><br/></span>
+            <span class="small_desc_flat"></span><br/><span class="member apipage">
                 <a name="overlap"><a class="lift" href="#overlap">overlap</a></a><div class="clear"></div>
                 <code class="signature apipage">overlap : <a href="http://api.haxe.org/Float.html">Float</a></code><br/></span>
-            <span class="small_desc_flat">the overlap amount</span><br/><span class="member apipage">
-                <a name="separation"><a class="lift" href="#separation">separation</a></a><div class="clear"></div>
-                <code class="signature apipage">separation : <a href="../../../api/differ/math/Vector.html">differ.math.Vector</a></code><br/></span>
-            <span class="small_desc_flat">a vector that when subtracted to shape 1 will separate it from shape 2</span><br/><span class="member apipage">
+            <span class="small_desc_flat">The overlap amount</span><br/><span class="member apipage">
+                <a name="separationX"><a class="lift" href="#separationX">separationX</a></a><div class="clear"></div>
+                <code class="signature apipage">separationX : <a href="http://api.haxe.org/Float.html">Float</a></code><br/></span>
+            <span class="small_desc_flat">X component of the separation vector, when subtracted from shape 1 will separate it from shape 2</span><br/><span class="member apipage">
+                <a name="separationY"><a class="lift" href="#separationY">separationY</a></a><div class="clear"></div>
+                <code class="signature apipage">separationY : <a href="http://api.haxe.org/Float.html">Float</a></code><br/></span>
+            <span class="small_desc_flat">Y component of the separation vector, when subtracted from shape 1 will separate it from shape 2</span><br/><span class="member apipage">
                 <a name="shape1"><a class="lift" href="#shape1">shape1</a></a><div class="clear"></div>
                 <code class="signature apipage">shape1 : <a href="../../../api/differ/shapes/Shape.html">differ.shapes.Shape</a></code><br/></span>
-            <span class="small_desc_flat">the first shape</span><br/><span class="member apipage">
+            <span class="small_desc_flat">The shape that was tested</span><br/><span class="member apipage">
                 <a name="shape2"><a class="lift" href="#shape2">shape2</a></a><div class="clear"></div>
                 <code class="signature apipage">shape2 : <a href="../../../api/differ/shapes/Shape.html">differ.shapes.Shape</a></code><br/></span>
-            <span class="small_desc_flat">the second shape</span><br/><span class="member apipage">
-                <a name="unitVector"><a class="lift" href="#unitVector">unitVector</a></a><div class="clear"></div>
-                <code class="signature apipage">unitVector : <a href="../../../api/differ/math/Vector.html">differ.math.Vector</a></code><br/></span>
-            <span class="small_desc_flat">unit vector on the axis of the collision (the normal of the face that was collided with)</span><br/></p>
-<p><h3>Methods</h3> <hr/></p>
+            <span class="small_desc_flat">The shape that shape1 was tested against</span><br/><span class="member apipage">
+                <a name="unitVectorX"><a class="lift" href="#unitVectorX">unitVectorX</a></a><div class="clear"></div>
+                <code class="signature apipage">unitVectorX : <a href="http://api.haxe.org/Float.html">Float</a></code><br/></span>
+            <span class="small_desc_flat">X component of the unit vector, on the axis of the collision (i.e the normal of the face that was collided with)</span><br/><span class="member apipage">
+                <a name="unitVectorY"><a class="lift" href="#unitVectorY">unitVectorY</a></a><div class="clear"></div>
+                <code class="signature apipage">unitVectorY : <a href="http://api.haxe.org/Float.html">Float</a></code><br/></span>
+            <span class="small_desc_flat">Y component of the unit vector, on the axis of the collision (i.e the normal of the face that was collided with)</span><br/></p>
+<p><h3>Methods</h3> <hr/><span class="method apipage">
+            <a name="clone"><a class="lift" href="#clone">clone</a></a><div class="clear"></div>
+            <code class="signature apipage">clone() : <a href="../../../api/differ/data/ShapeCollision.html">differ.data.ShapeCollision</a></code><br/><span class="small_desc_flat"></span></p>
+<p></span>
+<span class="method apipage">
+            <a name="copy_from"><a class="lift" href="#copy_from">copy_from</a></a><div class="clear"></div>
+            <code class="signature apipage">copy_from(_other:<a href="../../../api/differ/data/ShapeCollision.html">differ.data.ShapeCollision</a><span></span>) : <a href="http://api.haxe.org/Void.html">Void</a></code><br/><span class="small_desc_flat"></span></p>
+<p></span>
+<span class="method apipage">
+            <a name="reset"><a class="lift" href="#reset">reset</a></a><div class="clear"></div>
+            <code class="signature apipage">reset() : <a href="../../../api/differ/data/ShapeCollision.html">differ.data.ShapeCollision</a></code><br/><span class="small_desc_flat"></span></p>
+<p></span></p>
 <hr/>
 
 <p>&nbsp;

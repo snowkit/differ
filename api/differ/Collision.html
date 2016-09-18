@@ -2,7 +2,7 @@
 <html>
 
     <head>
-        <title>snow - </title>
+        <title>differ - </title>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
         <link rel="shortcut icon" href="../../images/favicon.png" />
 
@@ -65,7 +65,7 @@
 <link rel="stylesheet" type="text/css" href="../../css/omnibar.css" media="all">
 
 <div id="omnibar"> <a href="#" onclick="return" id="omnibar_close"></a> <input id="omnibar_text" type="text" placeholder="search types..."></input></div>
-<script  id="typelist" data-relpath="../../" data-types="differ.Collision,differ.ShapeDrawer,differ.data.RayCollision,differ.data.RayCollisionHelper,differ.data.RayIntersection,differ.data.ShapeCollision,differ.math.Matrix,differ.math.Vector,differ.sat.Common,differ.sat.SAT2D,differ.shapes.Circle,differ.shapes.Polygon,differ.shapes.Ray,differ.shapes.Shape"></script>
+<script  id="typelist" data-relpath="../../" data-types="differ.Collision,differ.Results,differ.ResultsIterator,differ.ShapeDrawer,differ._Collision.Constructible,differ.data.RayCollision,differ.data.RayCollisionHelper,differ.data.RayIntersection,differ.data.ShapeCollision,differ.math.Matrix,differ.math.Util,differ.math.Vector,differ.sat.SAT2D,differ.shapes.Circle,differ.shapes.Polygon,differ.shapes.Ray,differ.shapes.Shape"></script>
 
 
 <p><h1>Collision</h1>
@@ -73,7 +73,7 @@
 <hr/>
 
 <p><code>class</code><br/><span class="meta">
-meta: @:directlyUsed, @:keep</span></p>
+meta: @:keep</span></p>
 <hr/>
 
 
@@ -81,44 +81,47 @@ meta: @:directlyUsed, @:keep</span></p>
 &nbsp;</p>
 <p><h3>Methods</h3> <hr/><span class="method apipage">
             <a name="pointInPoly"><a class="lift" href="#pointInPoly">pointInPoly</a></a><span class="inline-block static">static</span><div class="clear"></div>
-            <code class="signature apipage">pointInPoly(point:<a href="../../api/differ/math/Vector.html">differ.math.Vector</a><span></span>, poly:<a href="../../api/differ/shapes/Polygon.html">differ.shapes.Polygon</a><span></span>) : <a href="http://api.haxe.org/Bool.html">Bool</a></code><br/><span class="small_desc_flat">Test if a given point lands inside the given polygon.
+            <code class="signature apipage">pointInPoly(x:<a href="http://api.haxe.org/Float.html">Float</a><span></span>, y:<a href="http://api.haxe.org/Float.html">Float</a><span></span>, poly:<a href="../../api/differ/shapes/Polygon.html">differ.shapes.Polygon</a><span></span>) : <a href="http://api.haxe.org/Bool.html">Bool</a></code><br/><span class="small_desc_flat">Test if a given point lands inside the given polygon.
             Returns true if it does, false otherwise.</span></p>
 <p></span>
 <span class="method apipage">
             <a name="rayWithRay"><a class="lift" href="#rayWithRay">rayWithRay</a></a><span class="inline-block static">static</span><div class="clear"></div>
-            <code class="signature apipage">rayWithRay(ray1:<a href="../../api/differ/shapes/Ray.html">differ.shapes.Ray</a><span></span>, ray2:<a href="../../api/differ/shapes/Ray.html">differ.shapes.Ray</a><span></span>) : <a href="../../api/differ/data/RayIntersection.html">differ.data.RayIntersection</a></code><br/><span class="small_desc_flat">Test a ray against another ray.
+            <code class="signature apipage">rayWithRay(ray1:<a href="../../api/differ/shapes/Ray.html">differ.shapes.Ray</a><span></span>, ray2:<a href="../../api/differ/shapes/Ray.html">differ.shapes.Ray</a><span></span>, into:<a href="../../api/differ/data/RayIntersection.html">differ.data.RayIntersection</a><span></span>) : <a href="../../api/differ/data/RayIntersection.html">differ.data.RayIntersection</a></code><br/><span class="small_desc_flat">Test a ray against another ray.
             When no collision is found, this function returns null.
             Returns a <code>RayIntersection</code> if a collision is found.</span></p>
 <p></span>
 <span class="method apipage">
             <a name="rayWithRays"><a class="lift" href="#rayWithRays">rayWithRays</a></a><span class="inline-block static">static</span><div class="clear"></div>
-            <code class="signature apipage">rayWithRays(ray:<a href="../../api/differ/shapes/Ray.html">differ.shapes.Ray</a><span></span>, rays:<a href="http://api.haxe.org/Array.html">Array</a>&lt;<a href="../../api/differ/shapes/Ray.html">differ.shapes.Ray</a>&gt;<span></span>) : <a href="http://api.haxe.org/Array.html">Array</a>&lt;<a href="../../api/differ/data/RayIntersection.html">differ.data.RayIntersection</a>&gt;</code><br/><span class="small_desc_flat">Test a ray against a list of other rays.
+            <code class="signature apipage">rayWithRays(ray:<a href="../../api/differ/shapes/Ray.html">differ.shapes.Ray</a><span></span>, rays:<a href="http://api.haxe.org/Array.html">Array</a>&lt;<a href="../../api/differ/shapes/Ray.html">differ.shapes.Ray</a>&gt;<span></span>, into:<a href="http://api.haxe.org/Null.html">Null</a>&lt;<a href="../../api/differ/Results_differ_data_RayIntersection.html">differ.Results_differ_data_RayIntersection</a>&gt;<span></span>) : <a href="../../api/differ/Results_differ_data_RayIntersection.html">differ.Results_differ_data_RayIntersection</a></code><br/><span class="small_desc_flat">Test a ray against a list of other rays.
             When no collision is found, this function returns an empty array, this function will never return null.
-            Returns a list of <code>RayIntersection</code> information for each collision found.</span></p>
+            Returns a list of <code>RayIntersection</code> information for each collision found.
+            <code>for(result in results) {  result... }</code></span></p>
 <p></span>
 <span class="method apipage">
             <a name="rayWithShape"><a class="lift" href="#rayWithShape">rayWithShape</a></a><span class="inline-block static">static</span><div class="clear"></div>
-            <code class="signature apipage">rayWithShape(ray:<a href="../../api/differ/shapes/Ray.html">differ.shapes.Ray</a><span></span>, shape:<a href="../../api/differ/shapes/Shape.html">differ.shapes.Shape</a><span></span>) : <a href="../../api/differ/data/RayCollision.html">differ.data.RayCollision</a></code><br/><span class="small_desc_flat">Test a line between two points against a list of shapes.
+            <code class="signature apipage">rayWithShape(ray:<a href="../../api/differ/shapes/Ray.html">differ.shapes.Ray</a><span></span>, shape:<a href="../../api/differ/shapes/Shape.html">differ.shapes.Shape</a><span></span>, into:<a href="../../api/differ/data/RayCollision.html">differ.data.RayCollision</a><span></span>) : <a href="../../api/differ/data/RayCollision.html">differ.data.RayCollision</a></code><br/><span class="small_desc_flat">Test a line between two points against a list of shapes.
             When no collision is found, this function returns null.
             Returns a <code>RayCollision</code> if a collision is found.</span></p>
 <p></span>
 <span class="method apipage">
             <a name="rayWithShapes"><a class="lift" href="#rayWithShapes">rayWithShapes</a></a><span class="inline-block static">static</span><div class="clear"></div>
-            <code class="signature apipage">rayWithShapes(ray:<a href="../../api/differ/shapes/Ray.html">differ.shapes.Ray</a><span></span>, shapes:<a href="http://api.haxe.org/Array.html">Array</a>&lt;<a href="../../api/differ/shapes/Shape.html">differ.shapes.Shape</a>&gt;<span></span>) : <a href="http://api.haxe.org/Array.html">Array</a>&lt;<a href="../../api/differ/data/RayCollision.html">differ.data.RayCollision</a>&gt;</code><br/><span class="small_desc_flat">Test a ray between two points against a list of shapes.
+            <code class="signature apipage">rayWithShapes(ray:<a href="../../api/differ/shapes/Ray.html">differ.shapes.Ray</a><span></span>, shapes:<a href="http://api.haxe.org/Array.html">Array</a>&lt;<a href="../../api/differ/shapes/Shape.html">differ.shapes.Shape</a>&gt;<span></span>, into:<a href="http://api.haxe.org/Null.html">Null</a>&lt;<a href="../../api/differ/Results_differ_data_RayCollision.html">differ.Results_differ_data_RayCollision</a>&gt;<span></span>) : <a href="../../api/differ/Results_differ_data_RayCollision.html">differ.Results_differ_data_RayCollision</a></code><br/><span class="small_desc_flat">Test a ray between two points against a list of shapes.
             When no collision is found, this function returns an empty array, this function will never return null.
-            Returns a list of <code>RayCollision</code> information for each collision found.</span></p>
+            Returns a list of <code>RayCollision</code> information for each collision found.
+            <code>for(result in results) {  result... }</code></span></p>
 <p></span>
 <span class="method apipage">
             <a name="shapeWithShape"><a class="lift" href="#shapeWithShape">shapeWithShape</a></a><span class="inline-block static">static</span><div class="clear"></div>
-            <code class="signature apipage">shapeWithShape(shape1:<a href="../../api/differ/shapes/Shape.html">differ.shapes.Shape</a><span></span>, shape2:<a href="../../api/differ/shapes/Shape.html">differ.shapes.Shape</a><span></span>) : <a href="../../api/differ/data/ShapeCollision.html">differ.data.ShapeCollision</a></code><br/><span class="small_desc_flat">Test a single shape against another shape.
+            <code class="signature apipage">shapeWithShape(shape1:<a href="../../api/differ/shapes/Shape.html">differ.shapes.Shape</a><span></span>, shape2:<a href="../../api/differ/shapes/Shape.html">differ.shapes.Shape</a><span></span>, into:<a href="../../api/differ/data/ShapeCollision.html">differ.data.ShapeCollision</a><span></span>) : <a href="../../api/differ/data/ShapeCollision.html">differ.data.ShapeCollision</a></code><br/><span class="small_desc_flat">Test a single shape against another shape.
             When no collision is found between them, this function returns null.
             Returns a <code>ShapeCollision</code> if a collision is found.</span></p>
 <p></span>
 <span class="method apipage">
             <a name="shapeWithShapes"><a class="lift" href="#shapeWithShapes">shapeWithShapes</a></a><span class="inline-block static">static</span><div class="clear"></div>
-            <code class="signature apipage">shapeWithShapes(shape1:<a href="../../api/differ/shapes/Shape.html">differ.shapes.Shape</a><span></span>, shapes:<a href="http://api.haxe.org/Array.html">Array</a>&lt;<a href="../../api/differ/shapes/Shape.html">differ.shapes.Shape</a>&gt;<span></span>) : <a href="http://api.haxe.org/Array.html">Array</a>&lt;<a href="../../api/differ/data/ShapeCollision.html">differ.data.ShapeCollision</a>&gt;</code><br/><span class="small_desc_flat">Test a single shape against multiple other shapes.
-            When no collision is found, this function returns an empty array, this function will never return null.
-            Returns a list of <code>ShapeCollision</code> information for each collision found.</span></p>
+            <code class="signature apipage">shapeWithShapes(shape1:<a href="../../api/differ/shapes/Shape.html">differ.shapes.Shape</a><span></span>, shapes:<a href="http://api.haxe.org/Array.html">Array</a>&lt;<a href="../../api/differ/shapes/Shape.html">differ.shapes.Shape</a>&gt;<span></span>, into:<a href="http://api.haxe.org/Null.html">Null</a>&lt;<a href="../../api/differ/Results_differ_data_ShapeCollision.html">differ.Results_differ_data_ShapeCollision</a>&gt;<span></span>) : <a href="../../api/differ/Results_differ_data_ShapeCollision.html">differ.Results_differ_data_ShapeCollision</a></code><br/><span class="small_desc_flat">Test a single shape against multiple other shapes.
+            When no collision is found, this function returns empty results, this function will never return null.
+            Returns a list of <code>ShapeCollision</code> information for each collision found.
+            <code>for(result in results) {  result... }</code></span></p>
 <p></span></p>
 <hr/>
 
