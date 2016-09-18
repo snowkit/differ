@@ -28,11 +28,11 @@ class Rays extends luxe.States.State {
 
         Main.display('move the mouse around');
 
-        beam = new Ray( new V(50,300), new V(600,400), false );
+        beam = new Ray( new V(50,300), new V(600,400), not_infinite );
 
         for(i in 0 ... colors.length) {
             var sx = (i+1) * 120;
-            var ray = new Ray( new V(sx, 100), new V(sx, 500), false );
+            var ray = new Ray( new V(sx, 100), new V(sx, 500), not_infinite );
             others.push(ray);
             Main.rays.push(ray);
         }
@@ -50,7 +50,7 @@ class Rays extends luxe.States.State {
 
     override function onmousemove( e:MouseEvent ) {
         if(beam != null) {
-            if(beam.infinite) {
+            if(beam.infinite == infinite || beam.infinite == infinite_from_start) { //:todo: check if correct behaviour
                 var end = new Vector(e.pos.x, e.pos.y);
                 end.subtract_xyz(beam.start.x, beam.start.y);
                 end.normalize();
@@ -67,7 +67,13 @@ class Rays extends luxe.States.State {
     override function onkeyup(e:KeyEvent) {
         
         if(e.keycode == Key.space) {
-            if(beam != null) beam.infinite = !beam.infinite;
+            if(beam != null) {
+                beam.infinite = switch(beam.infinite) {
+                    case not_infinite: infinite_from_start;
+                    case infinite_from_start: infinite;
+                    case infinite: not_infinite;
+                }
+            }
         }
 
         if(e.keycode == Key.key_f) {

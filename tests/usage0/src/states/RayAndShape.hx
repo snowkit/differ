@@ -25,7 +25,7 @@ class RayAndShape extends luxe.States.State {
 
         Main.display('pink = ray\ngreen = before hit\nwhite = intersection\npurple = after hit');
 
-        beam = new Ray( new V(450,300), new V(400,100), false );
+        beam = new Ray( new V(450,300), new V(400,100), not_infinite );
 
         Main.rays.push(beam);
         Main.shapes.push(new Circle(600,400,50));
@@ -55,14 +55,21 @@ class RayAndShape extends luxe.States.State {
      override function onkeyup(e:KeyEvent) {
         
         if(e.keycode == Key.space) {
-            if(beam != null) beam.infinite = !beam.infinite;
+            if(beam != null) {
+                    //cycle infinite mode
+                beam.infinite = switch(beam.infinite) {
+                    case not_infinite: infinite_from_start;
+                    case infinite_from_start: infinite;
+                    case infinite: not_infinite;
+                }
+            }
         }
 
     } //onkeyup
 
     override function onmousemove( e:MouseEvent ) {
         if(beam != null) {
-            if(beam.infinite) {
+            if(beam.infinite == infinite || beam.infinite == infinite_from_start) { //:todo: check later if correct behaviour
                 var end = new Vector(e.pos.x, e.pos.y);
                 end.subtract_xyz(beam.start.x, beam.start.y);
                 end.normalize();

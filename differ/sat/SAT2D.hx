@@ -242,7 +242,22 @@ class SAT2D {
             var t1 = (-b - d) / (2 * a);
             var t2 = (-b + d) / (2 * a);
 
-            if (ray.infinite || (t1 <= 1.0 && t1 >= 0.0)) {
+            var valid = switch(ray.infinite) {
+                
+                case infinite: 
+                    trace('infinite'); 
+                    true;
+                case not_infinte:  //Moving this case above case infinite also makes infinite report as unused
+                    trace('not_infinite'); 
+                    t1 <= 1.0 && t1 >= 0.0;
+                // case infinite_from_start: 
+                //     false; //haxe reports this line as unused.
+            }
+
+            // trace(ray.infinite);
+            // trace(valid);
+
+            if (valid) {
                 
                 into = (into == null) ? new RayCollision() : into.reset();
                     
@@ -301,7 +316,13 @@ class SAT2D {
 
         } //each vert
 
-        if(ray.infinite || (min_u <= 1.0 && min_u >= 0.0) ) {
+        var valid = switch(ray.infinite) {
+            case infinite: true;
+            case not_infinte: (min_u <= 1.0 && min_u >= 0.0);
+            // case infinite_from_start: false;
+        }
+
+        if(valid) {
             into = (into == null) ? new RayCollision() : into.reset();
                 into.shape = polygon;
                 into.ray = ray;
@@ -330,7 +351,19 @@ class SAT2D {
         var u1 = (delta2X * diffY - delta2Y * diffX) / ud;
         var u2 = (delta1X * diffY - delta1Y * diffX) / ud;
 
-        if ((ray1.infinite || (u1 > 0.0 && u1 <= 1.0)) && (ray2.infinite || (u2 > 0.0 && u2 <= 1.0))) {
+        var valid1 = switch(ray1.infinite) {
+            case infinite: true;
+            case not_infinte: (u1 > 0.0 && u1 <= 1.0); //:todo: ask if ray hit condition difference is intentional (> 0 and not >= 0 like other checks)
+            // case infinite_from_start: false;
+        }
+
+        var valid2 = switch(ray2.infinite) {
+            case infinite: true;
+            case not_infinte: (u2 > 0.0 && u2 <= 1.0);
+            // case infinite_from_start: false;
+        }
+
+        if (valid1 && valid2) {
             into = (into == null) ? new RayIntersection() : into.reset();
                 into.ray1 = ray1;
                 into.ray2 = ray2;
