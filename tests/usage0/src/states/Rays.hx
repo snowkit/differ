@@ -50,17 +50,8 @@ class Rays extends luxe.States.State {
 
     override function onmousemove( e:MouseEvent ) {
         if(beam != null) {
-            if(beam.infinite == infinite || beam.infinite == infinite_from_start) { //:todo: check if correct behaviour
-                var end = new Vector(e.pos.x, e.pos.y);
-                end.subtract_xyz(beam.start.x, beam.start.y);
-                end.normalize();
-                end.multiplyScalar(9999);
-                beam.end.x = end.x;
-                beam.end.y = end.y;
-            } else {
-                beam.end.x = e.pos.x;
-                beam.end.y = e.pos.y;
-            }
+            beam.end.x = e.pos.x;
+            beam.end.y = e.pos.y;
         }
     }
 
@@ -69,9 +60,15 @@ class Rays extends luxe.States.State {
         if(e.keycode == Key.space) {
             if(beam != null) {
                 beam.infinite = switch(beam.infinite) {
-                    case not_infinite: infinite_from_start;
-                    case infinite_from_start: infinite;
-                    case infinite: not_infinite;
+                    case not_infinite: 
+                        trace('ininite: from start');
+                        infinite_from_start;
+                    case infinite_from_start: 
+                        trace('ininite: in both directions');
+                        infinite;
+                    case infinite: 
+                        trace('ininite: nope');
+                        not_infinite;
                 }
             }
         }

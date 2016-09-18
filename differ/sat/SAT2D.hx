@@ -243,15 +243,9 @@ class SAT2D {
             var t2 = (-b + d) / (2 * a);
 
             var valid = switch(ray.infinite) {
-                
-                case infinite: 
-                    trace('infinite'); 
-                    true;
-                case not_infinte:  //Moving this case above case infinite also makes infinite report as unused
-                    trace('not_infinite'); 
-                    t1 <= 1.0 && t1 >= 0.0;
-                // case infinite_from_start: 
-                //     false; //haxe reports this line as unused.
+                case infinite: true;
+                case not_infinite: t1 <= 1.0 && t1 >= 0.0;
+                case infinite_from_start: false;
             }
 
             // trace(ray.infinite);
@@ -318,8 +312,8 @@ class SAT2D {
 
         var valid = switch(ray.infinite) {
             case infinite: true;
-            case not_infinte: (min_u <= 1.0 && min_u >= 0.0);
-            // case infinite_from_start: false;
+            case not_infinite: (min_u <= 1.0 && min_u >= 0.0);
+            case infinite_from_start: false;
         }
 
         if(valid) {
@@ -353,14 +347,14 @@ class SAT2D {
 
         var valid1 = switch(ray1.infinite) {
             case infinite: true;
-            case not_infinte: (u1 > 0.0 && u1 <= 1.0); //:todo: ask if ray hit condition difference is intentional (> 0 and not >= 0 like other checks)
-            // case infinite_from_start: false;
+            case not_infinite: (u1 > 0.0 && u1 <= 1.0); //:todo: ask if ray hit condition difference is intentional (> 0 and not >= 0 like other checks)
+            case infinite_from_start: false;
         }
 
         var valid2 = switch(ray2.infinite) {
             case infinite: true;
-            case not_infinte: (u2 > 0.0 && u2 <= 1.0);
-            // case infinite_from_start: false;
+            case not_infinite: (u2 > 0.0 && u2 <= 1.0);
+            case infinite_from_start: false;
         }
 
         if (valid1 && valid2) {
