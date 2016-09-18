@@ -8,6 +8,8 @@ import differ.data.*;
 @:publicFields
 class ShapeCollision {
 
+   //
+
         /** The overlap amount */
     var overlap : Float = 0.0;
         /** X component of the separation vector, when subtracted from shape 1 will separate it from shape 2 */
