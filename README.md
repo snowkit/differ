@@ -40,6 +40,11 @@ A [Separating Axis Theorom](http://en.wikipedia.org/wiki/Hyperplane_separation_t
     }
 ```
 
+![](docs/images/differ-0.gif)
+![](docs/images/differ-1.gif)
+![](docs/images/differ-2.gif)
+![](docs/images/differ-3.gif)
+
 #### See tests/ for usage examples and tests
 
 ### Other notes
