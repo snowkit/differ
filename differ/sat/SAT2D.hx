@@ -344,27 +344,32 @@ class SAT2D {
 
         var u1 = (delta2X * diffY - delta2Y * diffX) / ud;
         var u2 = (delta1X * diffY - delta1Y * diffX) / ud;
-
+    
+            //:todo: ask if ray hit condition difference is intentional (> 0 and not >= 0 like other checks)
         var valid1 = switch(ray1.infinite) {
+            case not_infinite: (u1 > 0.0 && u1 <= 1.0);
+            case infinite_from_start: u1 > 0.0;
             case infinite: true;
-            case not_infinite: (u1 > 0.0 && u1 <= 1.0); //:todo: ask if ray hit condition difference is intentional (> 0 and not >= 0 like other checks)
-            case infinite_from_start: false;
         }
 
         var valid2 = switch(ray2.infinite) {
-            case infinite: true;
             case not_infinite: (u2 > 0.0 && u2 <= 1.0);
-            case infinite_from_start: false;
+            case infinite_from_start: u2 > 0.0;
+            case infinite: true;
         }
 
-        if (valid1 && valid2) {
+        if(valid1 && valid2) {
+            
             into = (into == null) ? new RayIntersection() : into.reset();
-                into.ray1 = ray1;
-                into.ray2 = ray2;
-                into.u1 = u1;
-                into.u2 = u2;
+
+            into.ray1 = ray1;
+            into.ray2 = ray2;
+            into.u1 = u1;
+            into.u2 = u2;
+
             return into;
-        }
+        
+        } //both valid 
 
         return null;
 
