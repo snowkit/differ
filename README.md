@@ -52,13 +52,13 @@ https://snowkit.github.io/differ/
 
 ##Demos
 
-- [main demo](http://underscorediscovery.com/sven/differ/usage0)
+- [Playable demo](https://snowkit.github.io/differ/demo/)
 
 #Main Contributors
 
-- [@underscorediscovery](http://github.com/underscorediscovery)
-- [@Dvergar](http://github.com/Dvergar)
-- [@PDeveloper](http://github.com/PDeveloper)
+- [@underscorediscovery](https://github.com/underscorediscovery)
+- [@Dvergar](https://github.com/Dvergar)
+- [@PDeveloper](https://github.com/PDeveloper)
 
 [view all contributors](https://github.com/snowkit/differ/graphs/contributors)
 
@@ -68,7 +68,7 @@ https://snowkit.github.io/differ/
 
 **1.4.0 (github dev)**
 
-**1.3.0 (preparing for release)**
+**1.3.0 (Latest release, haxelib)**
 
 The goal of this release is as follows : 
 - Reduce the usage of Vector internally, simplifying the code to primitives
@@ -77,7 +77,7 @@ The goal of this release is as follows :
 - Add more test/example cases
 - Expose the alternative polygon vs polygon overlaps
 - Move the code more forward to be internally consistent and maintainable
-- Fix the bugs with the rays and infinite flags
+- Fix the bugs with the rays and add more useful infinite flags
 
 All of this was achieved, with the following changes.
 
@@ -87,6 +87,10 @@ All of this was achieved, with the following changes.
     - remove superfluous use of `Vector` in the API
         + `ShapeDrawer`: `drawLine`,`drawPoint`
         + `Collision.pointInPoly`
+- **Added** `Ray` infinite mode instead of boolean
+    - Not infinite
+    - Infinite from start position
+    - Infinite in both directions
 - **Added** `Rays` test in usage0
 - **Added** ShapeCollision/RayCollision/RayIntersection
     - added `clone()`, `copy_from(other)`, `reset()`
@@ -97,14 +101,14 @@ All of this was achieved, with the following changes.
     - all calls will always reset the collision result
     - all direct calls still return null as "no result"
     - added `Results<T>` results cache helper
-    - all plural calls reeturn `Results<T>`
+    - all plural calls return `Results<T>`
 - **Fixed** Bug in `testCircleVsPolygon`
     - When testing polygon vs circle values were flipped/wrong
 - **Fixed** Bug in `rayVsRay` with a negative overlap
 - **Removed** `Common` util class, it's internal to SAT2D and simplified now 
 - **Removed** `drawVector` in `ShapeDrawer`, wasn't used (use `drawLine` if needed)
 
-**1.2.0 (Latest release, haxelib)**
+**1.2.0**
 
  The biggest change for sure, renamed `hxcollision` to `differ`
  Now that the library is getting more use its better to have a consistent name
@@ -114,7 +118,7 @@ All of this was achieved, with the following changes.
  - **Added** ray collision information, rather than just true/false
  - **Added** ray vs ray intersection with info on overlap
  - **Added** more granular tests, that will expand further
-    - New test case uses luxe http://luxeengine.com/
+    - New test case uses luxe https://luxeengine.com/
     - hxcollision/differ was born for luxe.collision, separate for any framework
  - **Refactor** continued separating code for future 3D vs 2D
     - moved all internal 2D code into differ.sat.SAT2D
