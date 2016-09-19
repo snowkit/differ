@@ -45,13 +45,13 @@ class Main extends luxe.Game {
         rays = [];
 
         desc = new Text({
-            pos: new Vector(10,10),
+            pos: new Vector(10, 10),
             point_size: 18,
             text: 'differ usage examples, press 9 or 0 to cycle'
         });
 
         disp = new Text({
-            pos: new Vector(10, 30),
+            pos: new Vector(10, 40),
             point_size: 15,
             text: 'usage text goes here'
         });

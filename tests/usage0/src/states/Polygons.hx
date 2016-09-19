@@ -35,15 +35,18 @@ class Polygons extends luxe.States.State {
 
 
         moverA = Polygon.square(10, 100, 50);
-        moverB = new Circle(10, 100, 30);
+        moverB = new Circle(100, 100, 30);
         mover = moverA;
 
         for(fix in fixed) Main.shapes.push(fix);
         Main.shapes.push(moverA);
         Main.shapes.push(moverB);
 
-        var text =  '\nThe white polygon is the position the separation would result in.\n';
-            text += 'Hold down left or right mouse to rotate the box.';
+        var text =  'The white polygon is the position the separation would result in.\n';
+            text += 'The dim polygon is the alternate position based on the unit normal.\n';
+            text += 'Colored collisions is when there are multiple collisions.\n\n';
+            text += 'Hold down left or right mouse to rotate the box.\n';
+            text += 'Press M to toggle the shape on the mouse';
 
         Main.display(text);
 

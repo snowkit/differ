@@ -26,8 +26,7 @@ class Rays extends luxe.States.State {
             new Color().rgb(0xa0e300)
         ];
 
-        var message = 'move the mouse around\n';
-            message += 'press F to flip start point';
+        var message = 'press F to flip start point\n';
             message += 'press 1 to toggle the beam infinite state\n';
             message += 'press 2 to toggle the other infinite states\n';
             message += 'press 3 to toggle the first infinite state\n';
