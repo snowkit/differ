@@ -76,7 +76,7 @@ The goal of this release is as follows :
 - Remove allocations, myriads of them the old code had that carried over
 - Add ways to reuse allocated results for efficiency when querying
 - Add more test/example cases
-- Expose the alternative polygon vs polygon overlaps
+- Expose the alternative polygon vs shape overlaps to make better choices based on movement
 - Move the code more forward to be internally consistent and maintainable
 - Fix the bugs with the rays and add more useful infinite flags
 
