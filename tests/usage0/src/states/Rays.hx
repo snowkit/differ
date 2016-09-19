@@ -28,13 +28,18 @@ class Rays extends luxe.States.State {
             new Color().rgb(0xa0e300)
         ];
 
-        Main.display('move the mouse around');
+        var message = 'press F to flip start point\n';
+            message += 'press 1 to toggle the beam infinite state\n';
+            message += 'press 2 to toggle the other infinite states\n';
+            message += 'press 3 to toggle the first infinite state\n';
 
-        beam = new Ray( new V(50,300), new V(600,400), false );
+        Main.display(message);
+
+        beam = new Ray( new V(50,300), new V(600,400), not_infinite );
 
         for(i in 0 ... colors.length) {
             var sx = (i+1) * 120;
-            var ray = new Ray( new V(sx, 100), new V(sx, 500), false );
+            var ray = new Ray( new V(sx, 100), new V(sx, 500), not_infinite );
             others.push(ray);
             Main.rays.push(ray);
         }
@@ -55,24 +60,56 @@ class Rays extends luxe.States.State {
 
     override function onmousemove( e:MouseEvent ) {
         if(beam != null) {
-            if(beam.infinite) {
-                var end = new Vector(e.pos.x, e.pos.y);
-                end.subtract_xyz(beam.start.x, beam.start.y);
-                end.normalize();
-                end.multiplyScalar(9999);
-                beam.end.x = end.x;
-                beam.end.y = end.y;
-            } else {
-                beam.end.x = e.pos.x;
-                beam.end.y = e.pos.y;
+            beam.end.x = e.pos.x;
+            beam.end.y = e.pos.y;
+        }
+    }
+
+    function print_infinite(label:String, ray:Ray) {
+        switch(ray.infinite) {
+            case not_infinite: 
+                trace('`$label` infinite: nope');
+            case infinite_from_start: 
+                trace('`$label` infinite: from start');
+            case infinite: 
+                trace('`$label` infinite: in both directions');
+        }
+    }
+
+    function toggle_infinite(ray:Ray) {
+        if(ray != null) {
+            ray.infinite = switch(ray.infinite) {
+                case not_infinite: 
+                    infinite_from_start;
+                case infinite_from_start: 
+                    infinite;
+                case infinite: 
+                    not_infinite;
             }
         }
     }
 
     override function onkeyup(e:KeyEvent) {
         
-        if(e.keycode == Key.space) {
-            if(beam != null) beam.infinite = !beam.infinite;
+        if(e.keycode == Key.key_1) {
+            toggle_infinite(beam);
+            print_infinite('beam', beam);
+        }
+
+        if(e.keycode == Key.key_2) {
+            var first = true;
+            for(o in others) {
+                toggle_infinite(o);
+                if(first) {
+                    print_infinite('others', others[0]);
+                    first = false;
+                }
+            }
+        }
+
+        if(e.keycode == Key.key_3) {
+            toggle_infinite(others[0]);
+            print_infinite('others', others[0]);
         }
 
         if(e.keycode == Key.key_f) {

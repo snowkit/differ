@@ -5,6 +5,7 @@ import luxe.Text;
 
 import differ.shapes.Shape;
 import differ.shapes.Ray;
+import differ.math.Util;
 import phoenix.Batcher;
 
 class Main extends luxe.Game {
@@ -44,13 +45,13 @@ class Main extends luxe.Game {
         rays = [];
 
         desc = new Text({
-            pos: new Vector(10,10),
+            pos: new Vector(10, 10),
             point_size: 18,
             text: 'differ usage examples, press 9 or 0 to cycle'
         });
 
         disp = new Text({
-            pos: new Vector(10, 30),
+            pos: new Vector(10, 40),
             point_size: 15,
             text: 'usage text goes here'
         });
@@ -98,9 +99,42 @@ class Main extends luxe.Game {
 
     } //onkeyup
 
+    inline static var big_number : Int = 0xFFFFFF;
+
     override function onrender() {
         for(shape in shapes) drawer.drawShape(shape);
-        for(ray in rays) drawer.drawLine(ray.start.x, ray.start.y, ray.end.x, ray.end.y);
+        for(ray in rays) {
+            var start_x = ray.start.x;
+            var start_y = ray.start.y;
+            var end_x   = ray.end.x;
+            var end_y   = ray.end.y;
+
+                //get the direction of the ray
+            var dir_x = end_x - start_x;
+            var dir_y = end_y - start_y;
+                //normalize it
+            var len = Util.vec_length(dir_x, dir_y);
+                dir_x = Util.vec_normalize(len, dir_x);
+                dir_y = Util.vec_normalize(len, dir_y);
+                //scale it way up
+            dir_x *= big_number;
+            dir_y *= big_number;
+
+            switch(ray.infinite) {                    
+                case infinite:
+                    start_x -= dir_x;
+                    start_y -= dir_y;
+                    end_x += dir_x;
+                    end_y += dir_y;
+                case infinite_from_start:
+                    end_x += dir_x;
+                    end_y += dir_y;
+                case not_infinite:
+                    //do nothing, the line is fixed
+            }
+
+            drawer.drawLine(start_x, start_y, end_x, end_y);
+        }
     }
 
 } //Main

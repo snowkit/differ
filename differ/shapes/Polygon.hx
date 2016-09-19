@@ -5,9 +5,8 @@ import differ.shapes.*;
 import differ.data.*;
 import differ.sat.*;
 
-/** A polygon collision shape */
+/** A polygonal collision shape */
 class Polygon extends Shape {
-
 
         /** The transformed (rotated/scale) vertices cache */
     public var transformedVertices ( get, never ) : Array<Vector>;
