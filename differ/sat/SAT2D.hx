@@ -271,7 +271,7 @@ class SAT2D {
     public static function testRayVsPolygon( ray:Ray, polygon:Polygon, ?into:RayCollision ) : RayCollision {
 
         var min_u = Math.POSITIVE_INFINITY;
-        var max_u = 0.0;
+        var max_u = Math.NEGATIVE_INFINITY;
 
         var startX = ray.start.x;
         var startY = ray.start.y;
@@ -286,12 +286,12 @@ class SAT2D {
         var ua = rayU(ud, startX, startY, v1.x, v1.y, v2.x - v1.x, v2.y - v1.y);
         var ub = rayU(ud, startX, startY, v1.x, v1.y, deltaX, deltaY);
 
-        if (ud != 0.0 && ub >= 0.0 && ub <= 1.0) {
-            if (ua < min_u) min_u = ua;
-            if (ua > max_u) max_u = ua;
+        if(ud != 0.0 && ub >= 0.0 && ub <= 1.0) {
+            if(ua < min_u) min_u = ua;
+            if(ua > max_u) max_u = ua;
         }
 
-        for (i in 1...verts.length) {
+        for(i in 1...verts.length) {
 
             v1 = verts[i - 1];
             v2 = verts[i];
@@ -300,17 +300,17 @@ class SAT2D {
             ua = rayU(ud, startX, startY, v1.x, v1.y, v2.x - v1.x, v2.y - v1.y);
             ub = rayU(ud, startX, startY, v1.x, v1.y, deltaX, deltaY);
 
-            if (ud != 0.0 && ub >= 0.0 && ub <= 1.0) {
-                if (ua < min_u) min_u = ua;
-                if (ua > max_u) max_u = ua;
+            if(ud != 0.0 && ub >= 0.0 && ub <= 1.0) {
+                if(ua < min_u) min_u = ua;
+                if(ua > max_u) max_u = ua;
             }
 
         } //each vert
 
         var valid = switch(ray.infinite) {
-            case infinite: true;
-            case not_infinite: (min_u <= 1.0 && min_u >= 0.0);
-            case infinite_from_start: false;
+            case not_infinite: min_u >= 0.0 && min_u <= 1.0;
+            case infinite_from_start: min_u != Math.POSITIVE_INFINITY && min_u >= 0.0;
+            case infinite: (min_u != Math.POSITIVE_INFINITY);
         }
 
         if(valid) {
