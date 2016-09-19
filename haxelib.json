@@ -1,11 +1,11 @@
 {
 	"name": "differ",
-	"url": "https://github.com/underscorediscovery/differ",
+	"url": "https://github.com/snowkit/differ",
 	"license": "MIT",
 	"tags": ["differ", "hxcollision", "collision", "SAT", "collide", "separating", "axis", "theorom"],
-	"description": "Standalone Separating Axis Theorom collisions for Polygons, Circles and Rays. Initially ported from rocketmandevelopment as3 code.",
-	"version": "1.2.0",
-	"releasenote": "Lots of refactoring, renaming, new features. See https://github.com/underscorediscovery/differ or readme.md for release notes!",
+	"description": "Agnostic Separating Axis Theorom collisions for Polygons, Circles and Rays.",
+	"version": "1.3.0",
+	"releasenote": "Refactoring, many performance fixes, many ray fixes, new features. See https://github.com/snowkit/differ or README.md for full release notes!",
 	"contributors": [ "underscorediscovery" ],
 	"dependencies": {}
 }
