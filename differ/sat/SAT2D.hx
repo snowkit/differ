@@ -243,13 +243,10 @@ class SAT2D {
             var t2 = (-b + d) / (2 * a);
 
             var valid = switch(ray.infinite) {
+                case not_infinite: t1 >= 0.0 && t1 <= 1.0;
+                case infinite_from_start: t1 >= 0.0;
                 case infinite: true;
-                case not_infinite: t1 <= 1.0 && t1 >= 0.0;
-                case infinite_from_start: false;
             }
-
-            // trace(ray.infinite);
-            // trace(valid);
 
             if (valid) {
                 
