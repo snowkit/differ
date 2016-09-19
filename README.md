@@ -40,10 +40,11 @@ A [Separating Axis Theorom](http://en.wikipedia.org/wiki/Hyperplane_separation_t
     }
 ```
 
+#### See tests/ for usage examples and tests
+
 ### Other notes
 
 - **Not** framework specific
-- See tests/ for usage examples and tests
 - [Original code ported from rocketmandevelopment blog](http://rocketmandevelopment.com/2010/05/19/separation-of-axis-theorem-for-collision-detection/)
 
 ### API documentation
