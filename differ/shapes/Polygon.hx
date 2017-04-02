@@ -25,8 +25,9 @@ class Polygon extends Shape {
 
         name = 'polygon(sides:${vertices.length})';
 
+		_vertices = vertices;
         _transformedVertices = [for (v in _vertices) v.clone()];
-        _vertices = vertices;
+        
 
     } //new
 
