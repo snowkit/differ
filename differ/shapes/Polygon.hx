@@ -53,7 +53,7 @@ class Polygon extends Shape {
         /** Test for a collision with a ray. */
     override public function testRay( ray:Ray, ?into:RayCollision ) : RayCollision {
 
-        return SAT2D.testRayVsPolygon(ray, this);
+        return SAT2D.testRayVsPolygon(ray, this, into);
 
     } //testRay
 
