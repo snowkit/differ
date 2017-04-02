@@ -35,16 +35,22 @@ class Vector {
         return new Vector(x, y);
 
     } //clone
+	
+		/** Copy x & y values from a given vector, returns this vector */
+	public inline function copy(v:Vector):Vector {
+		x = v.x;
+		y = v.y;
+		
+		return this;
+	}
 
         /** Transforms Vector based on the given Matrix. Returns this vector, modified. */
     public function transform(matrix:Matrix):Vector {
+		var ox = x;
+        x = ox*matrix.a + y*matrix.c + matrix.tx;
+        y = ox*matrix.b + y*matrix.d + matrix.ty;
 
-        var v:Vector = clone();
-
-            v.x = x*matrix.a + y*matrix.c + matrix.tx;
-            v.y = x*matrix.b + y*matrix.d + matrix.ty;
-
-        return v;
+        return this;
 
     } //transform
 
