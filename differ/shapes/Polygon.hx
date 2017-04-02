@@ -15,6 +15,7 @@ class Polygon extends Shape {
 
     var _transformedVertices : Array<Vector>;
     var _vertices : Array<Vector>;
+	var _transformed : Bool = false;
 
 
         /** Create a new polygon with a given set of vertices at position x,y. */
@@ -24,7 +25,7 @@ class Polygon extends Shape {
 
         name = 'polygon(sides:${vertices.length})';
 
-        _transformedVertices = new Array<Vector>();
+        _transformedVertices = [for (v in _vertices) v.clone()];
         _vertices = vertices;
 
     } //new
@@ -59,12 +60,6 @@ class Polygon extends Shape {
 
         /** Destroy this polygon and clean up. */
     override public function destroy() : Void {
-
-        var _count : Int = _vertices.length;
-
-        for(i in 0 ... _count) {
-            _vertices[i] = null;
-        }
 
         _transformedVertices = null;
         _vertices = null;
@@ -146,14 +141,14 @@ class Polygon extends Shape {
 
     function get_transformedVertices() : Array<Vector> {
 
-        if(!_transformed) {
-            _transformedVertices = new Array<Vector>();
-            _transformed = true;
+        if (_transformed) {
+						
+			_transformed = false;
 
             var _count : Int = _vertices.length;
 
-            for(i in 0..._count) {
-                _transformedVertices.push( _vertices[i].clone().transform( _transformMatrix ) );
+            for (i in 0..._count) {				
+				_transformedVertices[i].copy(_vertices[i]).transform(_transformMatrix);                
             }
         }
 
@@ -163,5 +158,13 @@ class Polygon extends Shape {
     function get_vertices() : Array<Vector> {
         return _vertices;
     }
+	
+	override function refresh_transform() 
+	{
+		super.refresh_transform();
+		
+		_transformed = true;
+	}
+
 
 } //Polygon
