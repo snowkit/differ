@@ -19,7 +19,7 @@ A [Separating Axis Theorom](http://en.wikipedia.org/wiki/Hyperplane_separation_t
 - **COLLISION ONLY.** No physics/response - this is by design.
 - Contributions welcome
 
-##Quick look
+## Quick look
 
 **A simple collision example**
 
@@ -56,11 +56,11 @@ A [Separating Axis Theorom](http://en.wikipedia.org/wiki/Hyperplane_separation_t
 
 https://snowkit.github.io/differ/
 
-##Demos
+## Demos
 
 - [Playable demo](https://snowkit.github.io/differ/demo/)
 
-#Main Contributors
+# Main Contributors
 
 - [@underscorediscovery](https://github.com/underscorediscovery)
 - [@Dvergar](https://github.com/Dvergar)
@@ -70,7 +70,7 @@ https://snowkit.github.io/differ/
 
 ---
 
-#History
+# History
 
 **1.4.0 (github dev)**
 
