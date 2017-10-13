@@ -13,7 +13,7 @@ A [Separating Axis Theorom](http://en.wikipedia.org/wiki/Hyperplane_separation_t
 ## Facts
 
 - Implements Separating Axis Theorem, for collision detection.
-- Supports concave polygons, circles, and rays.
+- Supports convex polygons, circles, and rays.
 - 2D only (for now).
 - Includes a simple drawing interface for debugging shapes
 - **COLLISION ONLY.** No physics/response - this is by design.
