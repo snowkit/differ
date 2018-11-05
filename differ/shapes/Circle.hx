@@ -9,9 +9,9 @@ import differ.sat.*;
 class Circle extends Shape {
 
         /** The radius of this circle. Set on construction */
-    public var radius( get_radius, never ) : Float;
+    public var radius( get, never ) : Float;
         /** The transformed radius of this circle, based on the scale/rotation */
-    public var transformedRadius( get_transformedRadius, never ) : Float;
+    public var transformedRadius( get, never ) : Float;
 
     var _radius:Float;
 
