@@ -4,8 +4,8 @@
 	"license": "MIT",
 	"tags": ["differ", "hxcollision", "collision", "SAT", "collide", "separating", "axis", "theorom"],
 	"description": "Agnostic Separating Axis Theorom collisions for Polygons, Circles and Rays.",
-	"version": "1.3.0",
-	"releasenote": "Refactoring, many performance fixes, many ray fixes, new features. See https://github.com/snowkit/differ or README.md for full release notes!",
+	"version": "1.4.0",
+	"releasenote": "Compilation fixes and bug fixes. See https://github.com/snowkit/differ or README.md for full release notes!",
 	"contributors": [ "underscorediscovery" ],
 	"dependencies": {}
 }
