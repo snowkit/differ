@@ -4,7 +4,7 @@
 ---
 ## What is differ?
 
-A [Separating Axis Theorom](http://en.wikipedia.org/wiki/Hyperplane_separation_theorem) collision library for [haxe](http://haxe.org)
+A [Separating Axis Theorem](http://en.wikipedia.org/wiki/Hyperplane_separation_theorem) collision library for [haxe](http://haxe.org)
 
 [ ![haxe](docs/images/haxe.png) ](http://haxe.org)
 
