@@ -72,9 +72,12 @@ https://snowkit.github.io/differ/
 
 # History
 
-**1.4.0 (github dev)**
+**1.4.0 (Latest release, haxelib)**
 
-**1.3.0 (Latest release, haxelib)**
+- Fixes for newer haxe versions
+- Fix Polygon.testRay ignoring 'into' parameter
+
+**1.3.0**
 
 The goal of this release is as follows : 
 - Reduce the usage of Vector internally, simplifying the code to primitives
