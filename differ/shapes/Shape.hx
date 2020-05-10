@@ -36,8 +36,7 @@ class Shape {
 
     var _scaleX : Float = 1;
     var _scaleY : Float = 1;
-
-    var _transformed : Bool = false;
+	
     var _transformMatrix : Matrix;
 
 
@@ -57,7 +56,7 @@ class Shape {
         _scaleY = 1;
 
         _transformMatrix = new Matrix();
-        _transformMatrix.makeTranslation( _position.x, _position.y );
+        _transformMatrix.translate( _position.x, _position.y );
 
     } //new
 
@@ -84,9 +83,8 @@ class Shape {
 //Getters/Setters
 
     function refresh_transform() {
-
-        _transformMatrix.compose( _position, _rotation_radians, _scale );
-        _transformed = false;
+		
+		_transformMatrix.compose( _position, _rotation_radians, _scale );
 
     }
 

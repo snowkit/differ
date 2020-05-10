@@ -55,18 +55,9 @@ class Matrix  {
 
         scale( _scale.x, _scale.y );
         rotate( _rotation );
-        makeTranslation( _position.x, _position.y );
+        translate( _position.x, _position.y );
 
     } //compose
-
-    public function makeTranslation( _x:Float, _y:Float ) : Matrix {
-
-        tx = _x;
-        ty = _y;
-
-        return this;
-
-    } //makeTranslation
 
     public function rotate (angle:Float):Void {
 
